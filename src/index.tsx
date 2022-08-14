@@ -2,13 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
+import JWTauth from './components/auth/JWTauth'
 
 const docRoot = document.getElementById('root') as HTMLElement
 const root = ReactDOM.createRoot(docRoot)
 root.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+    <JWTauth />
+  </React.StrictMode>
 )
 
 // If you want to start measuring performance in your app, pass a function
