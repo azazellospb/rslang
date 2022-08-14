@@ -28,6 +28,7 @@
         "@typescript-eslint/no-explicit-any": "error",
         "@typescript-eslint/no-non-null-assertion": "off",
         "import/extensions": [ 0 ],
+        "linebreak-style": ["error", "windows"],
         "@typescript-eslint/semi": ["error", "never"],
         "no-underscore-dangle": ["error", { "allowAfterThis": true }]
     },
