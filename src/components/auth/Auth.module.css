@@ -1,9 +1,39 @@
-.container {
-  background-color: #cfffcf;
-  margin: 0 auto;
+.wrapper {
+  margin: auto;
+  background-color: #94bcff;
+
   padding: 10px 15px 25px;
   text-align: center;
-  width: 300px;
+  width: 290px;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 14px;
+}
+
+.title {
+  margin-bottom: 20px;
+}
+
+.signup {
+  width: inherit;
+}
+
+.signup input {
+  width: 93%;
+  padding: 4px 8px;
+  margin-bottom: 30px;
+  border-radius: 14px;
+  border: 2px solid #005eff;
+  line-height: 1.5rem;
+}
+
+.signup input::placeholder {
+  color: rgb(145, 162, 177);
+}
+
+.signup button {
+  border-radius: 14px;
+  padding: 4px 8px;
+  background: transparent;
+  border: 2px solid #005eff;
+  line-height: 1.5rem;
 }
