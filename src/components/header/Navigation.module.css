@@ -1,3 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital@1&family=Yanone+Kaffeesatz:wght@700&display=swap');
+
 .navigation {
-  background-color: aqua;
+  display: flex;
+  align-items: center;
 }
+li {
+  cursor: pointer;
+}
+.menuList {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  max-width: 75vw;
+  gap: 5vw;
+}
+.menuList > * {
+  font-family: 'Jost', sans-serif;
+  text-transform: lowercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+.menuList > *:nth-child(odd) {
+  margin-top: 0.8rem;
+}
+.menuList > *:nth-child(even) {
+  margin-bottom: 0.8rem;
+}
+.menuList > *,
+.menuList > *:link,
+.menuList > *:visited
+{
+  font-size: 1.2rem;
+  color: #2877b4cf;
+  display: inline-block;
+  border-radius: 5px;
+  text-decoration: none;
+  border: 2px solid #2877b4cf;
+  padding: 3px 10px; 
+  transition: all .2s;
+}
+.menuList > *:hover {
+  background: #2877b4cf;
+  border: 2px solid transparent;
+  color: white;
+  background-size: cover;
+  box-shadow: 0 1rem 2rem rgba(0,0,0,.2);
+  transform: translateY(-2px);
+}
+.menuList > a:active {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.2);
+  transform: translateY(0px);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdownContent {
+  display: none;
+  flex-direction: row;
+  transform: translate(250px, -50px);
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdownContent a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropbtn {
+  font-family: 'Jost', sans-serif;
+  text-transform: lowercase;
+  font-size: 1.2rem;
+  color: #2877b4cf;
+  letter-spacing: 2px;
+  font-weight: 700;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdownContent a:hover {background-color: #f1f1f1;}
+.dropdownContent a:active {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.2);
+  transform: translateY(0px);
+}
+.dropdown:hover .dropdownContent {display: flex;}
+.dropdown:hover .dropbtn {color: white;}
