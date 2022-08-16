@@ -1,0 +1,9 @@
+.container {
+  background-color: #cfffcf;
+  margin: 0 auto;
+  padding: 10px 15px 25px;
+  text-align: center;
+  width: 300px;
+  overflow: hidden;
+  border-radius: 10px;
+}

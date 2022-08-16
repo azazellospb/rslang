@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import './App.css'
 import {
   Routes,
   Route,
 } from 'react-router-dom'
 import Layout from './components/Layout'
+import getWordsData from './components/redux/fetching'
+import { useAppDispatch } from './components/redux/hooks/redux'
 import About from './pages/About'
 import AudioChallenge from './pages/AudioChallenge'
 import Dictionary from './pages/Dictionary'
@@ -13,6 +16,11 @@ import SprintChallenge from './pages/SprintChallenge'
 import Stats from './pages/Stats'
 
 function App() {
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(getWordsData())
+  }, [dispatch])
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
