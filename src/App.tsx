@@ -14,6 +14,7 @@ import Home from './pages/Home'
 import Page404 from './pages/Page404'
 import SprintChallenge from './pages/SprintChallenge'
 import Stats from './pages/Stats'
+import Auth from './pages/Auth'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -31,6 +32,7 @@ function App() {
         <Route path="/audiochallenge" element={<AudioChallenge />} />
         <Route path="/sprintchallenge" element={<SprintChallenge />} />
         <Route path="*" element={<Page404 />} />
+        <Route path="/auth" element={<Auth />} />
       </Route>
     </Routes>
   )
