@@ -16,7 +16,3 @@ const getWordsData = () => async (dispatch: AppDispatchState) => {
   }
 }
 export default getWordsData
-
-// export default function testExport(text:string) {
-//   console.log(text)
-// }
