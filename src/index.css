@@ -1,9 +1,18 @@
+@import url('./fonts.css');
+
+:root {
+  --main-color: rgba(84, 141, 255, 1);
+  --text-color: #410002;
+  --tetriary-color: #7a4f7d;
+  --border-color: rgb(0, 88, 201);
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Nunito-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* color: var(--text-color); */
 }
 
 * {
@@ -11,13 +20,16 @@ body {
 }
 
 #root {
-  min-height: 100vh; 
+  min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+a {
+  text-decoration: none;
+  /* color: var(--text-color); */
+}

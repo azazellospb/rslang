@@ -1,0 +1,96 @@
+@font-face {
+  font-family: 'Nunito-Black';
+  src: url('../public/assets/fonts/Nunito-Black/Nunito-Black.eot');
+  src: url('../public/assets/fonts/Nunito-Black/Nunito-Black.eot?#iefix') format('embedded-opentype'),
+    url('../public/assets/fonts/Nunito-Black/Nunito-Black.svg#Nunito-BlackItalic') format('svg'),
+    url('../public/assets/fonts/Nunito-Black/Nunito-Black.ttf') format('truetype'),
+    url('../public/assets/fonts/Nunito-Black/Nunito-Black.woff') format('woff'),
+    url('../public/assets/fonts/Nunito-Black/Nunito-Black.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nunito-Bold';
+  src: url('../public/assets/fonts/Nunito-Bold/Nunito-Bold.eot');
+  src: url('../public/assets/fonts/Nunito-Bold/Nunito-Bold.eot?#iefix') format('embedded-opentype'),
+    url('../public/assets/fonts/Nunito-Bold/Nunito-Bold.svg#Nunito-BlackItalic') format('svg'),
+    url('../public/assets/fonts/Nunito-Bold/Nunito-Bold.ttf') format('truetype'),
+    url('../public/assets/fonts/Nunito-Bold/Nunito-Bold.woff') format('woff'),
+    url('../public/assets/fonts/Nunito-Bold/Nunito-Bold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nunito-ExtraBold';
+  src: url('../public/assets/fonts/Nunito-ExtraBold/Nunito-ExtraBold.eot');
+  src: url('../public/assets/fonts/Nunito-ExtraBold/Nunito-ExtraBold.eot?#iefix') format('embedded-opentype'),
+    url('../public/assets/fonts/Nunito-ExtraBold/Nunito-ExtraBold.svg#Nunito-BlackItalic') format('svg'),
+    url('../public/assets/fonts/Nunito-ExtraBold/Nunito-ExtraBold.ttf') format('truetype'),
+    url('../public/assets/fonts/Nunito-ExtraBold/Nunito-ExtraBold.woff') format('woff'),
+    url('../public/assets/fonts/Nunito-ExtraBold/Nunito-ExtraBold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nunito-ExtraLight';
+  src: url('../public/assets/fonts/Nunito-ExtraLight/Nunito-ExtraLight.eot');
+  src: url('../public/assets/fonts/Nunito-ExtraLight/Nunito-ExtraLight.eot?#iefix') format('embedded-opentype'),
+    url('../public/assets/fonts/Nunito-ExtraLight/Nunito-ExtraLight.svg#Nunito-BlackItalic') format('svg'),
+    url('../public/assets/fonts/Nunito-ExtraLight/Nunito-ExtraLight.ttf') format('truetype'),
+    url('../public/assets/fonts/Nunito-ExtraLight/Nunito-ExtraLight.woff') format('woff'),
+    url('../public/assets/fonts/Nunito-ExtraLight/Nunito-ExtraLight.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nunito-Light';
+  src: url('../public/assets/fonts/Nunito-Light/Nunito-Light.eot');
+  src: url('../public/assets/fonts/Nunito-Light/Nunito-Light.eot?#iefix') format('embedded-opentype'),
+    url('../public/assets/fonts/Nunito-Light/Nunito-Light.svg#Nunito-BlackItalic') format('svg'),
+    url('../public/assets/fonts/Nunito-Light/Nunito-Light.ttf') format('truetype'),
+    url('../public/assets/fonts/Nunito-Light/Nunito-Light.woff') format('woff'),
+    url('../public/assets/fonts/Nunito-Light/Nunito-Light.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nunito-Medium';
+  src: url('../public/assets/fonts/Nunito-Medium/Nunito-Medium.eot');
+  src: url('../public/assets/fonts/Nunito-Medium/Nunito-Medium.eot?#iefix') format('embedded-opentype'),
+    url('../public/assets/fonts/Nunito-Medium/Nunito-Medium.svg#Nunito-BlackItalic') format('svg'),
+    url('../public/assets/fonts/Nunito-Medium/Nunito-Medium.ttf') format('truetype'),
+    url('../public/assets/fonts/Nunito-Medium/Nunito-Medium.woff') format('woff'),
+    url('../public/assets/fonts/Nunito-Medium/Nunito-Medium.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nunito-Regular';
+  src: url('../public/assets/fonts/Nunito-Regular/Nunito-Regular.eot');
+  src: url('../public/assets/fonts/Nunito-Regular/Nunito-Regular.eot?#iefix') format('embedded-opentype'),
+    url('../public/assets/fonts/Nunito-Regular/Nunito-Regular.svg#Nunito-BlackItalic') format('svg'),
+    url('../public/assets/fonts/Nunito-Regular/Nunito-Regular.ttf') format('truetype'),
+    url('../public/assets/fonts/Nunito-Regular/Nunito-Regular.woff') format('woff'),
+    url('../public/assets/fonts/Nunito-Regular/Nunito-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nunito-SemiBold';
+  src: url('../public/assets/fonts/Nunito-SemiBold/Nunito-SemiBold.eot');
+  src: url('../public/assets/fonts/Nunito-SemiBold/Nunito-SemiBold.eot?#iefix') format('embedded-opentype'),
+    url('../public/assets/fonts/Nunito-SemiBold/Nunito-SemiBold.svg#Nunito-BlackItalic') format('svg'),
+    url('../public/assets/fonts/Nunito-SemiBold/Nunito-SemiBold.ttf') format('truetype'),
+    url('../public/assets/fonts/Nunito-SemiBold/Nunito-SemiBold.woff') format('woff'),
+    url('../public/assets/fonts/Nunito-SemiBold/Nunito-SemiBold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+

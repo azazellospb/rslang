@@ -1,6 +1,6 @@
 .wrapper {
   margin: auto;
-  background-color: #94bcff;
+  background-color: var(--main-color);
 
   padding: 10px 15px 25px;
   text-align: center;
@@ -22,7 +22,7 @@
   padding: 4px 8px;
   margin-bottom: 30px;
   border-radius: 14px;
-  border: 2px solid #005eff;
+  border: 2px solid var(--border-color);
   line-height: 1.5rem;
 }
 

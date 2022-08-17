@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Nunito-Bold';
+  src: url('Nunito-Bold.eot');
+  src: url('Nunito-Bold.eot?#iefix') format('embedded-opentype'),
+       url('Nunito-Bold.svg#Nunito-Bold') format('svg'),
+       url('Nunito-Bold.ttf') format('truetype'),
+       url('Nunito-Bold.woff') format('woff'),
+       url('Nunito-Bold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
