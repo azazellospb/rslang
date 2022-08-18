@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@700&display=swap');
+
+a {
+  text-decoration: none;
+  color: black;
+}
+.logoText {
+  display: inline-block;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-size: 4.5rem;
+  /* background-image: linear-gradient(to top, #003cff, #ffffff, #fe0000); */
+  background-image: url('../../../public/assets/main/FlagUK.png');
+  background-clip: text;
+  color: transparent;
+}
+.logoBlock {
+  display: flex; 
+  margin-left: 100px;
+  align-items: center;
+  min-width: 240px;
+  border-radius: 100%;
+  filter: drop-shadow(2px 4px 6px black);
+}
