@@ -1,0 +1,113 @@
+.about-page{
+  width: 100vw;
+  height: 100vh;
+  background-color: aliceblue;
+}
+.about-page-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 1300px;
+  height: 80%;
+  max-height: 900px;
+  margin: 0 auto;
+  padding-top: 32px;
+}
+.about-page-title{
+  display: block;
+  width: auto;
+  text-align: center;
+  margin: 15px auto 15px auto;
+}
+.card{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 60%;
+  max-width: 900px;
+  background-color: rgb(251, 253, 252);
+  border-radius: 5px;
+  margin: 15px auto 15px auto;
+  -webkit-box-shadow: 0px 2px 10px 2px rgba(185, 191, 195, 0.2);
+  -moz-box-shadow: 0px 2px 10px 2px rgba(185, 191, 195, 0.2);
+  box-shadow: 0px 2px 10px 2px rgba(185, 191, 195, 0.2);
+}
+.member-card-image-container {
+  display:flex;
+  float: left;
+  justify-content: center;
+  align-items: center;
+  width: 34%;
+  max-width: 250px;
+  height: 100%;
+  border-radius: 5px;
+  border-radius: 5px;
+  overflow:hidden;
+  margin: auto 0;
+}
+.member-image{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.about-member-container{
+  position: relative;
+  display: flex;
+  width: 60%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: justify;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.logo-container{
+  right: 5px;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 5px auto 5px auto
+}
+.logo-container:hover{
+  transform: scale(1.05);
+  transition: ease-in-out 1s;
+  background-color: inherit;
+}
+.logo-container:active{
+  transform: scale(1);
+  transition: ease-in-out 1s;
+  background-color: rgb(195, 252, 207);
+}
+.logo-link{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.logo{
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scale(1.15);
+}
+.rss-logo{
+  margin-top: -0.5px;
+  margin-left: -3px;
+}
+.member-info{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: rgb(51, 47, 47);
+}
+.logo-block{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 50px;
+  margin-top: 0px;
+}
+
