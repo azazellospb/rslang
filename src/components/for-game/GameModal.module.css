@@ -1,0 +1,41 @@
+.mainModal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:100vw;
+  height: 100vh;
+  background-color: rgba(63, 62, 62, 0.473);
+}
+
+.littleModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width:500px;
+  height: 300px;
+  background-color: azure;
+  border-radius: 5px;
+}
+.modalTitle {
+  display: block;
+  font-weight: 600;  
+}
+.gameInfoBlock{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  text-align:center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.modalTitle{
+  margin-bottom: 10px;
+}
+.buttonList{
+  width: 90%;
+  height: 60px;
+  background-color: aqua;
+}
