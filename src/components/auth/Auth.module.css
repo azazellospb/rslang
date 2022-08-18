@@ -1,6 +1,6 @@
 .wrapper {
   margin: auto;
-  background-color: #94bcff;
+  background-color: var(--main-color);
 
   padding: 10px 15px 25px;
   text-align: center;
@@ -22,7 +22,7 @@
   padding: 4px 8px;
   margin-bottom: 30px;
   border-radius: 14px;
-  border: 2px solid #005eff;
+  border: 2px solid var(--border-color);
   line-height: 1.5rem;
 }
 
@@ -30,10 +30,41 @@
   color: rgb(145, 162, 177);
 }
 
-.signup button {
+.btnContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn,
+.btnSwitch {
+  min-width: 100px;
   border-radius: 14px;
   padding: 4px 8px;
-  background: transparent;
+  background-color: #7ceb94;
   border: 2px solid #005eff;
   line-height: 1.5rem;
+  cursor: pointer;
+  transition: all ease 0.3s;
+  color: var(--text-color);
+}
+
+.btn:hover,
+.btnSwitch:hover {
+  filter: brightness(115%);
+  transform: translatey(-2px);
+}
+
+.btnSwitch {
+  background-color: #fc9898;
+}
+
+p {
+  color: #ffd2d2;
+  padding-top: 10px;
+}
+
+.btn {
+  flex: 1 0;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
