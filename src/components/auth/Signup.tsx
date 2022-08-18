@@ -26,6 +26,7 @@ function Signup() {
     })
 
     if (response.status === 417) {
+      // eslint-disable-next-line no-alert
       alert('User with this e-mail exists')
     }
 
@@ -42,6 +43,7 @@ function Signup() {
 
     const userReg = await resp.json()
     localStorage.setItem('userInfo', JSON.stringify(userReg))
+    // eslint-disable-next-line no-alert
     alert(JSON.stringify(userReg))
   }
 
