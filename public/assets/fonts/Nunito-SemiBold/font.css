@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Nunito-SemiBold';
+  src: url('Nunito-SemiBold.eot');
+  src: url('Nunito-SemiBold.eot?#iefix') format('embedded-opentype'),
+       url('Nunito-SemiBold.svg#Nunito-SemiBold') format('svg'),
+       url('Nunito-SemiBold.ttf') format('truetype'),
+       url('Nunito-SemiBold.woff') format('woff'),
+       url('Nunito-SemiBold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
