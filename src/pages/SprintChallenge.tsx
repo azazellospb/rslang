@@ -1,11 +1,13 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import React from 'react'
 import FirstModalForGame from '../components/for-game/FirstModalGame'
+import { useAppSelector } from '../components/redux/hooks/redux'
 
 export default function SprintChallenge() {
+  const gameLoader = useAppSelector((state) => state.sprintGameSlice.gameLoader)
   return (
     <>
-      {!false && <FirstModalForGame />}
+      {gameLoader && <FirstModalForGame />}
     </>
 
   )

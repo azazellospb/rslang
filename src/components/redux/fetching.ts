@@ -1,10 +1,12 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable max-len */
 /* eslint-disable no-console */
+
 import { AppDispatchState } from './store'
 import { fetchWordSuccess } from './reducers/wordSlice'
 import { IWord } from '../../types/models'
 import { IFetchParam } from '../../types/sprint-game-models'
+import { fetchWordForSprintGameError, fetchWordForSprintGameLoader, fetchWordForSprintGameSuccess } from './reducers/sprintGameSlice'
 
 // eslint-disable-next-line consistent-return
 const getWordsData = () => async (dispatch: AppDispatchState) => {
@@ -24,13 +26,11 @@ export const getWordsDataForSprintGame = (paramForFetch: IFetchParam) => async (
   const { textbookSection, page } = paramForFetch
   const url = 'http://localhost:8088/words'
   try {
-    // TODO: сделать лоадер
+    dispatch(fetchWordForSprintGameLoader())
     const response: Response = await fetch(`${url}/?group=${textbookSection}&page=${page}`)
     const data: IWord[] = await response.json()
-    console.log(data)
-    // dispatch(fetchWordSuccess(data))// поменять экшен
-  } catch (err) {
-    console.log(err)
-    // TODO: ОБОАБОТАТЬ ОШИБКУ
+    dispatch(fetchWordForSprintGameSuccess(data))
+  } catch (e: string | unknown) {
+    dispatch(fetchWordForSprintGameError('Something went wrong...'))
   }
 }
