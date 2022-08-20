@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setUserName } from '../redux/reducers/userSlice'
 import styles from './Auth.module.css'
 
 const URL = 'http://localhost:8088'
@@ -7,7 +9,7 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
   const [usermail, setMail] = useState('')
   const [userpassw, setPass] = useState('')
   const [userInf, setUserInf] = useState('')
-
+  const dispatch = useDispatch()
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     setMail('')
@@ -26,10 +28,16 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
         }),
       })
 
-      const userIn = await response.json()
-      localStorage.setItem('userInfo', JSON.stringify(userIn))
-
-      if (response.status === 200) setUserInf('Вход выполнен успешно!')
+      if (response.status === 200) {
+        setUserInf('Вход выполнен успешно!')
+        const userIn = await response.json()
+        // take name and push to redux in User obj,
+        // then in LoginBlock from User get name and if not null - render comp,
+        // with help of useEffect check redux User state if () -> render event
+        dispatch(setUserName(userIn.name))
+        localStorage.setItem('userInfo', JSON.stringify(userIn))
+        // move to user object name for proper communication with LoginBlock
+      }
     } catch (e) {
       // console.log(e.message)
       setUserInf('Email или пароль неверны!')
