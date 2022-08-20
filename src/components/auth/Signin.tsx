@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styles from './Auth.module.css'
+import Endpoints from '../../endpoints/endpoints'
 
-const URL = 'http://localhost:8088'
 /* eslint-disable react/destructuring-assignment */
 export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
   const [usermail, setMail] = useState('')
@@ -15,7 +15,7 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
     setUserInf('')
 
     try {
-      const response = await fetch(`${URL}/signin`, {
+      const response = await fetch(`${Endpoints.SIGNIN}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
           password: userpassw,
         }),
       })
-
+      // fetch(`${Endpoints.USERS}/`)
       const userIn = await response.json()
       localStorage.setItem('userInfo', JSON.stringify(userIn))
 

@@ -1,23 +1,39 @@
 import React, { useState } from 'react'
+import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
 import styles from './Auth.module.css'
+import Endpoints from '../../endpoints/endpoints'
+import { userSlice } from '../redux/reducers/UserSlice'
+import { IUserLogin } from '../../types/models'
+// import { userSlice } from '../redux/reducers/UserSlice'
 
-const URL = 'http://localhost:8088'
 /* eslint-disable react/destructuring-assignment */
 export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
   const [username, setName] = useState('')
   const [usermail, setMail] = useState('')
   const [userpassw, setPass] = useState('')
   const [userInf, setUserInf] = useState('')
+  const [statusRespone, setStatusRespone] = useState(0)
 
+  const dispatch = useAppDispatch()
+  const { fetchLoginUser } = userSlice.actions
+  const { user } = useAppSelector((state) => state.userLoginReducer)
+
+  // const { fetchLoginUser } = userSlice.actions
+  // console.log(fetchLoginUser('new'))
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
+    console.log('state: ', user)
+    // console.log('state: ', password)
+    console.log(fetchLoginUser)
+    console.log(dispatch)
     setName('')
     setMail('')
     setPass('')
     setUserInf('')
-    let statusRespone = 0
+    // let statusRespone = 0
     try {
-      const response = await fetch(`${URL}/users`, {
+      // dispatch(fetchLoginUser())
+      const response = await fetch(`${Endpoints.USERS}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,17 +44,23 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
           password: userpassw,
         }),
       })
-      statusRespone = response.status
+      const data: IUserLogin = await response.json()
+      console.log('data: ', data)
 
-      if (statusRespone === 200) {
-        setUserInf('Успех! Можете войти в учетную запись!')
+      if (response.status === 200) {
+        setUserInf('Успешная регистрация!')
+        setStatusRespone(response.status)
+        console.log(setStatusRespone)
+        dispatch(fetchLoginUser(data))
       }
-      if (statusRespone === 422) setUserInf('Введенные данные неверны!')
-      if (statusRespone === 417) setUserInf('Пользователь с таким \'email\' существует')
-      console.log(statusRespone)
+      if (response.status === 422) setUserInf('Введенные данные неверны!')
+      if (response.status === 417) setUserInf("Пользователь с таким 'email' существует")
+
+      // TODO: Cохранить mail & passw в Redux
     } catch (e) {
       setUserInf('Введенные данные неверны!')
     }
+    // return statusRespone
   }
   /* eslint-disable  @typescript-eslint/no-explicit-any */
   function handleSwitch(e: any) {
@@ -47,6 +69,21 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
     props.switchForm(true)
   }
 
+  async function handleLoginUser(e: { preventDefault: () => void }) {
+    e.preventDefault()
+
+    // const response =
+    // await fetch(`${Endpoints.SIGNIN}`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     email: usermail,
+    //     password: userpassw,
+    //   }),
+    // })
+  }
   return (
     <section className={styles.wrapper}>
       <h2 className={styles.title}>Регистрация</h2>
@@ -96,6 +133,11 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
         </div>
       </form>
       <p>{userInf}</p>
+      {statusRespone === 200 && (
+        <a href="/" onClick={handleLoginUser}>
+          Можете войти в учетную запись!
+        </a>
+      )}
     </section>
   )
 }
