@@ -1,9 +1,9 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-console */
 import React from 'react'
-import { IFetchParam, IProp } from '../../types/sprint-game-models'
-import { getWordsDataForSprintGame } from '../redux/fetching'
-import { useAppDispatch } from '../redux/hooks/redux'
+import { IFetchParam, IProp } from '../../../types/sprint-game-models'
+import { getWordsDataForSprintGame } from '../../redux/fetching'
+import { useAppDispatch } from '../../redux/hooks/redux'
 import styles from './GameModal.module.css'
 
 function CategoryButton({ id, num }:IProp) {
