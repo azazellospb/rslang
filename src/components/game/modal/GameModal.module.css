@@ -5,6 +5,8 @@
   align-items: center;
   width:100vw;
   height: 100vh;
+  max-width: 1280px;
+  margin:0 auto;
   background-color: rgba(117, 121, 119, 0.226);
   opacity: 0.8;
 }

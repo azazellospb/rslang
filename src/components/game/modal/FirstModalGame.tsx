@@ -1,9 +1,14 @@
 import React from 'react'
+import { IDescription } from '../../../types/sprint-game-models'
 import CrossButton from '../../../ui/CrossButton'
 import ButtonList from './ButtonList'
 import styles from './GameModal.module.css'
 
-function FirstModalForGame() {
+interface IPropModal {
+  obj: IDescription
+}
+function FirstModalForGame(props : IPropModal) {
+  const { obj } = props
   return (
     <section className={styles.mainModal}>
       <CrossButton />
@@ -11,11 +16,10 @@ function FirstModalForGame() {
         <div className={styles.gameInfoBlock}>
           <h3 className={styles.modalTitle}>
             {/* // TODO: условие если чтото то рендерим блок с TEKSTOM #1 или TEKSTOM #1 */}
-            Спринт
+            { obj.title }
           </h3>
           <span className="game-promo">
-            Tренирует навык быстрого перевода с английского языка на русский.
-            Вам нужно выбрать соответствует ли перевод предложенному слову.
+            {obj.description}
           </span>
         </div>
         {/* // TODO: условие если чтото то рендерим блок с кнопками или просто кнопку */}
