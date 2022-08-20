@@ -46,7 +46,7 @@ export default function About() {
       <div className="about-page-container">
         <h2 className="about-page-title">О команде!</h2>
         {members.map((item, index) => (
-          //TODO: НАДО РАЗОБРАТЬСЯ КАК ПЕРЕДАВАТЬ ПРОПСЫ ИЗ МАССИВА - ПОЛНОСТЬЮ, НЕ ПО ПОЛЯМ!
+          // TODO: НАДО РАЗОБРАТЬСЯ КАК ПЕРЕДАВАТЬ ПРОПСЫ ИЗ МАССИВА - ПОЛНОСТЬЮ, НЕ ПО ПОЛЯМ!
           <MemberCard
             key={index}
             imgUrl={item.imgUrl}
