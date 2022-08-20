@@ -15,7 +15,6 @@ function FirstModalForGame(props : IPropModal) {
       <div className={styles.littleModal}>
         <div className={styles.gameInfoBlock}>
           <h3 className={styles.modalTitle}>
-            {/* // TODO: условие если чтото то рендерим блок с TEKSTOM #1 или TEKSTOM #1 */}
             { obj.title }
           </h3>
           <span className="game-promo">

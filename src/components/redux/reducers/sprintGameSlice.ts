@@ -7,12 +7,14 @@ interface ISprint {
   gameData: IWord[],
   gameLoader: boolean,
   error: string | unknown
+  timer: number
 }
 
 const initialState: ISprint = {
   gameData: [],
   gameLoader: true,
   error: '',
+  timer: 60,
 }
 
 const sprintGameSlice = createSlice({
@@ -31,6 +33,9 @@ const sprintGameSlice = createSlice({
       state.gameLoader = false
       state.error = action.payload
     },
+    timerWork(state, action: PayloadAction<number>) {
+      state.timer = action.payload
+    },
   },
 })
 
@@ -38,6 +43,7 @@ export const {
   fetchWordForSprintGameLoader,
   fetchWordForSprintGameSuccess,
   fetchWordForSprintGameError,
+  timerWork,
 } = sprintGameSlice.actions
 
 export default sprintGameSlice.reducer
