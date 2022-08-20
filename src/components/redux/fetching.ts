@@ -6,7 +6,11 @@ import { AppDispatchState } from './store'
 import { fetchWordSuccess } from './reducers/wordSlice'
 import { IWord } from '../../types/models'
 import { IFetchParam } from '../../types/sprint-game-models'
-import { fetchWordForSprintGameError, fetchWordForSprintGameLoader, fetchWordForSprintGameSuccess } from './reducers/sprintGameSlice'
+import {
+  fetchWordForSprintGameError,
+  fetchWordForSprintGameLoader,
+  fetchWordForSprintGameSuccess,
+} from './reducers/sprintGameSlice'
 
 // eslint-disable-next-line consistent-return
 const getWordsData = () => async (dispatch: AppDispatchState) => {

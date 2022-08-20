@@ -1,10 +1,12 @@
 import React from 'react'
+import CrossButton from '../../../ui/CrossButton'
 import ButtonList from './ButtonList'
 import styles from './GameModal.module.css'
 
 function FirstModalForGame() {
   return (
     <section className={styles.mainModal}>
+      <CrossButton />
       <div className={styles.littleModal}>
         <div className={styles.gameInfoBlock}>
           <h3 className={styles.modalTitle}>

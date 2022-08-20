@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IWord } from '../../../types/models'
@@ -30,7 +31,6 @@ const sprintGameSlice = createSlice({
       state.gameLoader = false
       state.error = action.payload
     },
-
   },
 })
 
