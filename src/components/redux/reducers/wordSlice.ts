@@ -20,5 +20,4 @@ export const wordSlice = createSlice({
     },
   },
 })
-
 export default wordSlice.reducer

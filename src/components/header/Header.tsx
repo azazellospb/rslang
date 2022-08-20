@@ -9,7 +9,7 @@ export default function Header() {
     <header className={styles.header}>
       <Logo />
       <Navigation />
-      <LoginBlock UserAuth={localStorage.getItem('userInfo')} />
+      <LoginBlock />
     </header>
   )
 }

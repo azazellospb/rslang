@@ -1,4 +1,7 @@
 .login {
+  position: absolute;
+  right: 4rem;
+  top: 1rem;
   display: flex;
   flex-direction: row;
   gap: 20px;
@@ -38,7 +41,7 @@
 .dropdownContent {
   display: none;
   flex-direction: column;
-  transform: translate(-8px, 4px);
+  transform: translate(-8px, 3.5px);
   position: absolute;
   background-color: #f9f9f9;
   border-radius: 5px;
@@ -64,6 +67,7 @@
 }
 
 .dropdownContent a:hover {
+  text-decoration: underline;
   border-radius: 3px;}
 .dropdownContent a:active {
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.2);

@@ -2,11 +2,11 @@
 /* eslint-disable import/prefer-default-export */
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import wordDataReducer from './reducers/wordSlice'
-import userLoginReducer from './reducers/UserSlice'
+import userReducer from './reducers/userSlice'
 
 const rootReducer = combineReducers({
   wordDataReducer,
-  userLoginReducer,
+  userReducer,
 })
 /* eslint-disable implicit-arrow-linebreak */
 export const setupStore = () =>

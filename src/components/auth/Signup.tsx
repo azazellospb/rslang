@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
+import { useAppDispatch } from '../redux/hooks/redux'
 import styles from './Auth.module.css'
 import Endpoints from '../../endpoints/endpoints'
-import { userSlice } from '../redux/reducers/UserSlice'
 import { IUserLogin } from '../../types/models'
-// import { userSlice } from '../redux/reducers/UserSlice'
 
 /* eslint-disable react/destructuring-assignment */
 export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
@@ -15,16 +13,16 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
   const [statusRespone, setStatusRespone] = useState(0)
 
   const dispatch = useAppDispatch()
-  const { fetchLoginUser } = userSlice.actions
-  const { user } = useAppSelector((state) => state.userLoginReducer)
+  // const { fetchLoginUser } = userSlice.actions
+  // const { user } = useAppSelector((state) => state.userLoginReducer)
 
   // const { fetchLoginUser } = userSlice.actions
   // console.log(fetchLoginUser('new'))
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
-    console.log('state: ', user)
+    // console.log('state: ', user)
     // console.log('state: ', password)
-    console.log(fetchLoginUser)
+    // console.log(fetchLoginUser)
     console.log(dispatch)
     setName('')
     setMail('')
@@ -51,7 +49,7 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
         setUserInf('Успешная регистрация!')
         setStatusRespone(response.status)
         console.log(setStatusRespone)
-        dispatch(fetchLoginUser(data))
+        // dispatch(fetchLoginUser(data))
       }
       if (response.status === 422) setUserInf('Введенные данные неверны!')
       if (response.status === 417) setUserInf("Пользователь с таким 'email' существует")

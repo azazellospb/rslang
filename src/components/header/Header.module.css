@@ -2,9 +2,8 @@
   display: flex;
   filter: drop-shadow();
   flex-direction: row;
-  justify-content: space-around;
   align-items: center;
-  height: 12vh;
+  height: 16vh;
   background-image: url('../../../public/assets/main/header-img.png'), linear-gradient(to right bottom, rgba(126, 213, 111, 0.02), #2877b4a4);
   background-size: contain;
   background-position: left;
