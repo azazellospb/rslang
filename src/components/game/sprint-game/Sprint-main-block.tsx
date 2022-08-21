@@ -1,15 +1,22 @@
-import React from 'react'
-import styles from './sprint-game.module.css'
+import React, { useMemo } from 'react'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux'
+import { getRandomWord } from './sprint-game-actions'
+import PlayingField from './SprintPlayingField'
+
 import Timer from './timer'
 
 function SprintGameMainBlock() {
+  const dispatch = useAppDispatch()
+  const gameData = useAppSelector((state) => state.sprintGameSlice.gameData)
+  useMemo(() => {
+    dispatch(getRandomWord(gameData))
+  }, [dispatch, gameData])
+  //= ===============================================
   return (
-    <section className={styles.sprintGameFieldWherePlaying}>
+    <>
       <Timer />
-      <div className="select-word">
-        здесь слова
-      </div>
-    </section>
+      <PlayingField />
+    </>
   )
 }
 export default SprintGameMainBlock

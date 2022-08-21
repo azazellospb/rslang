@@ -3,10 +3,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import sprintGameSlice from './reducers/sprintGameSlice'
 import wordDataReducer from './reducers/wordSlice'
+import userReducer from './reducers/userSlice'
 
 const rootReducer = combineReducers({
   wordDataReducer,
   sprintGameSlice,
+  userReducer,
 })
 
 export const setupStore = () => configureStore({

@@ -23,11 +23,11 @@ function Timer() {
   return (
     <div className={styles.sprintGameTimer}>
       <span className={styles.sprintGameTimerContent}>
-        У Вас осталось времени:
+        У Вас осталось:
         <span className={styles.sprintGameTimerTikTak}>
           { time }
         </span>
-        сeкунд! Поднажмите!
+        сeкунд!
       </span>
     </div>
   )

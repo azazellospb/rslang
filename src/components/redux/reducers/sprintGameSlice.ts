@@ -5,6 +5,8 @@ import { IWord } from '../../../types/models'
 
 interface ISprint {
   gameData: IWord[],
+  currentWord: IWord | null | undefined,
+  comparisonWord: IWord | null | undefined,
   gameLoader: boolean,
   error: string | unknown
   timer: number
@@ -12,6 +14,8 @@ interface ISprint {
 
 const initialState: ISprint = {
   gameData: [],
+  currentWord: null,
+  comparisonWord: null,
   gameLoader: true,
   error: '',
   timer: 60,
@@ -36,6 +40,12 @@ const sprintGameSlice = createSlice({
     timerWork(state, action: PayloadAction<number>) {
       state.timer = action.payload
     },
+    currentWord(state, action: PayloadAction<IWord>) {
+      state.currentWord = action.payload
+    },
+    forComparisonWord(state, action: PayloadAction<IWord>) {
+      state.comparisonWord = action.payload
+    },
   },
 })
 
@@ -44,6 +54,8 @@ export const {
   fetchWordForSprintGameSuccess,
   fetchWordForSprintGameError,
   timerWork,
+  currentWord,
+  forComparisonWord,
 } = sprintGameSlice.actions
 
 export default sprintGameSlice.reducer

@@ -4,6 +4,7 @@ import FirstModalForGame from '../components/game/modal/FirstModalGame'
 import SprintGameMainBlock from '../components/game/sprint-game/Sprint-main-block'
 import { useAppSelector } from '../components/redux/hooks/redux'
 import { IDescription } from '../types/sprint-game-models'
+import styles from '../components/game/sprint-game/sprint-game.module.css'
 
 export default function SprintChallenge() {
   const descriptObj: IDescription = {
@@ -12,10 +13,10 @@ export default function SprintChallenge() {
   }
   const gameLoader = useAppSelector((state) => state.sprintGameSlice.gameLoader)
   return (
-    <>
+    <div className={styles.printChallengePage}>
       {gameLoader && <FirstModalForGame obj={descriptObj} />}
       {!gameLoader && <SprintGameMainBlock />}
-    </>
+    </div>
 
   )
 }

@@ -1,30 +1,46 @@
+.printChallengePage{
+  background-color: aliceblue;
+}
 .sprintGameFieldWherePlaying {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 70%;
-  max-width: 900px;
-  height: 70%;
-  max-height: 700px;
-  background-color: bisque;
+  width: 550px;
+  max-width: 500px;
+  height: 550px;
+  max-height: 500px;
+  border-radius: 5px;
   margin: auto;
+  overflow: hidden;
+  -webkit-box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2);
+  -moz-box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2);
+  box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2);
+}
+.sprintGameFieldWherePlayingBackground {
+  width: 100%;
+  height: 100%;
+  object-fit:cover
 }
 .sprintGameTimer {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height:55px;
-  background-color: aqua;
+  background-color: aliceblue;
 }
 .sprintGameTimerContent {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
   margin: auto;
+  font-size: 1.75em;
+  font-weight: 600;
+  color: var(--text-color);;
 }
 .sprintGameTimerTikTak {
   display: flex;
@@ -34,13 +50,80 @@
   height: 50px;
   border: 2px solid inherit;
   border-radius: 50%;
-  margin: 0 10px 0 10px;
-  background-color: red;
+  margin: 0 15px 0 15px;
   color: var(--text-color);
-  font-size: 1.75em;
+  font-size: 2em;
   font-weight: 600;
   -webkit-box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2) inset;
   -moz-box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2) inset;
   box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2) inset;
-
+}
+.fieldForGame{
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(70, 69, 69, 0.548);
+  z-index: 1000;
+}
+.engWordField,
+.translateEngWordField,
+.sprintButtonBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 50px;
+  /* background-color: rgba(48, 46, 46, 0.548); */
+  border-radius: 5px;
+  margin: 25px 0 15px 0;
+  font-size: 2em;
+  font-weight: 600;
+  color:beige;
+}
+.sprintButtonBlock {
+  width: 60%;
+  justify-content: space-around;
+}
+.falseButton,
+.truthButton{
+  width: 150px;
+  height: 45px;
+  border: none;
+  border-radius: 5px;
+  background-color: inherit;
+  background-color: rgba(71, 70, 70, 0.534);
+  font-size: 0.75em;
+  font-weight: 600;
+  color:beige;
+  -webkit-box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2) inset;
+  -moz-box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2) inset;
+  box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2) inset;
+}
+.truthButton:hover {
+  background-color: rgba(54, 240, 101, 0.596);
+  cursor: pointer;
+}
+.truthButton:active {
+  transform: scale(0.95);
+  background-color: inherit;
+  cursor: pointer;
+  border: 1px solid green ;
+  color:  green;
+}
+.falseButton:hover {
+  background-color: rgb(250, 137, 137);
+  cursor: pointer;
+}
+.falseButton:active {
+  transform: scale(0.95);
+  background-color: inherit;
+  cursor: pointer;
+  border: 1px solid rgb(252, 57, 57);
+  color:  rgb(252, 57, 57);;
 }
