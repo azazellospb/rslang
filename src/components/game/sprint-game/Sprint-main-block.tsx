@@ -11,7 +11,6 @@ function SprintGameMainBlock() {
   useMemo(() => {
     dispatch(getRandomWord(gameData))
   }, [dispatch, gameData])
-  //= ===============================================
   return (
     <>
       <Timer />
