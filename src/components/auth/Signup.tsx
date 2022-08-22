@@ -133,18 +133,6 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
             </div>
           </form>
           <p>{userInf}</p>
-          <div className={styles.wrapper_msg}>
-            <p>Регистрация прошла успешно!</p>
-            <p>Для использования всех возможностей</p>
-            <p>
-              Можете в учетную запись!
-              <a href="/" onClick={handleLoginUser} className={styles.confirm_btn}>
-                Войти
-              </a>
-            </p>
-
-            {/* <Button handleLoginUser={} /> */}
-          </div>
         </section>
       ) : (
         <div className={styles.wrapper_msg}>
