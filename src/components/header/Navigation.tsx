@@ -2,11 +2,15 @@ import React, { useRef, useEffect } from 'react'
 import {
   Link,
 } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
+import { clearUserPassw } from '../redux/reducers/userSlice'
 import styles from './Navigation.module.css'
 
 export default function Navigation() {
   const ref1 = useRef<HTMLDivElement>(null)
   const ref2 = useRef<HTMLDivElement>(null)
+  const navRef = useRef<HTMLElement>(null)
+  const dispatch = useAppDispatch()
   useEffect(() => {
     const handleHover = () => {
       const dropDown = document.querySelector('#dropdown') as HTMLElement
@@ -26,8 +30,18 @@ export default function Navigation() {
     element1.addEventListener('mouseout', handleOut)
     element2.addEventListener('click', handleClick)
   })
+  const navbar = navRef.current
+  let { password } = useAppSelector((state) => state.userReducer)
+  function getPassword() {
+    if (password !== '') {
+      dispatch(clearUserPassw())
+      localStorage.removeItem('userName')
+      password = ''
+    }
+  }
+  navbar?.addEventListener('click', getPassword)
   return (
-    <nav className={styles.navigation}>
+    <nav className={styles.navigation} ref={navRef}>
       <ul className={styles.menuList}>
         <Link to="/"><li>На главную</li></Link>
         <Link to="/dictionary"><li>учебник</li></Link>
