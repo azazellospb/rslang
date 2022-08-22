@@ -1,10 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable max-len */
 /* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IWord } from '../../../types/models'
+import { IStudiedWord } from '../../../types/sprint-game-models'
 
 interface ISprint {
   gameData: IWord[],
+  studiedArr: IStudiedWord[],
   currentWord: IWord | null | undefined,
   comparisonWord: IWord | null | undefined,
   gameLoader: boolean,
@@ -14,6 +18,7 @@ interface ISprint {
 
 const initialState: ISprint = {
   gameData: [],
+  studiedArr: [],
   currentWord: null,
   comparisonWord: null,
   gameLoader: true,
@@ -46,6 +51,10 @@ const sprintGameSlice = createSlice({
     forComparisonWord(state, action: PayloadAction<IWord>) {
       state.comparisonWord = action.payload
     },
+    studiedWord(state, action: PayloadAction<IStudiedWord>) {
+      // state.studiedArr = action.payload
+      state.studiedArr.some((item) => item.id === action.payload.id) ? null : state.studiedArr.push(action.payload)
+    },
   },
 })
 
@@ -56,6 +65,7 @@ export const {
   timerWork,
   currentWord,
   forComparisonWord,
+  studiedWord,
 } = sprintGameSlice.actions
 
 export default sprintGameSlice.reducer
