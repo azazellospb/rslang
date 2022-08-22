@@ -12,8 +12,9 @@ interface ISprint {
   currentWord: IWord | null | undefined,
   comparisonWord: IWord | null | undefined,
   gameLoader: boolean,
-  error: string | unknown
-  timer: number
+  error: string | unknown,
+  timer: number,
+  score: 0,
 }
 
 const initialState: ISprint = {
@@ -24,6 +25,7 @@ const initialState: ISprint = {
   gameLoader: true,
   error: '',
   timer: 60,
+  score: 0,
 }
 
 const sprintGameSlice = createSlice({
@@ -52,8 +54,10 @@ const sprintGameSlice = createSlice({
       state.comparisonWord = action.payload
     },
     studiedWord(state, action: PayloadAction<IStudiedWord>) {
-      // state.studiedArr = action.payload
       state.studiedArr.some((item) => item.id === action.payload.id) ? null : state.studiedArr.push(action.payload)
+    },
+    gameScore(state) {
+      state.score += 10
     },
   },
 })
@@ -66,6 +70,7 @@ export const {
   currentWord,
   forComparisonWord,
   studiedWord,
+  gameScore,
 } = sprintGameSlice.actions
 
 export default sprintGameSlice.reducer

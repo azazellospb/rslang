@@ -4,7 +4,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { IWord } from '../../../types/models'
 import { IStudiedWord } from '../../../types/sprint-game-models'
-import { currentWord, forComparisonWord, studiedWord } from '../../redux/reducers/sprintGameSlice'
+import {
+  currentWord, forComparisonWord, gameScore, studiedWord,
+} from '../../redux/reducers/sprintGameSlice'
 import { AppDispatchState } from '../../redux/store'
 
 // eslint-disable-next-line import/prefer-default-export
@@ -19,5 +21,6 @@ export const createStudiedWordAndPutItToArr = (currentWord: IWord | null | undef
     ...currentWord,
     studied: examination,
   }
+  examination && dispatch(gameScore())
   dispatch(studiedWord(examsWord))
 }

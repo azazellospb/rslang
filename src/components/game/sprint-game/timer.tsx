@@ -10,6 +10,7 @@ import styles from './sprint-game.module.css'
 function Timer() {
   const dispatch = useAppDispatch()
   const time = useAppSelector((state) => state.sprintGameSlice.timer)
+  const score = useAppSelector((state) => state.sprintGameSlice.score)
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define, react-hooks/exhaustive-deps
     setTimeout(() => {
@@ -21,15 +22,26 @@ function Timer() {
   }, [dispatch, time])
 
   return (
-    <div className={styles.sprintGameTimer}>
-      <span className={styles.sprintGameTimerContent}>
-        У Вас осталось:
-        <span className={styles.sprintGameTimerTikTak}>
-          { time }
+    <section className={styles.gameInfo}>
+      <div className={styles.sprintGameTimer}>
+        <span className={styles.sprintGameTimerContent}>
+          Ваш результат:
+          <span className={styles.sprintGameTimerTikTak}>
+            { score }
+          </span>
         </span>
-        сeкунд!
-      </span>
-    </div>
+      </div>
+      <div className={styles.sprintGameTimer}>
+        <span className={styles.sprintGameTimerContent}>
+          У Вас осталось:
+          <span className={styles.sprintGameTimerTikTak}>
+            { time }
+          </span>
+          сeкунд!
+        </span>
+      </div>
+    </section>
+
   )
 }
 export default Timer
