@@ -1,4 +1,5 @@
 /* eslint-disable object-curly-newline */
+/* eslint-disable  @typescript-eslint/semi */
 import { useNavigate } from 'react-router-dom'
 import React, { useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
@@ -64,7 +65,7 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
   async function handleLoginUser(e: React.FormEvent) {
     e.preventDefault()
 
-    fetch(`${Endpoints.SIGNIN}`, {
+    const data = await fetch(`${Endpoints.SIGNIN}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -74,9 +75,10 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
         password,
       }),
     })
-
+    const userData = await data.json()
+    localStorage.setItem('userInfo', JSON.stringify(userData))
     userInfo.name = localStorage.getItem('userName') as string
-    dispatch(setUserName(userInfo))
+    dispatch(setUserName(userInfo.name))
     dispatch(clearUserPassw())
     navigate('/')
     localStorage.removeItem('userName')

@@ -1,15 +1,16 @@
+/* eslint-disable @typescript-eslint/semi */
+/* eslint-disable  no-unsafe-optional-chaining */
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: User = { name: '', password: '', email: '' }
-
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    // TODO: change names
-    setUserName: (state, action: PayloadAction<User>) => {
+    setUserName: (state, action: PayloadAction<string>) => {
       /* eslint-disable no-param-reassign */
-      state.name = action.payload.name
+      state.name = action.payload
     },
     clearUserName: (state) => {
       // eslint-disable-next-line no-param-reassign
@@ -35,11 +36,7 @@ export interface User {
   name: string
   email: string
 }
-// interface UserArr {
-//   users: User[],
-//   isLoading: boolean,
-//   error: string
-// }
+
 export default userSlice.reducer
 // userReducer для доступа к Redux использовать обязательно, это взято из store.ts (строка 9)
 export const getUserName = (state: { userReducer: { name: string } }) => state.userReducer.name

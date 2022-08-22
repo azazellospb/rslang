@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/semi */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Login.module.css'
@@ -8,10 +10,10 @@ import {
 import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
 
 export default function LoginBlock() {
+  const dispatch = useAppDispatch()
   const name = useAppSelector(getUserName)
   const ref1 = useRef<HTMLButtonElement>(null)
   const ref2 = useRef<HTMLDivElement>(null)
-  const dispatch = useAppDispatch()
   const clearStorage = () => {
     localStorage.removeItem('userInfo')
     dispatch(clearUserName())
@@ -38,7 +40,8 @@ export default function LoginBlock() {
       element2.addEventListener('click', handleClick)
     }
   })
-  if (name !== '') {
+
+  if (name) {
     return (
       <div className={styles.login}>
         <img

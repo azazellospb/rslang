@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 import {
   Routes,
@@ -14,13 +15,26 @@ import Page404 from './pages/Page404'
 import SprintChallenge from './pages/SprintChallenge'
 import Stats from './pages/Stats'
 import Auth from './pages/Auth'
+import { setUserName } from './components/redux/reducers/userSlice'
+
+// document.onload(() => {
+//   if(JSON.parse(localStorage.getItem('userInfo') as string).name){
+//   }
+// }
 
 function App() {
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(getWordsData())
   }, [dispatch])
-
+  useEffect(() => {
+    console.log('=====>')
+    const data = JSON.parse(localStorage.getItem('userInfo') as string)?.name
+    if (data) {
+      console.log('+++', data)
+      dispatch(setUserName(data))
+    }
+  })
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
