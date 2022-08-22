@@ -1,15 +1,18 @@
+import { useNavigate } from 'react-router-dom'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 import { setUserName } from '../redux/reducers/userSlice'
 import styles from './Auth.module.css'
 import Endpoints from '../../endpoints/endpoints'
+import { useAppDispatch } from '../redux/hooks/redux'
 
 /* eslint-disable react/destructuring-assignment */
 export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
   const [usermail, setMail] = useState('')
   const [userpassw, setPass] = useState('')
   const [userInf, setUserInf] = useState('')
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     setMail('')
@@ -30,24 +33,26 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
 
       if (response.status === 200) {
         setUserInf('Вход выполнен успешно!')
-        const userIn = await response.json()
+        const userInfo = await response.json()
+        // userInfo.name = userIn.name
         // take name and push to redux in User obj,
         // then in LoginBlock from User get name and if not null - render comp,
         // with help of useEffect check redux User state if () -> render event
-        dispatch(setUserName(userIn))
-        localStorage.setItem('userInfo', JSON.stringify(userIn))
+        dispatch(setUserName(userInfo))
+        localStorage.setItem('userInfo', JSON.stringify(userInfo))
         // move to user object name for proper communication with LoginBlock
+      } else {
+        setUserInf('Email или пароль неверны!')
       }
     } catch (e) {
-      // console.log(e.message)
       setUserInf('Email или пароль неверны!')
     }
+    navigate('/')
   }
 
   /* eslint-disable  @typescript-eslint/no-explicit-any */
   function handleSwitch(e: any) {
     e.preventDefault()
-
     props.switchForm(false)
   }
 

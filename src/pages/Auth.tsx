@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Signin from '../components/auth/Signin'
 import Signup from '../components/auth/Signup'
-// import { useAppSelector } from '../components/redux/hooks/redux'
 
 export default function Auth() {
   const [logIn, setLogIn] = useState(true)
