@@ -137,9 +137,9 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
       ) : (
         <div className={styles.wrapper_msg}>
           <p>Регистрация прошла успешно!</p>
-          <p>Для использования всех возможностей</p>
+          <p>Для использования всех возможностей приложения,</p>
           <p>
-            Можете в учетную запись!
+            войдите в свою учетную запись!
             <a href="/" onClick={handleLoginUser} className={styles.confirm_btn}>
               Войти
             </a>
