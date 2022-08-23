@@ -17,27 +17,27 @@ function GameStatCard({ id }: IIndexProp): JSX.Element {
   }
   return (
     <section className={styles.gameStatCard}>
-      <div className={styles.gameStatCardWord}>
-        <h3>{id + 1}</h3>
+      <div className={`${styles.gameStatCardWord} ${styles.position}`}>
+        {id + 1}
       </div>
-      <div className={styles.gameStatCardWord}>
-        <h3>{studiedArr[id].word}</h3>
+      <div className={`${styles.gameStatCardWord} ${styles.currentWord}`}>
+        {studiedArr[id].word}
       </div>
-      <div className={styles.gameStatCardTranslate}>
-        <h3>{studiedArr[id].transcription}</h3>
+      <div className={`${styles.gameStatCard} ${styles.transcription}`}>
+        {studiedArr[id].transcription}
       </div>
-      <div className={styles.gameStatCardTranslate}>
-        <h3>{studiedArr[id].wordTranslate}</h3>
+      <div className={`${styles.gameStatCard} ${styles.translate}`}>
+        {studiedArr[id].wordTranslate}
       </div>
-      <div className={styles.gameStatCardTranslate}>
-        <h3>{studiedArr[id].studied ? 'ok' : 'no'}</h3>
+      <div className={`${styles.gameStatCard} ${styles.checked}`}>
+        {studiedArr[id].studied ? 'ok' : 'no'}
       </div>
-      <div className={styles.gameStatCardTranslate}>
+      <div className={`${styles.gameStatCard} ${styles.audio}`}>
         <div
           className={styles.soundImage}
           onClick={getAudio}
         >
-          <img className={styles.sound} src="https://cdn.icon-icons.com/icons2/37/PNG/512/speaker_3760.png" alt="Sound" />
+          <img className={styles.sound} src="../../../../public/assets/other/stat_speaker_3760.png" alt="Sound" />
         </div>
       </div>
     </section>

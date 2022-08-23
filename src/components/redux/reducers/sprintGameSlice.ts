@@ -26,7 +26,7 @@ const initialState: ISprint = {
   comparisonWord: null,
   gameLoader: true,
   error: '',
-  timer: 60,
+  timer: 5,
   score: 0,
 }
 
