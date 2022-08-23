@@ -3,7 +3,8 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { IWord } from '../../../types/models'
-import { IStudiedWord } from '../../../types/sprint-game-models'
+import { IFetchParam, IStudiedWord } from '../../../types/sprint-game-models'
+import { getWordsDataForSprintGame } from '../../redux/fetching'
 import {
   currentWord, forComparisonWord, gameScore, studiedWord,
 } from '../../redux/reducers/sprintGameSlice'
@@ -23,4 +24,12 @@ export const createStudiedWordAndPutItToArr = (currentWord: IWord | null | undef
   }
   examination && dispatch(gameScore())
   dispatch(studiedWord(examsWord))
+}
+
+export const choiceCategory = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => (dispatch: AppDispatchState) => {
+  const paramForFetch: IFetchParam = {
+    textbookSection: (e.target as HTMLButtonElement).id,
+    page: Math.floor(Math.random() * 30),
+  }
+  dispatch(getWordsDataForSprintGame(paramForFetch))
 }

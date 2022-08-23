@@ -14,7 +14,6 @@ function ButtonBlock() {
     const examination = comparisonWord?.id !== currentWord?.id
     dispatch(createStudiedWordAndPutItToArr(currentWord, examination))
     dispatch(fetchWordForSprintGameSuccess(gameData.filter((words) => words !== currentWord)))
-    // console.log(gameData.filter((words) => words !== currentWord))
   }
   const truthButtonHandle = () => {
     dispatch(getRandomWord(gameData))
