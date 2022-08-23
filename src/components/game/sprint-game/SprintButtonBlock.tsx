@@ -1,4 +1,6 @@
-import React from 'react'
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+import React, { useEffect } from 'react'
+import { getWordsDataForSprintGame } from '../../redux/fetching'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux'
 import { fetchWordForSprintGameSuccess } from '../../redux/reducers/sprintGameSlice'
 import { createStudiedWordAndPutItToArr, getRandomWord } from './sprint-game-actions'
@@ -21,6 +23,15 @@ function ButtonBlock() {
     dispatch(createStudiedWordAndPutItToArr(currentWord, examination))
     dispatch(fetchWordForSprintGameSuccess(gameData.filter((words) => words !== currentWord)))
   }
+  useEffect(() => {
+    gameData.length <= 1 && dispatch(getWordsDataForSprintGame(
+      {
+        textbookSection: String(currentWord?.group),
+        page: Math.floor(Math.random() * 30),
+      },
+    ))
+  }, [currentWord?.group, dispatch, gameData.length])
+
   return (
     <section className={styles.sprintButtonBlock}>
       <button
