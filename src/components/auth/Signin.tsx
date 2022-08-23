@@ -4,7 +4,6 @@
 /* eslint-disable  @typescript-eslint/semi */
 import { useNavigate } from 'react-router-dom'
 import React, { useState } from 'react'
-// import { useDispatch } from 'react-redux'
 import { setUserName } from '../redux/reducers/userSlice'
 import styles from './Auth.module.css'
 import Endpoints from '../../endpoints/endpoints'
@@ -37,7 +36,6 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
       if (response.status === 200) {
         setUserInf('Вход выполнен успешно!')
         const userInfo = await response.json()
-        // userInfo.name = userIn.name
         // take name and push to redux in User obj,
         // then in LoginBlock from User get name and if not null - render comp,
         // with help of useEffect check redux User state if () -> render event

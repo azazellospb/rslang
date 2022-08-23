@@ -17,11 +17,6 @@ import Stats from './pages/Stats'
 import Auth from './pages/Auth'
 import { setUserName } from './components/redux/reducers/userSlice'
 
-// document.onload(() => {
-//   if(JSON.parse(localStorage.getItem('userInfo') as string).name){
-//   }
-// }
-
 function App() {
   const dispatch = useAppDispatch()
   useEffect(() => {
