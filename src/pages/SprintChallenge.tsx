@@ -11,11 +11,13 @@ export default function SprintChallenge() {
     title: 'Спринт',
     description: 'Tренирует навык быстрого перевода с английского языка на русский.Вам нужно выбрать соответствует ли перевод предложенному слову.',
   }
-  const gameLoader = useAppSelector((state) => state.sprintGameSlice.gameLoader)
+  // const gameLoader = useAppSelector((state) => state.sprintGameSlice.gameLoader)
+  const isOpenModal = useAppSelector((state) => state.sprintGameSlice.isModalOpen)
   return (
     <div className={styles.printChallengePage}>
-      {gameLoader && <FirstModalForGame obj={descriptObj} />}
-      {!gameLoader && <SprintGameMainBlock />}
+      {isOpenModal && <FirstModalForGame obj={descriptObj} />}
+      {/* {gameLoader && Loader} */}
+      {!isOpenModal && <SprintGameMainBlock />}
     </div>
 
   )

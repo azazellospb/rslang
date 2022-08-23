@@ -9,6 +9,7 @@ import { IStudiedWord } from '../../../types/sprint-game-models'
 interface ISprint {
   gameData: IWord[],
   studiedArr: IStudiedWord[],
+  isModalOpen: boolean,
   currentWord: IWord | null | undefined,
   comparisonWord: IWord | null | undefined,
   gameLoader: boolean,
@@ -20,6 +21,7 @@ interface ISprint {
 const initialState: ISprint = {
   gameData: [],
   studiedArr: [],
+  isModalOpen: true,
   currentWord: null,
   comparisonWord: null,
   gameLoader: true,
@@ -37,6 +39,7 @@ const sprintGameSlice = createSlice({
     },
     fetchWordForSprintGameSuccess(state, action: PayloadAction<IWord[]>) {
       state.gameLoader = false
+      state.isModalOpen = false
       state.error = ''
       state.gameData = action.payload
     },

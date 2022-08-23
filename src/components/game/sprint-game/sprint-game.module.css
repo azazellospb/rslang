@@ -1,4 +1,5 @@
 .printChallengePage{
+  position: relative;
   background-color: aliceblue;
 }
 .sprintGameFieldWherePlaying {
@@ -88,7 +89,6 @@
   align-items: center;
   width: 50%;
   height: 50px;
-  /* background-color: rgba(48, 46, 46, 0.548); */
   border-radius: 5px;
   margin: 25px 0 15px 0;
   font-size: 2em;
@@ -110,9 +110,9 @@
   font-size: 0.75em;
   font-weight: 600;
   color:beige;
-  -webkit-box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2) inset;
-  -moz-box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2) inset;
-  box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2) inset;
+  -webkit-box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2);
+  -moz-box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2);
+  box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2);
 }
 .truthButton:hover {
   background-color: rgba(54, 240, 101, 0.596);
@@ -135,4 +135,68 @@
   cursor: pointer;
   border: 1px solid rgb(252, 57, 57);
   color:  rgb(252, 57, 57);;
+}
+.gameStatContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  min-height: 200px;
+  margin:auto;
+}
+.buttonList{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 75%;
+  margin: auto;
+}
+.gameStatCard{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 45px;
+  margin: 10px 0 15px 0;
+  border-radius: 5px;
+  color: var(--text-color);
+  background-color: aliceblue;
+  -webkit-box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2);
+  -moz-box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2);
+  box-shadow: 0px -2px 39px 8px rgba(246, 229, 206, 0.2);
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.messageText{
+  display: block;
+  width: 50%;
+  height: 100%;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+  border: 2px solid rgba(241, 113, 113, 0.479);
+  background-color: rgba(240, 151, 151, 0.507);
+  font-size: 1.25em;
+  font-weight: 600;
+  color: var(--text-color);;
+} 
+.soundImage{
+  width:45px;
+  height: 100%;
+}
+.sound{
+width: 95%;
+height: 95%;
+object-fit: cover;
+}
+.soundImage:hover .sound{
+  transform: scale(1.05) rotate(10deg);
+  cursor: pointer;
+}
+.soundImage:active .sound{
+  transform: scale(0.95) rotate(-10deg);
+  cursor: pointer;
 }
