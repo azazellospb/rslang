@@ -23,10 +23,8 @@ function App() {
     dispatch(getWordsData())
   }, [dispatch])
   useEffect(() => {
-    console.log('=====>')
     const data = JSON.parse(localStorage.getItem('userInfo') as string)?.name
     if (data) {
-      console.log('+++', data)
       dispatch(setUserName(data))
     }
   })
