@@ -10,11 +10,12 @@ const rootReducer = combineReducers({
   sprintGameSlice,
   userReducer,
 })
-
-export const setupStore = () => configureStore({
-  reducer: rootReducer,
-  devTools: true,
-})
+/* eslint-disable implicit-arrow-linebreak */
+export const setupStore = () =>
+  configureStore({
+    reducer: rootReducer,
+    devTools: true,
+  })
 
 export type RootReducerState = ReturnType<typeof rootReducer>
 export type AppStoreState = ReturnType<typeof setupStore>

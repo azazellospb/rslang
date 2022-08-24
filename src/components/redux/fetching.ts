@@ -24,6 +24,7 @@ const getWordsData = () => async (dispatch: AppDispatchState) => {
     // TODO: ОБОАБОТАТЬ ОШИБКУ
   }
 }
+
 export default getWordsData
 
 export const getWordsDataForSprintGame = (paramForFetch: IFetchParam) => async (dispatch: AppDispatchState) => {
