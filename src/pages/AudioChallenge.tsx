@@ -1,5 +1,11 @@
 import React from 'react'
+import Audiogame from '../components/game/audio-game/Audiogame'
 
 export default function AudioChallenge() {
-  return (<h2>Audio challenge page</h2>)
+  return (
+    <div className="audio-challenge">
+      <h2>Audio challenge</h2>
+      <Audiogame />
+    </div>
+  )
 }
