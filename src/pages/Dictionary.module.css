@@ -1,0 +1,6 @@
+.dictWrapper {
+  display: flex;
+  flex-direction: column;
+  gap:3vw;
+  width: 100%;
+}
