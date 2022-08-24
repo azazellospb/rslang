@@ -21,7 +21,13 @@ export interface WordObject {
 
 function WordCard(obj: WordObject) {
   const {
-    word, image, textMeaning, textMeaningTranslate, textExample, textExampleTranslate,
+    word,
+    image,
+    textMeaning,
+    textMeaningTranslate,
+    textExample,
+    textExampleTranslate,
+    wordTranslate,
   } = obj
   return (
     <section className={styles.card}>
@@ -45,7 +51,7 @@ function WordCard(obj: WordObject) {
       <div className={`${styles.card__side} ${styles.card__side_back}`}>
         <img className={styles.wordImg} src={`http://localhost:8088/${image}`} alt={word} />
         <div className={styles.cardContent}>
-          <h3>{word}</h3>
+          <h3>{wordTranslate}</h3>
           <span>
             <strong>Значение слова:</strong>
             <br />
