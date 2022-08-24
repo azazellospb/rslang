@@ -12,13 +12,21 @@ import {
   fetchWordForSprintGameSuccess,
 } from './reducers/sprintGameSlice'
 
-// eslint-disable-next-line consistent-return
-const getWordsData = () => async (dispatch: AppDispatchState) => {
+const getWordsData = (
+  page = 0,
+  group = 0,
+  data: IWord[] = [],
+  id = null,
+) => async (dispatch: AppDispatchState) => {
   try {
     // TODO: сделать лоадер
-    const response: Response = await fetch('http://localhost:8088/words/')
-    const data: IWord[] = await response.json()
-    dispatch(fetchWordSuccess(data))
+    if (!id) {
+      if (data.filter((x) => (x.page === page) && (x.group === group)).length === 0) {
+        const response: Response = await fetch(`http://localhost:8088/words?group=${group}&page=${page}`)
+        const dataBE: IWord[] = await response.json()
+        dispatch(fetchWordSuccess([...data, ...dataBE]))
+      }
+    }
   } catch (e) {
     console.log(e)
     // TODO: ОБОАБОТАТЬ ОШИБКУ

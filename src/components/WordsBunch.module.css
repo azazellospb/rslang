@@ -1,0 +1,12 @@
+.wordBlock {
+  margin: 20px;
+  padding: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap:4vw;
+  margin-top: 4rem;
+  border-radius: 10px;
+  background-color: antiquewhite;
+}

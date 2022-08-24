@@ -11,7 +11,8 @@ import { setupStore } from './components/redux/store'
 
 const docRoot = document.getElementById('root') as HTMLElement
 const root = ReactDOM.createRoot(docRoot)
-const store = setupStore()
+// eslint-disable-next-line import/prefer-default-export
+export const store = setupStore()
 root.render(
   <React.StrictMode>
     <Provider store={store}>

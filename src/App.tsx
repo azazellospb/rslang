@@ -33,7 +33,12 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/dictionary" element={<Dictionary />} />
+        <Route path="/dictionary/">
+          <Route index element={<Dictionary />} />
+          <Route path=":group" element={<Dictionary />}>
+            <Route path=":page" element={<Dictionary />} />
+          </Route>
+        </Route>
         <Route path="/stats" element={<Stats />} />
         <Route path="/audiochallenge" element={<AudioChallenge />} />
         <Route path="/sprintchallenge" element={<SprintChallenge />} />
