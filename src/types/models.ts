@@ -14,3 +14,17 @@ export interface IWord {
   textMeaningTranslate: string
   wordTranslate: string
 }
+
+export interface IUser {
+  message: string
+  name: string
+  refreshToken: string
+  token: string
+  userId: string
+}
+
+export interface IUserLogin {
+  name?: string
+  email: string
+  password: string
+}

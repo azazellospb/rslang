@@ -15,4 +15,5 @@ const getWordsData = () => async (dispatch: AppDispatchState) => {
     // TODO: ОБОАБОТАТЬ ОШИБКУ
   }
 }
+
 export default getWordsData
