@@ -20,4 +20,5 @@ export const wordSlice = createSlice({
     },
   },
 })
-export default wordSlice.reducer
+
+export const { fetchWordSuccess } = wordSlice.actions
