@@ -10,9 +10,10 @@ function SprintGameMainBlock() {
   const dispatch = useAppDispatch()
   const gameData = useAppSelector((state) => state.sprintGameSlice.gameData)
   const timer = useAppSelector((state) => state.sprintGameSlice.timer)
+  const counter = useAppSelector((state) => state.sprintGameSlice.turnCounter)
   useMemo(() => {
-    dispatch(getRandomWord(gameData))
-  }, [dispatch, gameData])
+    dispatch(getRandomWord(gameData, counter))
+  }, [counter, dispatch, gameData])
   return (
     <>
       { Boolean(timer) && <Timer /> }

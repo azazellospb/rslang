@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import { getWordsDataForSprintGame } from '../../redux/fetching'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux'
-import { fetchWordForSprintGameSuccess } from '../../redux/reducers/sprintGameSlice'
+import { fetchWordForSprintGameSuccess, turnCounter } from '../../redux/reducers/sprintGameSlice'
 import { createStudiedWordAndPutItToArr, getRandomWord } from './sprint-game-actions'
 import styles from './sprint-game.module.css'
 
@@ -11,17 +11,20 @@ function ButtonBlock() {
   const gameData = useAppSelector((state) => state.sprintGameSlice.gameData)
   const comparisonWord = useAppSelector((state) => state.sprintGameSlice.comparisonWord)
   const currentWord = useAppSelector((state) => state.sprintGameSlice.currentWord)
+  const counter = useAppSelector((state) => state.sprintGameSlice.turnCounter)
   const falseButtonHandle = () => {
-    dispatch(getRandomWord(gameData))
+    dispatch(getRandomWord(gameData, counter))
     const examination = comparisonWord?.id !== currentWord?.id
     dispatch(createStudiedWordAndPutItToArr(currentWord, examination))
     dispatch(fetchWordForSprintGameSuccess(gameData.filter((words) => words !== currentWord)))
+    dispatch(turnCounter())
   }
   const truthButtonHandle = () => {
-    dispatch(getRandomWord(gameData))
+    dispatch(getRandomWord(gameData, counter))
     const examination = comparisonWord?.id === currentWord?.id
     dispatch(createStudiedWordAndPutItToArr(currentWord, examination))
     dispatch(fetchWordForSprintGameSuccess(gameData.filter((words) => words !== currentWord)))
+    dispatch(turnCounter())
   }
   useEffect(() => {
     gameData.length <= 1 && dispatch(getWordsDataForSprintGame(

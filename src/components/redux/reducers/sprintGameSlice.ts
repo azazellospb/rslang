@@ -15,7 +15,8 @@ interface ISprint {
   gameLoader: boolean,
   error: string | unknown,
   timer: number,
-  score: 0,
+  score: number,
+  turnCounter: number,
 }
 
 const initialState: ISprint = {
@@ -28,6 +29,7 @@ const initialState: ISprint = {
   error: '',
   timer: 5,
   score: 0,
+  turnCounter: 1,
 }
 
 const sprintGameSlice = createSlice({
@@ -62,6 +64,9 @@ const sprintGameSlice = createSlice({
     gameScore(state) {
       state.score += 10
     },
+    turnCounter(state) {
+      state.turnCounter += 1
+    },
   },
 })
 
@@ -74,6 +79,7 @@ export const {
   forComparisonWord,
   studiedWord,
   gameScore,
+  turnCounter,
 } = sprintGameSlice.actions
 
 export default sprintGameSlice.reducer
