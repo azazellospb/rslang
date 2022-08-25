@@ -11,9 +11,9 @@ import {
 import { AppDispatchState } from '../../redux/store'
 
 // eslint-disable-next-line import/prefer-default-export
-export const getRandomWord = (gameData: IWord[]) => (dispatch: AppDispatchState) => {
+export const getRandomWord = (gameData: IWord[], counter:number) => (dispatch: AppDispatchState) => {
   const randomObjIndex = Math.floor(Math.random() * gameData.length)
-  const secondRandomObjIndex = Math.floor(Math.random() * gameData.length)
+  const secondRandomObjIndex = counter % 2 === 0 ? randomObjIndex : Math.floor(Math.random() * gameData.length)
   dispatch(currentWord(gameData[randomObjIndex]))
   dispatch(forComparisonWord(gameData[secondRandomObjIndex]))
 }

@@ -1,10 +1,21 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
+import { useAppDispatch } from '../components/redux/hooks/redux'
+import { timerWork, turnCounter } from '../components/redux/reducers/sprintGameSlice'
 import styles from './reloadButton.module.css'
 
 function ReloadStatButton() {
+  const dispatch = useAppDispatch()
+  const refreshHandel = () => {
+    dispatch(timerWork(5))
+    dispatch(turnCounter())
+  }
   return (
-    <button type="button" className={styles.reloadButton}>
+    <button
+      type="button"
+      className={styles.reloadButton}
+      onClick={refreshHandel}
+    >
       <svg
         className={styles.reload}
         version="1.0"

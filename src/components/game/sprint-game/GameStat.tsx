@@ -11,14 +11,16 @@ export interface IProp {
 function GameStat() {
   const studiedWords = useAppSelector((state) => state.sprintGameSlice.studiedArr)
   const message = (
-    <span className={styles.messageText}>
-      Упс.... У Вас нет результатов! Пройдите наше испытание что проверить ваши знаия языка
-    </span>
+    <div className={styles.messageText}>
+      <h3>Упс....!</h3>
+      У Вас нет результатов!
+      Попробуйте пройти наше испытание ещё раз, что бы проверить ваши знаия языка
+    </div>
   )
   return (
     <section className={styles.gameStatContainer}>
+      <GameMenu />
       {Boolean(!studiedWords.length) && message}
-      {Boolean(studiedWords.length) && <GameMenu />}
       {Boolean(studiedWords.length) && <GameStatList />}
     </section>
   )
