@@ -28,3 +28,16 @@ export interface IUserLogin {
   email: string
   password: string
 }
+
+export interface IAggregatedWords {
+  paginatedResults: IUserWord[]
+}
+
+export interface IUserWord extends Omit<IWord, 'id'> {
+  _id: string
+  userWord: UserWordSet
+}
+interface UserWordSet {
+  difficulty: string
+  optional: { tries?: number, learned?: boolean }
+}
