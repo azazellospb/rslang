@@ -9,13 +9,6 @@ import styles from './GameModal.module.css'
 
 function CategoryButton({ id, num }:IProp) {
   const dispatch = useAppDispatch()
-  // const choiceCategory = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-  //   const paramForFetch: IFetchParam = {
-  //     textbookSection: (e.target as HTMLButtonElement).id,
-  //     page: Math.floor(Math.random() * 30),
-  //   }
-  //   dispatch(getWordsDataForSprintGame(paramForFetch))
-  // }
   return (
     <button
       id={String(id)}
