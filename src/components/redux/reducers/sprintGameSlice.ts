@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable max-len */
 /* eslint-disable no-console */
@@ -59,7 +60,9 @@ const sprintGameSlice = createSlice({
       state.comparisonWord = action.payload
     },
     studiedWord(state, action: PayloadAction<IStudiedWord>) {
-      state.studiedArr.some((item) => item.id === action.payload.id) ? null : state.studiedArr.push(action.payload)
+      Object.keys(action.payload).length === 0
+        ? state.studiedArr = []
+        : state.studiedArr.some((item) => item.id === action.payload.id) ? null : state.studiedArr.push(action.payload)
     },
     gameScore(state) {
       state.score += 10

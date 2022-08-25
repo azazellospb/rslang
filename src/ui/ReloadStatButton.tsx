@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import { useAppDispatch } from '../components/redux/hooks/redux'
-import { timerWork, turnCounter } from '../components/redux/reducers/sprintGameSlice'
+import { studiedWord, timerWork, turnCounter } from '../components/redux/reducers/sprintGameSlice'
 import styles from './reloadButton.module.css'
 
 function ReloadStatButton() {
@@ -9,6 +9,7 @@ function ReloadStatButton() {
   const refreshHandel = () => {
     dispatch(timerWork(5))
     dispatch(turnCounter())
+    dispatch(studiedWord({}))
   }
   return (
     <button
