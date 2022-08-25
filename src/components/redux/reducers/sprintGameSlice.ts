@@ -67,6 +67,10 @@ const sprintGameSlice = createSlice({
     turnCounter(state) {
       state.turnCounter += 1
     },
+    modalToggle(state, action: PayloadAction<boolean>) {
+      state.isModalOpen = action.payload
+    },
+
   },
 })
 
@@ -80,6 +84,7 @@ export const {
   studiedWord,
   gameScore,
   turnCounter,
+  modalToggle,
 } = sprintGameSlice.actions
 
 export default sprintGameSlice.reducer
