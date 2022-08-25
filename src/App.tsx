@@ -5,7 +5,7 @@ import {
   Route,
 } from 'react-router-dom'
 import Layout from './components/Layout'
-import getWordsData from './components/redux/fetching'
+import getWordsData, { aggregateWords } from './components/redux/fetching'
 import { useAppDispatch } from './components/redux/hooks/redux'
 import About from './pages/About'
 import AudioChallenge from './pages/AudioChallenge'
@@ -26,6 +26,7 @@ function App() {
     const data = JSON.parse(localStorage.getItem('userInfo') as string)?.name
     if (data) {
       dispatch(setUserName(data))
+      dispatch(aggregateWords())
     }
   })
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/dictionary/">
           <Route index element={<Dictionary />} />
+          <Route path="difficult" element={<Dictionary />} />
           <Route path=":group" element={<Dictionary />}>
             <Route path=":page" element={<Dictionary />} />
           </Route>
