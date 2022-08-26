@@ -7,16 +7,16 @@ import { IWord } from '../../../types/models'
 import { IStudiedWord } from '../../../types/sprint-game-models'
 
 interface ISprint {
-  gameData: IWord[],
-  studiedArr: IStudiedWord[],
-  isModalOpen: boolean,
-  currentWord: IWord | null | undefined,
-  comparisonWord: IWord | null | undefined,
-  gameLoader: boolean,
-  error: string | unknown,
-  timer: number,
-  score: number,
-  turnCounter: number,
+  gameData: IWord[]
+  studiedArr: IStudiedWord[]
+  isModalOpen: boolean
+  currentWord: IWord | null | undefined
+  comparisonWord: IWord | null | undefined
+  gameLoader: boolean
+  error: string | unknown
+  timer: number
+  score: number
+  turnCounter: number
 }
 
 const initialState: ISprint = {
@@ -39,6 +39,9 @@ const sprintGameSlice = createSlice({
     fetchWordForSprintGameLoader(state) {
       state.gameLoader = true
     },
+    fetchDeleteWord(state, action: PayloadAction<IWord>) {
+      state.gameData = state.gameData.filter((el) => el.id !== action.payload.id)
+    },
     fetchWordForSprintGameSuccess(state, action: PayloadAction<IWord[]>) {
       state.gameLoader = false
       state.isModalOpen = false
@@ -59,7 +62,9 @@ const sprintGameSlice = createSlice({
       state.comparisonWord = action.payload
     },
     studiedWord(state, action: PayloadAction<IStudiedWord>) {
-      state.studiedArr.some((item) => item.id === action.payload.id) ? null : state.studiedArr.push(action.payload)
+      state.studiedArr.some((item) => item.id === action.payload.id)
+        ? null
+        : state.studiedArr.push(action.payload)
     },
     gameScore(state) {
       state.score += 10
@@ -80,6 +85,7 @@ export const {
   studiedWord,
   gameScore,
   turnCounter,
+  fetchDeleteWord,
 } = sprintGameSlice.actions
 
 export default sprintGameSlice.reducer
