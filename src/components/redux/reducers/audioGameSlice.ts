@@ -5,6 +5,7 @@ import { IWord } from '../../../types/models'
 
 const initialState: IAudioGame = {
   words: [],
+  wordForButtons: [],
   learnedWords: [],
   isLoaded: false,
   error: '',
@@ -12,6 +13,7 @@ const initialState: IAudioGame = {
   rightWords: [],
   changeStyle: false,
   customAnswers: [],
+  progress: 1,
 }
 
 export const audioGameSlice = createSlice({
@@ -33,6 +35,9 @@ export const audioGameSlice = createSlice({
     setCurrentWord(state, action: PayloadAction<IWord>) {
       state.currentWord = action.payload
     },
+    getWordForButtons(state, action: PayloadAction<IWord[]>) {
+      state.wordForButtons = action.payload
+    },
     learnedWord(state, action: PayloadAction<ILearnedWord>) {
       // console.log('learnedWord')
       state.learnedWords.some((item) => item.id === action.payload.id)
@@ -42,14 +47,21 @@ export const audioGameSlice = createSlice({
     setStyles(state, action: PayloadAction<boolean>) {
       state.changeStyle = action.payload
     },
-    // getCustomAnswers(state, )
+    progressWorker(state) {
+      state.progress += 1
+    },
   },
 })
-
+export const {
+  progressWorker,
+  setCurrentWord,
+  getWordForButtons,
+} = audioGameSlice.actions
 export default audioGameSlice.reducer
 
-interface IAudioGame {
+export interface IAudioGame {
   words: IWord[]
+  wordForButtons:(IWord | null)[],
   learnedWords: ILearnedWord[]
   isLoaded: boolean
   error: string
@@ -57,6 +69,7 @@ interface IAudioGame {
   rightWords: IWord[]
   changeStyle: boolean
   customAnswers: IWord[]
+  progress: number,
 }
 
 interface ILearnedWord {

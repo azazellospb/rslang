@@ -1,17 +1,20 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-empty */
-import React, { KeyboardEventHandler, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IWord } from '../../../../types/models'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux'
-import { audioGameSlice } from '../../../redux/reducers/audioGameSlice'
-import sprintGameSlice, { fetchDeleteWord, fetchWordForSprintGameSuccess } from '../../../redux/reducers/sprintGameSlice'
+import { audioGameSlice, progressWorker } from '../../../redux/reducers/audioGameSlice'
+import { fetchWordForSprintGameSuccess } from '../../../redux/reducers/sprintGameSlice'
 import styles from '../Audiogame.module.css'
 
-function Answer({ keyNumber, currtWord }: IAnswerBtn) {
-  const { currentWord, changeStyle } = useAppSelector((state) => state.audioGameSlice)
+function Answer({ keyNumber, index }: IAnswerBtn) {
+  const gameData = useAppSelector((state) => state.sprintGameSlice.gameData)
+  const currentWord = useAppSelector((state) => state.audioGameSlice.currentWord)
+  const changeStyle = useAppSelector((state) => state.audioGameSlice.changeStyle)
+  // const { currentWord, changeStyle } = useAppSelector((state) => state.audioGameSlice)
   const dispatch = useAppDispatch()
 
-  const data = useAppSelector((state) => state.sprintGameSlice.gameData)
   // dispatch(fetchDeleteWord(currtWord))
   const [styleBtn, setStyle] = useState('')
   // let styleBtn = ''
@@ -19,31 +22,36 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
   useEffect(() => {
     setStyle('')
   }, [])
-  function handleClick(
-    e: React.MouseEvent<HTMLElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>,
-  ) {
+  const handleClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
     console.log(e.currentTarget)
 
-    if (currtWord.word === currentWord?.word) {
+    if (/* gameData[index].id */ e.currentTarget.id === currentWord?.id) {
       dispatch(audioGameSlice.actions.setStyles(true))
-      // dispatch(fetchWordForSprintGameSuccess(data.filter((words) => words !== currtWord)))
-      // dispatch(audioGameSlice.actions.learnedWord(currtWord))
-      setStyle(`${styles.answerRight}`)
+      console.log(gameData.filter((words) => words !== currentWord))
+      dispatch(fetchWordForSprintGameSuccess(gameData.filter((words) => words.id !== currentWord.id)))
+      // setStyle(`${styles.answerRight}`)
       // changeStyle
-      console.log('Yes', currtWord.word)
+      console.log('Yes', gameData[index].word)
+      dispatch(progressWorker())
     } else {
       dispatch(audioGameSlice.actions.setStyles(true))
+      dispatch(fetchWordForSprintGameSuccess(gameData.filter((words) => words !== currentWord)))
+
       // dispatch(fetchWordForSprintGameSuccess(data.filter((words) => words !== currtWord)))
       // dispatch(audioGameSlice.actions.learnedWord(currtWord))
-      setStyle(`${styles.answerWrong}`)
+      // setStyle(`${styles.answerWrong}`)
+      dispatch(progressWorker())
     }
   }
   // (e: React.MouseEvent<HTMLButtonElement>)
   return (
     <button
+      id={gameData[index].id}
       type="button"
       className={!changeStyle ? `${styles.answersItem}` : `${styleBtn}`}
-      onClick={(e: React.MouseEvent<HTMLElement>) => handleClick(e)}
+      onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClick(e)}
       // onClick={(e: React.MouseEvent<HTMLElement>) => handleClick(e)}
       // onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => handleClick(e)}
       // role="button"
@@ -51,7 +59,7 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
       // disabled={changeStyle}
     >
       <span>{`${keyNumber}. `}</span>
-      <span>{currtWord.word}</span>
+      <span>{gameData[index].word}</span>
     </button>
   )
 }
@@ -59,10 +67,8 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
 export default Answer
 
 interface IAnswerBtn {
-  keyNumber: object | number | string
-  currtWord: IWord
-  // onClick: () => void
-  // answers: IWord[]
+  keyNumber: number | string
+  index: number,
 }
 
 interface IGameStat {
