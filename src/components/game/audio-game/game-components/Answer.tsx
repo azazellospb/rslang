@@ -1,16 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-empty */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { KeyboardEventHandler, useEffect, useState } from 'react'
 import { IWord } from '../../../../types/models'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux'
 import { audioGameSlice } from '../../../redux/reducers/audioGameSlice'
-import sprintGameSlice, { fetchDeleteWord, fetchWordForSprintGameSuccess } from '../../../redux/reducers/sprintGameSlice'
+import sprintGameSlice, {
+  fetchDeleteWord,
+  fetchWordForSprintGameSuccess,
+} from '../../../redux/reducers/sprintGameSlice'
 import styles from '../Audiogame.module.css'
 
-function Answer({ keyNumber, currtWord }: IAnswerBtn) {
+function Answer({ keyNumber, currtWord, copyKey }: IAnswerBtn) {
   const { currentWord, changeStyle } = useAppSelector((state) => state.audioGameSlice)
   const dispatch = useAppDispatch()
-
+  console.log(copyKey)
   const data = useAppSelector((state) => state.sprintGameSlice.gameData)
   // dispatch(fetchDeleteWord(currtWord))
   const [styleBtn, setStyle] = useState('')
@@ -42,13 +46,14 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
   return (
     <button
       type="button"
-      className={!changeStyle ? `${styles.answersItem}` : `${styleBtn}`}
+      // className={!changeStyle ? `${styles.answersItem}` : `${styleBtn}`}
+      className={styleBtn}
       onClick={(e: React.MouseEvent<HTMLElement>) => handleClick(e)}
       // onClick={(e: React.MouseEvent<HTMLElement>) => handleClick(e)}
       // onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => handleClick(e)}
       // role="button"
       // tabIndex={0}
-      // disabled={changeStyle}
+      disabled={changeStyle}
     >
       <span>{`${keyNumber}. `}</span>
       <span>{currtWord.word}</span>
@@ -61,6 +66,7 @@ export default Answer
 interface IAnswerBtn {
   keyNumber: object | number | string
   currtWord: IWord
+  copyKey: string
   // onClick: () => void
   // answers: IWord[]
 }

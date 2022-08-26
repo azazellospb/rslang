@@ -13,7 +13,12 @@ function AnswerList({ currtWord, customAnswers }: IAnswerProps) {
   return (
     <div className={styles.answers}>
       {customAnswers.map((item, indx) => (
-        <Answer keyNumber={indx + 1} currtWord={customAnswers[indx]} key={item.id} />
+        <Answer
+          keyNumber={indx + 1}
+          currtWord={customAnswers[indx]}
+          key={item.id + new Date().getTime() + indx.toString()}
+          copyKey={item.id + new Date().getTime() + indx.toString()}
+        />
       ))}
     </div>
   )

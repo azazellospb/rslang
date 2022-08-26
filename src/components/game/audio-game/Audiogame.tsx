@@ -1,8 +1,10 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-param-reassign */
-// /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/exhaustive-deps */
 // /* eslint-disable react/button-has-typ */
+/* eslint-disable max-len */
+// /* eslint-disable react/jsx-inden */
 import React, { useEffect, useRef, useState } from 'react'
 import Endpoints from '../../../endpoints/endpoints'
 import { IWord } from '../../../types/models'
@@ -14,7 +16,7 @@ import AudioIcon from './game-components/AudioIcon'
 
 function Audiogame() {
   const dispatch = useAppDispatch()
-  const { changeStyle } = useAppSelector((state) => state.audioGameSlice)
+  // const { changeStyle } = useAppSelector((state) => state.audioGameSlice)
   const [wordIndex, setwordIndex] = useState(0)
   const [progress, setProgress] = useState(1)
   const data = useAppSelector((state) => state.sprintGameSlice.gameData)
@@ -34,7 +36,7 @@ function Audiogame() {
     arr = []
     const word = [...arr, currtWord]
     for (let i = 0; i < 4; i += 1) {
-      word.push(randomItem(fakeAnswers))
+      word.unshift(randomItem(fakeAnswers))
     }
     return word.sort(() => 0.5 - Math.random())
   }
@@ -62,18 +64,18 @@ function Audiogame() {
       <div className={styles.gameContent}>
         <div className={styles.answerContent}>
           <div className={styles.imgWrapper}>
-            {changeStyle && (
-              <img
-                className={changeStyle ? styles.answerImg : `${styles.answerImg} ${styles.hideImg}`}
-                src={`${Endpoints.ROOT}/${data[wordIndex].image}`}
-                alt="ansver-img"
-              />
-            )}
+            {/* {changeStyle && ( */}
+            <img
+              // className={changeStyle ? styles.answerImg : `${styles.answerImg} ${styles.hideImg}`}
+              src={`${Endpoints.ROOT}/${data[wordIndex].image}`}
+              alt="ansver-img"
+            />
+            {/* )} */}
           </div>
           <div className={styles.answerWordContainer}>
             <button
               type="button"
-              className={changeStyle ? styles.playBtn : `${styles.playBtn} ${styles.hidePlayBtn}`}
+              // className={changeStyle ? styles.playBtn : `${styles.playBtn} ${styles.hidePlayBtn}`}
               onClick={handleVoice}
             >
               <AudioIcon />
@@ -86,17 +88,17 @@ function Audiogame() {
             >
               audio
             </audio>
-            <span className={changeStyle ? styles.answerWord : `${styles.answerWord} ${styles.hiddenAnswer}`}>
+            {/* <span className={changeStyle ? styles.answerWord : `${styles.answerWord} ${styles.hiddenAnswer}`}>
               {`${data[wordIndex].word}`}
-            </span>
+            </span> */}
           </div>
         </div>
         <AnswerList currtWord={data[wordIndex]} customAnswers={customAnswers} />
         <div>
           <input
             type="button"
-            value={!changeStyle ? 'Не знаю' : '->'}
-            className={changeStyle ? styles.answerBtn : `${styles.answerBtn} ${styles.changeBtn}`}
+            // value={!changeStyle ? 'Не знаю' : '->'}
+            // className={changeStyle ? styles.answerBtn : `${styles.answerBtn} ${styles.changeBtn}`}
             onClick={handleConfirmBtn}
           />
         </div>
