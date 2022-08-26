@@ -2,20 +2,6 @@
   text-align: center;
 }
 
-.container {
-  max-width: 1140px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin: auto;
-}
-
-.hidden {
-  visibility: hidden;
-  height: 0px;
-  width: 0px;
-  font-size: 0px;
-}
-
 .auth-container {
   align-self: center;
   height: 100%;
@@ -44,8 +30,4 @@
   z-index: 1;
   opacity: 80%;
   filter: blur(34px);
-}
-
-.audio-challenge {
-  background-color: aliceblue;
 }
