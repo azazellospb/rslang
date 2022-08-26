@@ -20,5 +20,8 @@ export const wordSlice = createSlice({
     },
   },
 })
-
+export default wordSlice.reducer
 export const { fetchWordSuccess } = wordSlice.actions
+export const getWordsArray = (state: {
+  wordSlice: { data: IWord[] }
+}) => state.wordSlice.data
