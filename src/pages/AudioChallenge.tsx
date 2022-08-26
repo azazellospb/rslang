@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import React from 'react'
+import Audiogame from '../components/game/audio-game/Audiogame'
 import FirstModalForGame from '../components/game/modal/FirstModalGame'
 import { useAppSelector } from '../components/redux/hooks/redux'
 import { IDescription } from '../types/sprint-game-models'
@@ -9,10 +10,11 @@ export default function AudioChallenge() {
     title: 'Аудиовызов',
     description: 'Тренировка Аудиовызов развивает словарный запас. Вы должны выбрать перевод услышанного слова.',
   }
-  const gameLoader = useAppSelector((state) => state.sprintGameSlice.gameLoader)
+  const isOpenModal = useAppSelector((state) => state.sprintGameSlice.isModalOpen)
   return (
-    <>
-      {gameLoader && <FirstModalForGame obj={descriptObj} />}
-    </>
+    <div className="audiogame-page">
+      {isOpenModal && <FirstModalForGame obj={descriptObj} />}
+      {!isOpenModal && <Audiogame />}
+    </div>
   )
 }
