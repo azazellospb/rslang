@@ -28,5 +28,5 @@ export interface IStudiedWord {
   textExampleTranslate?: string | undefined;
   textMeaningTranslate?: string | undefined;
   wordTranslate?: string | undefined;
-  studied?: boolean
+  learned?: boolean
 }
