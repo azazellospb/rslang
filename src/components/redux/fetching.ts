@@ -54,6 +54,7 @@ export const aggregateWords = () => async (dispatch: AppDispatchState) => {
     // const filterCond = '"$or":[{"userWord.difficulty":"hard"}, {"userWord.difficulty":"easy"}]'
     const userInfo = localStorage.getItem('userInfo') as string
     const { token, userId } = JSON.parse(userInfo)
+    console.log(userId, token)
     const request = await fetch(
       `http://localhost:8088/users/${userId}/words`,
       {
@@ -65,6 +66,7 @@ export const aggregateWords = () => async (dispatch: AppDispatchState) => {
       },
     )
     const data: ICustomWord[] = await request.json()
+    console.log(data)
 
     dispatch(fetchAggregatedWords(data))
   } catch (e) {
@@ -110,8 +112,8 @@ export const toggleDifficulty = (
   }
 }
 export const toggleLearnState = (
-  isLearned: boolean,
-  wordId: IWord['id'],
+  isLearned: boolean | undefined,
+  wordId: IWord['id'] | undefined,
   aggregatedWords: ICustomWord[],
 ) => async (dispatch: AppDispatchState) => {
   try {
@@ -141,7 +143,8 @@ export const toggleLearnState = (
         body: JSON.stringify(requestBody),
       },
     )
-    dispatch(aggregateWords())
+    console.log(dispatch)
+    // dispatch(aggregateWords())
   } catch (e) {
     console.log(e)
   }

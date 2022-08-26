@@ -20,9 +20,9 @@ export const getRandomWord = (gameData: IWord[], counter:number) => (dispatch: A
 export const createStudiedWordAndPutItToArr = (currentWord: IWord | null | undefined, examination: boolean) => (dispatch: AppDispatchState) => {
   const examsWord: IStudiedWord = {
     ...currentWord,
-    studied: examination,
+    learned: examination,
   }
-  examination && dispatch(gameScore())
+  examination && dispatch(gameScore(10))
   dispatch(studiedWord(examsWord))
 }
 

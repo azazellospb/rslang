@@ -64,8 +64,10 @@ const sprintGameSlice = createSlice({
         ? state.studiedArr = []
         : state.studiedArr.some((item) => item.id === action.payload.id) ? null : state.studiedArr.push(action.payload)
     },
-    gameScore(state) {
-      state.score += 10
+    gameScore(state, action: PayloadAction<number>) {
+      action.payload === 0
+        ? state.score = 0
+        : state.score += action.payload
     },
     turnCounter(state) {
       state.turnCounter += 1
