@@ -1,11 +1,12 @@
 /* eslint-disable no-template-curly-in-string */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 import getWordsData from '../redux/fetching'
 import { useAppDispatch } from '../redux/hooks/redux'
 import { getWordsArray } from '../redux/reducers/wordSlice'
-import WordCard from './WordCard'
+// import WordCard from './WordCard'
 import styles from './WordsBunch.module.css'
 
 export default function WordsBunch() {
@@ -30,10 +31,10 @@ export default function WordsBunch() {
       {current < 29 ? <NavLink to={(current + 1).toString() || ''}><li>{'>'}</li></NavLink> : null}
       {current < 28 ? <NavLink to={(current + 2).toString() || ''}><li>{'>>'}</li></NavLink> : null}
       {current !== 29 ? <NavLink to="29"><li>В конец</li></NavLink> : null}
-      {pageData.map((item) => (
+      {/* {pageData.map((item) => (
         // eslint-disable-next-line react/jsx-props-no-spreading
         <WordCard {...item} />
-      ))}
+      ))} */}
     </div>
   )
 }

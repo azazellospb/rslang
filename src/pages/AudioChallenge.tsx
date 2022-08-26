@@ -4,7 +4,7 @@ import Audiogame from '../components/game/audio-game/Audiogame'
 import FirstModalForGame from '../components/game/modal/FirstModalGame'
 import { useAppSelector } from '../components/redux/hooks/redux'
 import { IDescription } from '../types/sprint-game-models'
-import styles from '../components/game/sprint-game/sprint-game.module.css'
+// import styles from '../components/game/sprint-game/sprint-game.module.css'
 
 export default function AudioChallenge() {
   const descriptObj: IDescription = {

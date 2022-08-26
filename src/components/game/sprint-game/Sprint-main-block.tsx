@@ -1,3 +1,6 @@
+/* eslint-disable spaced-comment */
+/* eslint-disable @typescript-eslint/comma-dangle */
+/* eslint-disable no-sparse-arrays */
 import React, { useMemo } from 'react'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux'
 import GameStat from './GameStat'
@@ -11,8 +14,8 @@ function SprintGameMainBlock() {
   const gameData = useAppSelector((state) => state.sprintGameSlice.gameData)
   const timer = useAppSelector((state) => state.sprintGameSlice.timer)
   useMemo(() => {
-    dispatch(getRandomWord(gameData, counter))
-  }, [counter, dispatch, gameData])
+    dispatch(getRandomWord(gameData, /*counter*/))
+  }, [/*counter*/, dispatch, gameData])
   return (
     <>
       { Boolean(timer) && <Timer /> }

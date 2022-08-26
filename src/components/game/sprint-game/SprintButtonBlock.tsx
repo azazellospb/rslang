@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable spaced-comment */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/comma-dangle */
 import React, { useEffect } from 'react'
 import { getWordsDataForSprintGame } from '../../redux/fetching'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux'
@@ -13,14 +16,14 @@ function ButtonBlock() {
   const currentWord = useAppSelector((state) => state.sprintGameSlice.currentWord)
   const counter = useAppSelector((state) => state.sprintGameSlice.turnCounter)
   const falseButtonHandle = () => {
-    dispatch(getRandomWord(gameData, counter))
+    dispatch(getRandomWord(gameData, /*counter*/))
     const examination = comparisonWord?.id !== currentWord?.id
     dispatch(createStudiedWordAndPutItToArr(currentWord, examination))
     dispatch(fetchWordForSprintGameSuccess(gameData.filter((words) => words !== currentWord)))
     dispatch(turnCounter())
   }
   const truthButtonHandle = () => {
-    dispatch(getRandomWord(gameData, counter))
+    dispatch(getRandomWord(gameData, /*counter*/))
     const examination = comparisonWord?.id === currentWord?.id
     dispatch(createStudiedWordAndPutItToArr(currentWord, examination))
     dispatch(fetchWordForSprintGameSuccess(gameData.filter((words) => words !== currentWord)))
