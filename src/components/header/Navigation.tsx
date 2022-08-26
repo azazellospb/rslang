@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import {
-  Link,
+  Link, NavLink,
 } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
 import { clearUserPassw } from '../redux/reducers/userSlice'
@@ -43,8 +43,8 @@ export default function Navigation() {
   return (
     <nav className={styles.navigation} ref={navRef}>
       <ul className={styles.menuList}>
-        <Link to="/"><li>На главную</li></Link>
-        <Link to="/dictionary"><li>учебник</li></Link>
+        <NavLink to="/"><li>На главную</li></NavLink>
+        <NavLink to="/dictionary"><li>учебник</li></NavLink>
         <div className={styles.dropdown} ref={ref1}>
           <button className={styles.dropbtn} type="button">игры</button>
           <div id="dropdown" className={`${styles.dropdownContent}`} ref={ref2}>
@@ -52,7 +52,7 @@ export default function Navigation() {
             <Link to="/sprintchallenge">спринт</Link>
           </div>
         </div>
-        <Link to="/about"><li>о команде</li></Link>
+        <NavLink to="/about"><li>о команде</li></NavLink>
       </ul>
     </nav>
   )

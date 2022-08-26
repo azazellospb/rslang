@@ -11,8 +11,8 @@ function SprintGameMainBlock() {
   const gameData = useAppSelector((state) => state.sprintGameSlice.gameData)
   const timer = useAppSelector((state) => state.sprintGameSlice.timer)
   useMemo(() => {
-    dispatch(getRandomWord(gameData))
-  }, [dispatch, gameData])
+    dispatch(getRandomWord(gameData, counter))
+  }, [counter, dispatch, gameData])
   return (
     <>
       { Boolean(timer) && <Timer /> }
