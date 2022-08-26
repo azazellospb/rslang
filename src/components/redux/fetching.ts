@@ -2,17 +2,16 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable max-len */
 /* eslint-disable no-console */
-import { useSelector } from 'react-redux'
 import { AppDispatchState } from './store'
 import { fetchWordSuccess } from './reducers/wordSlice'
-import { IWord, IAggregatedWords, IUserWord } from '../../types/models'
+import { ICustomWord, IWord } from '../../types/models'
 import { IFetchParam } from '../../types/sprint-game-models'
 import {
   fetchWordForSprintGameError,
   fetchWordForSprintGameLoader,
   fetchWordForSprintGameSuccess,
 } from './reducers/sprintGameSlice'
-import { fetchAggregatedWords, getAggregatedWords } from './reducers/aggregatedSlice'
+import { fetchAggregatedWords } from './reducers/aggregatedSlice'
 
 const getWordsData = (
   page = 0,
@@ -50,17 +49,13 @@ export const getWordsDataForSprintGame = (paramForFetch: IFetchParam) => async (
   }
 }
 
-export const aggregateWords = (
-  group = '',
-  page = '',
-) => async (dispatch: AppDispatchState) => {
+export const aggregateWords = () => async (dispatch: AppDispatchState) => {
   try {
-    const filterCond = '"$or":[{"userWord.difficulty":"hard"}, {"userWord.optional.learned":true}]'
+    // const filterCond = '"$or":[{"userWord.difficulty":"hard"}, {"userWord.difficulty":"easy"}]'
     const userInfo = localStorage.getItem('userInfo') as string
     const { token, userId } = JSON.parse(userInfo)
-    // TODO: сделать лоадер
     const request = await fetch(
-      `http://localhost:8088/users/${userId}/aggregatedWords?group=${group}&page=${page}&filter={${filterCond}}`,
+      `http://localhost:8088/users/${userId}/words`,
       {
         method: 'GET',
         headers: {
@@ -69,10 +64,9 @@ export const aggregateWords = (
         },
       },
     )
-    const data: IAggregatedWords[] = await request.json()
-    const result = data[0].paginatedResults
+    const data: ICustomWord[] = await request.json()
 
-    dispatch(fetchAggregatedWords(result))
+    dispatch(fetchAggregatedWords(data))
   } catch (e) {
     console.log(e)
     // TODO: ОБОАБОТАТЬ ОШИБКУ
@@ -82,27 +76,72 @@ export const aggregateWords = (
 export const toggleDifficulty = (
   isDifficult: boolean,
   wordId: IWord['id'],
+  aggregatedWords: ICustomWord[],
 ) => async (dispatch: AppDispatchState) => {
   try {
-    const requestBody = isDifficult ? { difficulty: 'easy' } : { difficulty: 'hard' }
+    const difficultyState = isDifficult ? { difficulty: 'easy' } : { difficulty: 'hard' }
     const userInfo = localStorage.getItem('userInfo') as string
-    const userToken = JSON.parse(userInfo).token
-    const isAggregated = !!useSelector(getAggregatedWords).filter((item) => item._id === wordId).length
-    const otherAggregatedWords = useSelector(getAggregatedWords).filter((item) => item._id !== wordId)
+    const { token, userId } = JSON.parse(userInfo)
+    const isAggregated = !!aggregatedWords.find((item) => item.wordId === wordId)
+    let userWordProp = {}
+    const requestBody = { optional: {} }
+    if (isAggregated) {
+      userWordProp = aggregatedWords.find((item) => item.wordId === wordId)!
+      const oldState = { ...userWordProp }
+      userWordProp = Object.assign(oldState, difficultyState)
+    } else {
+      userWordProp = Object.assign(requestBody, difficultyState)
+    }
     const method = isAggregated ? 'PUT' : 'POST'
-    const response = await fetch(
-      `http://localhost:8088/users/${userToken}/words/${wordId}`,
+    await fetch(
+      `http://localhost:8088/users/${userId}/words/${wordId}`,
       {
         method,
         headers: {
           'Content-type': 'application/json',
-          Authorization: `Bearer ${userToken}`,
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(difficultyState),
+      },
+    )
+    dispatch(aggregateWords())
+  } catch (e) {
+    console.log(e)
+  }
+}
+export const toggleLearnState = (
+  isLearned: boolean,
+  wordId: IWord['id'],
+  aggregatedWords: ICustomWord[],
+) => async (dispatch: AppDispatchState) => {
+  try {
+    const learnState = isLearned ? { learned: false, rightCounter: 0 } : { learned: true, rightCounter: 2 }
+    const userInfo = localStorage.getItem('userInfo') as string
+    const { token, userId } = JSON.parse(userInfo)
+    const isAggregated = !!aggregatedWords.find((item) => item.wordId === wordId)
+    const requestBody = { difficulty: 'easy', optional: {} }
+    if (isAggregated) {
+      const wordOptions = { ...aggregatedWords.find((item) => item.wordId === wordId)?.optional }
+      const optionalObj = Object.assign(wordOptions!, learnState)
+      const { difficulty } = aggregatedWords.find((item) => item.wordId === wordId)!
+      requestBody.difficulty = difficulty!
+      requestBody.optional = optionalObj
+    } else {
+      requestBody.optional = learnState
+    }
+    const method = isAggregated ? 'PUT' : 'POST'
+    await fetch(
+      `http://localhost:8088/users/${userId}/words/${wordId}`,
+      {
+        method,
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(requestBody),
       },
     )
-    const updatedWord = await response.json() as IUserWord
-    dispatch(fetchAggregatedWords([...otherAggregatedWords, updatedWord]))
+    dispatch(aggregateWords())
   } catch (e) {
     console.log(e)
   }
