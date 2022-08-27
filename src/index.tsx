@@ -14,14 +14,11 @@ const root = ReactDOM.createRoot(docRoot)
 // eslint-disable-next-line import/prefer-default-export
 export const store = setupStore()
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
-    </Provider>
-
-  </React.StrictMode>,
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>,
 )
 
 // If you want to start measuring performance in your app, pass a function

@@ -27,6 +27,9 @@ function WordCard(obj: IAggregOrUserWord) {
   const userWords = useAppSelector(getAggregatedWords)
   if (name) {
     const isHard = !!userWords.find((item) => (item.difficulty === 'hard') && (item.wordId === id))
+    // const hardWord = userWords.find((item) => (item.wordId === id))
+    // eslint-disable-next-line react/destructuring-assignment
+    // const harddWord = userWords.find((item) => (item.id === id))
     const isLearned = !!userWords.find(
       (item) => ((item.optional?.learned === true) && (item.wordId === id))
       || ((item.optional?.rightCounter === (isHard ? 3 : 2)) && (item.wordId === id)),

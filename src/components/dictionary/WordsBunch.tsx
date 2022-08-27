@@ -13,8 +13,7 @@ export default function WordsBunch() {
   // eslint-disable-next-line no-console
   const dispatch = useAppDispatch()
   const data = useSelector(getWordsArray)
-  const pageData = useSelector(getWordsArray)
-    .filter((x) => (x.page === +page) && (x.group === +group))
+  const pageData = data.filter((x) => (x.page === +page) && (x.group === +group))
   useEffect(() => {
     dispatch(getWordsData(+page, +group, data))
   }, [dispatch, group, page, data])

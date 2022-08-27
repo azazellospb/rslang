@@ -3,7 +3,7 @@
 /* eslint-disable max-len */
 /* eslint-disable no-console */
 import { AppDispatchState } from './store'
-import { fetchWordSuccess } from './reducers/wordSlice'
+import { fetchUserWords, fetchWordSuccess } from './reducers/wordSlice'
 import { ICustomWord, IWord } from '../../types/models'
 import { IFetchParam } from '../../types/sprint-game-models'
 import {
@@ -17,16 +17,20 @@ const getWordsData = (
   page = 0,
   group = 0,
   data: IWord[] = [],
-  id = null,
+  id = '',
 ) => async (dispatch: AppDispatchState) => {
   try {
     // TODO: сделать лоадер
-    if (!id) {
+    if (!id.length) {
       if (data.filter((x) => (x.page === page) && (x.group === group)).length === 0) {
         const response: Response = await fetch(`http://localhost:8088/words?group=${group}&page=${page}`)
         const dataBE: IWord[] = await response.json()
         dispatch(fetchWordSuccess([...data, ...dataBE]))
       }
+    } else {
+      const response: Response = await fetch(`http://localhost:8088/words/${id}`)
+      const word: IWord = await response.json()
+      dispatch(fetchUserWords(word))
     }
   } catch (e) {
     console.log(e)
