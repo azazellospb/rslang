@@ -2,16 +2,18 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/no-danger */
 import React, { useEffect, useRef } from 'react'
-import { IAggregOrUserWord } from '../../types/models'
+import { IAggregOrUserWord, IWord } from '../../types/models'
 import { toggleDifficulty, toggleLearnState } from '../redux/fetching'
 import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
-import { getAggregatedWords } from '../redux/reducers/aggregatedSlice'
+import { deleteHardWord, getAggregatedWords } from '../redux/reducers/aggregatedSlice'
 import { getUserName } from '../redux/reducers/userSlice'
+import { deleteUserWord } from '../redux/reducers/wordSlice'
 import styles from './WordCard.module.css'
 
-function WordCard(obj: IAggregOrUserWord) {
+function WordCard(props: { obj: IAggregOrUserWord; callback: (arg0: boolean) => void }) {
   const ref1 = useRef<HTMLButtonElement>(null)
   const ref2 = useRef<HTMLButtonElement>(null)
+  const { obj, callback } = props
   const {
     word,
     image,
@@ -25,6 +27,7 @@ function WordCard(obj: IAggregOrUserWord) {
   const id = (obj.id || obj._id) as string
   const name = useAppSelector(getUserName)
   const userWords = useAppSelector(getAggregatedWords)
+  const wordToDel = userWords.find((item) => item.wordId === id)
   if (name) {
     const isHard = !!userWords.find((item) => (item.difficulty === 'hard') && (item.wordId === id))
     // const hardWord = userWords.find((item) => (item.wordId === id))
@@ -38,6 +41,11 @@ function WordCard(obj: IAggregOrUserWord) {
     useEffect(() => {
       const toggleDifficultyEffect = () => {
         dispatch(toggleDifficulty(isHard, id, userWords))
+        if (isHard) {
+          callback(true)
+          dispatch(deleteUserWord(obj as IWord))
+          dispatch(deleteHardWord(wordToDel!))
+        }
       }
       const toggleLearnedEffect = () => {
         dispatch(toggleLearnState(isLearned, id, userWords))

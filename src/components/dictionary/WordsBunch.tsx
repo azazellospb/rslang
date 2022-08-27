@@ -30,8 +30,8 @@ export default function WordsBunch() {
       {current < 28 ? <NavLink to={(current + 2).toString() || ''}><li>{'>>'}</li></NavLink> : null}
       {current !== 29 ? <NavLink to="29"><li>В конец</li></NavLink> : null}
       {pageData.map((item) => (
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        <WordCard {...item} />
+        // eslint-disable-next-line react/jsx-props-no-spreading, no-console
+        <WordCard obj={item} callback={() => console.log('!')} />
       ))}
     </div>
   )
