@@ -10,7 +10,7 @@ import { getUserName } from '../redux/reducers/userSlice'
 import { deleteUserWord } from '../redux/reducers/wordSlice'
 import styles from './WordCard.module.css'
 
-function WordCard(props: { obj: IAggregOrUserWord; callback: (arg0: boolean) => void }) {
+function WordCard(props: { obj: IAggregOrUserWord; callback: (reload: boolean) => void }) {
   const ref1 = useRef<HTMLButtonElement>(null)
   const ref2 = useRef<HTMLButtonElement>(null)
   const { obj, callback } = props
@@ -27,7 +27,9 @@ function WordCard(props: { obj: IAggregOrUserWord; callback: (arg0: boolean) => 
   const id = (obj.id || obj._id) as string
   const name = useAppSelector(getUserName)
   const userWords = useAppSelector(getAggregatedWords)
-  const wordToDel = userWords.find((item) => item.wordId === id)
+  const currentWord = userWords.find((item) => item.wordId === id)
+  const rightCount = currentWord?.optional?.rightCounter || '0'
+  const wrongCount = currentWord?.optional?.wrongCounter || '0'
   if (name) {
     const isHard = !!userWords.find((item) => (item.difficulty === 'hard') && (item.wordId === id))
     // const hardWord = userWords.find((item) => (item.wordId === id))
@@ -44,11 +46,17 @@ function WordCard(props: { obj: IAggregOrUserWord; callback: (arg0: boolean) => 
         if (isHard) {
           callback(true)
           dispatch(deleteUserWord(obj as IWord))
-          dispatch(deleteHardWord(wordToDel!))
+          dispatch(deleteHardWord(currentWord!))
         }
       }
       const toggleLearnedEffect = () => {
+        callback(true)
         dispatch(toggleLearnState(isLearned, id, userWords))
+        if (isHard && !isLearned) {
+          dispatch(toggleDifficulty(isHard, id, userWords))
+          dispatch(deleteUserWord(obj as IWord))
+          dispatch(deleteHardWord(currentWord!))
+        }
       }
       const toggleHardBtn = ref1.current!
       const toggleLearnedBtn = ref2.current!
@@ -67,6 +75,12 @@ function WordCard(props: { obj: IAggregOrUserWord; callback: (arg0: boolean) => 
             <h3>{word}</h3>
             {!isLearned && isHard && <h5>#hardword</h5>}
             {isLearned && <h5>#learned</h5>}
+            <h4>
+              Statistics:&nbsp;&nbsp;
+              <span className={`${styles.right} ${styles.popupInfo}`} data-title="правильных ответов">{rightCount}</span>
+              <span>{`${' / '}`}</span>
+              <span className={`${styles.wrong} ${styles.popupInfo}`} data-title="неправильных ответов">{wrongCount}</span>
+            </h4>
             <span>
               <strong>Word meaning:</strong>
               <br />
@@ -83,7 +97,15 @@ function WordCard(props: { obj: IAggregOrUserWord; callback: (arg0: boolean) => 
         <div className={`${styles.card__side} ${styles.card__side_back}`}>
           <img className={styles.wordImg} src={`http://localhost:8088/${image}`} alt={word} />
           <div className={styles.cardContent}>
-            <h3>{wordTranslate}</h3>
+            <h3>{word}</h3>
+            {!isLearned && isHard && <h5>#hardword</h5>}
+            {isLearned && <h5>#learned</h5>}
+            <h4>
+              Statistics:&nbsp;&nbsp;
+              <span className={`${styles.right} ${styles.popupInfo}`} data-title="правильных ответов">{rightCount}</span>
+              <span>{`${' / '}`}</span>
+              <span className={`${styles.wrong} ${styles.popupInfo}`} data-title="неправильных ответов">{wrongCount}</span>
+            </h4>
             <span>
               <strong>Значение слова:</strong>
               <br />
@@ -95,7 +117,9 @@ function WordCard(props: { obj: IAggregOrUserWord; callback: (arg0: boolean) => 
               <br />
               {textExampleTranslate}
             </span>
+            <br />
             {!isLearned && (<button type="button" ref={ref1}>{!isHard ? ('Добавить в сложные') : ('Убрать из сложных')}</button>)}
+            <span>  </span>
             <button type="button" ref={ref2}>{!isLearned ? ('Выучено') : ('Повторить')}</button>
           </div>
         </div>
@@ -106,7 +130,7 @@ function WordCard(props: { obj: IAggregOrUserWord; callback: (arg0: boolean) => 
       <div className={`${styles.card__side} ${styles.card__side_front}`}>
         <img className={styles.wordImg} src={`http://localhost:8088/${image}`} alt={word} />
         <div className={styles.cardContent}>
-          <h3>{word}</h3>
+          <h3>{wordTranslate}</h3>
           <span>
             <strong>Word meaning:</strong>
             <br />
