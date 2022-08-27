@@ -4,7 +4,7 @@
 /* eslint-disable no-console */
 import { AppDispatchState } from './store'
 import { fetchWordSuccess } from './reducers/wordSlice'
-import { ICustomWord, IWord } from '../../types/models'
+import { ICustomWord, IParams, IWord } from '../../types/models'
 import { IFetchParam } from '../../types/sprint-game-models'
 import {
   fetchWordForSprintGameError,
@@ -33,7 +33,6 @@ const getWordsData = (
     // TODO: ОБОАБОТАТЬ ОШИБКУ
   }
 }
-
 export default getWordsData
 
 export const getWordsDataForSprintGame = (paramForFetch: IFetchParam) => async (dispatch: AppDispatchState) => {
@@ -48,13 +47,36 @@ export const getWordsDataForSprintGame = (paramForFetch: IFetchParam) => async (
     dispatch(fetchWordForSprintGameError('Something went wrong...'))
   }
 }
+export const postPutWordsToServerFromGame = (params: IParams) => async (dispatch: AppDispatchState) => {
+  // const url = 'http://localhost:8088/users/'
+  const userInfo = localStorage.getItem('userInfo') as string
+  const { token, userId } = JSON.parse(userInfo)
+  const obj = {
+    difficulty: params.difficulty,
+    optional: params.optional,
+  }
+  try {
+    await fetch(
+      `http://localhost:8088/users/${userId}/words/${params.wordId}`,
+      {
+        method: params.method,
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(obj),
+      },
+    )
+  } catch (e: string | unknown) {
+    dispatch(fetchWordForSprintGameError('Something went wrong...'))
+  }
+}
 
 export const aggregateWords = () => async (dispatch: AppDispatchState) => {
   try {
     // const filterCond = '"$or":[{"userWord.difficulty":"hard"}, {"userWord.difficulty":"easy"}]'
     const userInfo = localStorage.getItem('userInfo') as string
     const { token, userId } = JSON.parse(userInfo)
-    console.log(userId, token)
     const request = await fetch(
       `http://localhost:8088/users/${userId}/words`,
       {
@@ -66,7 +88,6 @@ export const aggregateWords = () => async (dispatch: AppDispatchState) => {
       },
     )
     const data: ICustomWord[] = await request.json()
-    console.log(data)
 
     dispatch(fetchAggregatedWords(data))
   } catch (e) {
