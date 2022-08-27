@@ -28,8 +28,9 @@ function WordCard(props: { obj: IAggregOrUserWord; callback: (reload: boolean) =
   const name = useAppSelector(getUserName)
   const userWords = useAppSelector(getAggregatedWords)
   const currentWord = userWords.find((item) => item.wordId === id)
-  const rightCount = currentWord?.optional?.rightCounter || '0'
-  const wrongCount = currentWord?.optional?.wrongCounter || '0'
+  const rightCount = currentWord?.optional?.rightCounter
+  const wrongCount = currentWord?.optional?.wrongCounter
+  const hide = !!(rightCount || wrongCount)
   if (name) {
     const isHard = !!userWords.find((item) => (item.difficulty === 'hard') && (item.wordId === id))
     // const hardWord = userWords.find((item) => (item.wordId === id))
@@ -75,12 +76,14 @@ function WordCard(props: { obj: IAggregOrUserWord; callback: (reload: boolean) =
             <h3>{word}</h3>
             {!isLearned && isHard && <h5>#hardword</h5>}
             {isLearned && <h5>#learned</h5>}
+            {hide && (
             <h4>
               Statistics:&nbsp;&nbsp;
-              <span className={`${styles.right} ${styles.popupInfo}`} data-title="правильных ответов">{rightCount}</span>
+              <span className={`${styles.right} ${styles.popupInfo}`} data-title="правильных ответов">{rightCount || '0'}</span>
               <span>{`${' / '}`}</span>
-              <span className={`${styles.wrong} ${styles.popupInfo}`} data-title="неправильных ответов">{wrongCount}</span>
+              <span className={`${styles.wrong} ${styles.popupInfo}`} data-title="неправильных ответов">{wrongCount || '0'}</span>
             </h4>
+            )}
             <span>
               <strong>Word meaning:</strong>
               <br />
@@ -97,15 +100,17 @@ function WordCard(props: { obj: IAggregOrUserWord; callback: (reload: boolean) =
         <div className={`${styles.card__side} ${styles.card__side_back}`}>
           <img className={styles.wordImg} src={`http://localhost:8088/${image}`} alt={word} />
           <div className={styles.cardContent}>
-            <h3>{word}</h3>
+            <h3>{wordTranslate}</h3>
             {!isLearned && isHard && <h5>#hardword</h5>}
             {isLearned && <h5>#learned</h5>}
-            <h4>
-              Statistics:&nbsp;&nbsp;
-              <span className={`${styles.right} ${styles.popupInfo}`} data-title="правильных ответов">{rightCount}</span>
-              <span>{`${' / '}`}</span>
-              <span className={`${styles.wrong} ${styles.popupInfo}`} data-title="неправильных ответов">{wrongCount}</span>
-            </h4>
+            {hide && (
+              <h4>
+                Statistics:&nbsp;&nbsp;
+                <span className={`${styles.right} ${styles.popupInfo}`} data-title="правильных ответов">{rightCount || '0'}</span>
+                <span>{`${' / '}`}</span>
+                <span className={`${styles.wrong} ${styles.popupInfo}`} data-title="неправильных ответов">{wrongCount || '0'}</span>
+              </h4>
+            )}
             <span>
               <strong>Значение слова:</strong>
               <br />
@@ -119,7 +124,6 @@ function WordCard(props: { obj: IAggregOrUserWord; callback: (reload: boolean) =
             </span>
             <br />
             {!isLearned && (<button type="button" ref={ref1}>{!isHard ? ('Добавить в сложные') : ('Убрать из сложных')}</button>)}
-            <span>  </span>
             <button type="button" ref={ref2}>{!isLearned ? ('Выучено') : ('Повторить')}</button>
           </div>
         </div>

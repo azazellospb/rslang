@@ -29,7 +29,7 @@ export default function AggregatedWords() {
       {(toLoad.length === 0) && <span>Please add some words to see the list</span>}
       {toLoad.map((item) => (
         // eslint-disable-next-line react/jsx-props-no-spreading
-        <WordCard obj={item} callback={setReload} />
+        <WordCard key={item.id + new Date().getTime()} obj={item} callback={setReload} />
       ))}
     </div>
   )

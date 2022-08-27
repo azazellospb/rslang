@@ -37,7 +37,7 @@ export default function WordsBunch() {
       <div className={styles.wordBlock}>
         {pageData.map((item) => (
           // eslint-disable-next-line react/jsx-props-no-spreading, no-console
-          <WordCard obj={item} callback={() => console.log('!')} />
+          <WordCard key={item.id + new Date().getTime()} obj={item} callback={() => console.log('!')} />
         ))}
       </div>
     </div>
