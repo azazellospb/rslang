@@ -40,11 +40,16 @@
 }
 .buttonList{
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 90%;
   height: 65px;
   margin-top: 20px;
+}
+.between{
+  justify-content: space-between;
+}
+.center{
+  justify-content: center;
 }
 .categoryButton{
   width: 60px;

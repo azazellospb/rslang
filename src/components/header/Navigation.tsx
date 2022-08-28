@@ -5,7 +5,7 @@ import {
   Link, NavLink,
 } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
-import { modalToggle } from '../redux/reducers/sprintGameSlice'
+import { modalToggle, whereEnterGame } from '../redux/reducers/sprintGameSlice'
 import { clearUserPassw } from '../redux/reducers/userSlice'
 import styles from './Navigation.module.css'
 
@@ -53,7 +53,7 @@ export default function Navigation() {
           <div
             id="dropdown"
             className={`${styles.dropdownContent}`}
-            onClick={() => dispatch(modalToggle(true))}
+            onClick={() => { dispatch(modalToggle(true)); dispatch(whereEnterGame(false)) }}
             ref={ref2}
           >
             <Link to="/audiochallenge">аудиовызов</Link>
