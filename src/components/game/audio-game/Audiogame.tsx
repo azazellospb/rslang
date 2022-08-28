@@ -13,6 +13,8 @@ import { audioGameSlice } from '../../redux/reducers/audioGameSlice'
 import styles from './Audiogame.module.css'
 import AnswerList from './game-components/AnswerList'
 import AudioIcon from './game-components/AudioIcon'
+import NextCardBtn from './game-components/NextCardBtn'
+// import NextCardBtn from './game-components/NextCardBtn'
 
 function Audiogame() {
   const dispatch = useAppDispatch()
@@ -22,24 +24,32 @@ function Audiogame() {
   const data = useAppSelector((state) => state.sprintGameSlice.gameData)
   const voiceBtn = useRef<HTMLAudioElement>(null)
 
+  // const { currentWord } = useAppSelector((state) => state.audioGameSlice)
+  // currentWord = data[0] as IWord
   const currtWord = data[wordIndex]
   dispatch(audioGameSlice.actions.setCurrentWord(currtWord))
+  //
   let customAnswers: IWord[] = []
-  const fakeAnswers: IWord[] = data.filter((el) => el.id !== currtWord.id)
+  // const fakeAnswers: IWord[] = data.filter((el) => el.id !== currtWord.id)
 
-  function randomItem(arr: IWord[]) {
+  function randomIndx(arr: IWord[]) {
     const rand = Math.floor(Math.random() * arr.length)
-    const rValue = arr[rand]
-    return rValue
+    return rand
   }
   function randomiser(arr: IWord[]) {
-    arr = []
-    const word = [...arr, currtWord]
-    for (let i = 0; i < 4; i += 1) {
-      word.unshift(randomItem(fakeAnswers))
+    customAnswers = arr
+    customAnswers = [...arr, currtWord]
+
+    while (customAnswers.length < 5) {
+      const rIndex = randomIndx(data)
+      const word = customAnswers.find((el) => el.id === data[rIndex].id)
+      if (!word) {
+        customAnswers.push(data[rIndex])
+      }
     }
-    return word.sort(() => 0.5 - Math.random())
+    return customAnswers.sort(() => 0.5 - Math.random())
   }
+
   customAnswers = randomiser(customAnswers)
 
   function changeProgress() {
@@ -94,14 +104,16 @@ function Audiogame() {
           </div>
         </div>
         <AnswerList currtWord={data[wordIndex]} customAnswers={customAnswers} />
+        {/* <AnswerList /> */}
         <div>
           <input
             type="button"
-            // value={!changeStyle ? 'Не знаю' : '->'}
+            // value={!changeStyle 'Не знаю' : '->'}
             // className={changeStyle ? styles.answerBtn : `${styles.answerBtn} ${styles.changeBtn}`}
             onClick={handleConfirmBtn}
           />
         </div>
+        {/* <NextCardBtn /> */}
       </div>
     </div>
   )

@@ -12,9 +12,10 @@ import sprintGameSlice, {
 import styles from '../Audiogame.module.css'
 
 function Answer({ keyNumber, currtWord, copyKey }: IAnswerBtn) {
+// function Answer({ keyNumber, currtWord, copyKey }: IAnswerBtn) {
   const { currentWord, changeStyle } = useAppSelector((state) => state.audioGameSlice)
   const dispatch = useAppDispatch()
-  console.log(copyKey)
+  // console.log(copyKey)
   const data = useAppSelector((state) => state.sprintGameSlice.gameData)
   // dispatch(fetchDeleteWord(currtWord))
   const [styleBtn, setStyle] = useState('')
@@ -26,7 +27,7 @@ function Answer({ keyNumber, currtWord, copyKey }: IAnswerBtn) {
   function handleClick(
     e: React.MouseEvent<HTMLElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>,
   ) {
-    console.log(e.currentTarget)
+    // console.log(e.currentTarget)
 
     if (currtWord.word === currentWord?.word) {
       dispatch(audioGameSlice.actions.setStyles(true))
