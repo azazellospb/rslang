@@ -4,3 +4,17 @@
   gap:3vw;
   width: 100%;
 }
+.groupsList {
+  background-color: antiquewhite;
+  border-radius: 5px;
+  padding: 10px;
+  list-style-type: none;
+  margin: 0 auto;
+  width: 80vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.groupsList a {
+  border-bottom: 2px solid transparent;
+}

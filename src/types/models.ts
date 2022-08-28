@@ -37,7 +37,7 @@ export interface ICustomWord {
 }
 
 export interface IAggregatedWords {
-  paginatedResults: IUserWord[]
+  paginatedResults: ICustomWord[]
 }
 
 export interface IUserWord extends Omit<IWord, 'id'> {
