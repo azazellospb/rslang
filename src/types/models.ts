@@ -33,11 +33,11 @@ export interface ICustomWord {
   id?: string
   difficulty?: string
   wordId?: string
-  optional?: { rightCounter?: number, learned?: boolean }
+  optional?: { rightCounter?: number, wrongCounter?: number, learned?: boolean }
 }
 
 export interface IAggregatedWords {
-  paginatedResults: IUserWord[]
+  paginatedResults: ICustomWord[]
 }
 
 export interface IUserWord extends Omit<IWord, 'id'> {
