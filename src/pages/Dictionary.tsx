@@ -1,5 +1,7 @@
+/* eslint-disable max-len */
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import DictionaryGameLinkBlock from '../components/dictionary/gameLinkBlock/DictionaryGameLinkBlock'
 import WordsBunch from '../components/dictionary/WordsBunch'
 import { useAppSelector } from '../components/redux/hooks/redux'
 import { getUserName } from '../components/redux/reducers/userSlice'
@@ -21,6 +23,7 @@ export default function Dictionary() {
         <NavLink style={({ isActive }) => (isActive ? isActiveStyle : {})} to="/dictionary/4/0"><li>Section C1</li></NavLink>
         <NavLink style={({ isActive }) => (isActive ? isActiveStyle : {})} to="/dictionary/5/0"><li>Section C2</li></NavLink>
         {name && <NavLink style={({ isActive }) => (isActive ? isActiveStyle : {})} to="/dictionary/difficult"><li>Difficult words</li></NavLink>}
+        <DictionaryGameLinkBlock />
       </ul>
       <WordsBunch />
     </div>

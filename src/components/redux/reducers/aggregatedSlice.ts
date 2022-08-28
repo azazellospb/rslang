@@ -13,7 +13,6 @@ const initialState: IAggregatedWordsState = {
   data: [],
   hardWords: [],
 }
-
 export const aggregatedSlice = createSlice({
   name: 'aggregatedData',
   initialState,

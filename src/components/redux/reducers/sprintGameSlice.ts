@@ -5,7 +5,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IWord } from '../../../types/models'
-import { IStudiedWord } from '../../../types/sprint-game-models'
+import { IFetchParam, IStudiedWord } from '../../../types/sprint-game-models'
 
 interface ISprint {
   gameData: IWord[],
@@ -13,11 +13,13 @@ interface ISprint {
   isModalOpen: boolean,
   currentWord: IWord | null | undefined,
   comparisonWord: IWord | null | undefined,
+  currentGroupPage: IFetchParam | null | undefined,
   gameLoader: boolean,
   error: string | unknown,
   timer: number,
   score: number,
   turnCounter: number,
+  isFromDictionary: boolean,
 }
 
 const initialState: ISprint = {
@@ -26,11 +28,13 @@ const initialState: ISprint = {
   isModalOpen: true,
   currentWord: null,
   comparisonWord: null,
+  currentGroupPage: null,
   gameLoader: true,
   error: '',
   timer: 5,
   score: 0,
   turnCounter: 1,
+  isFromDictionary: false,
 }
 
 const sprintGameSlice = createSlice({
@@ -75,6 +79,12 @@ const sprintGameSlice = createSlice({
     modalToggle(state, action: PayloadAction<boolean>) {
       state.isModalOpen = action.payload
     },
+    whereEnterGame(state, action: PayloadAction<boolean>) {
+      state.isFromDictionary = action.payload
+    },
+    currentGroupPage(state, action: PayloadAction<IFetchParam>) {
+      state.currentGroupPage = action.payload
+    },
 
   },
 })
@@ -90,6 +100,8 @@ export const {
   gameScore,
   turnCounter,
   modalToggle,
+  whereEnterGame,
+  currentGroupPage,
 } = sprintGameSlice.actions
 
 export default sprintGameSlice.reducer
