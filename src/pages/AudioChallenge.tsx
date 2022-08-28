@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import React from 'react'
-import Audiogame from '../components/game/audio-game/Audiogame'
+// import Audiogame from '../components/game/audio-game/Audiogame'
+import AudiogameMain from '../components/game/audio-game/AudiogameMain'
 import FirstModalForGame from '../components/game/modal/FirstModalGame'
 import { useAppSelector } from '../components/redux/hooks/redux'
 import { IDescription } from '../types/sprint-game-models'
@@ -15,7 +16,7 @@ export default function AudioChallenge() {
   return (
     <div className="audiogame-page">
       {isOpenModal && <FirstModalForGame obj={descriptObj} />}
-      {!isOpenModal && <Audiogame />}
+      {!isOpenModal && <AudiogameMain />}
     </div>
   )
 }

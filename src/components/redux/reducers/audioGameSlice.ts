@@ -12,6 +12,8 @@ const initialState: IAudioGame = {
   rightWords: [],
   changeStyle: false,
   customAnswers: [],
+  counterWord: 0,
+  counterProgress: 1,
 }
 
 export const audioGameSlice = createSlice({
@@ -43,6 +45,12 @@ export const audioGameSlice = createSlice({
       state.changeStyle = action.payload
     },
     // getCustomAnswers(state, )
+    fetchCounterWord(state, action: PayloadAction<number>) {
+      state.counterWord = action.payload
+    },
+    fetchCounterProgress(state, action: PayloadAction<number>) {
+      state.counterProgress = action.payload
+    },
   },
 })
 
@@ -57,6 +65,8 @@ interface IAudioGame {
   rightWords: IWord[]
   changeStyle: boolean
   customAnswers: IWord[]
+  counterWord: number
+  counterProgress: number
 }
 
 interface ILearnedWord {

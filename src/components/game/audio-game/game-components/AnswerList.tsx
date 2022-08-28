@@ -1,40 +1,46 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-param-reassign */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { MutableRefObject, useState } from 'react'
 import { IWord } from '../../../../types/models'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux'
 import Answer from './Answer'
 import styles from '../Audiogame.module.css'
-import NextCardBtn from './NextCardBtn'
 import { audioGameSlice } from '../../../redux/reducers/audioGameSlice'
 
-function AnswerList({ currtWord, customAnswers }: IAnswerProps) {
-// function AnswerList() {
+function AnswerList() {
   const data = useAppSelector((state) => state.sprintGameSlice.gameData)
   const dispatch = useAppDispatch()
-  // const { changeStyle } = useAppSelector((state) => state.audioGameSlice)
-  const [wordIndex, setwordIndex] = useState(0)
-  const [progress, setProgress] = useState(1)
-  // const currtWord = data[wordIndex]
+  let counterWord = useAppSelector((state) => state.audioGameSlice.counterWord)
+  // const currtWord = data[counterWord]
+
+  if (counterWord > 19) {
+    counterWord = 19
+    console.log('counterWord')
+  }
+  const currtWord = data[counterWord]
   dispatch(audioGameSlice.actions.setCurrentWord(currtWord))
 
-  // let customAnswers: IWord[] = []
-  const fakeAnswers: IWord[] = data.filter((el) => el.id !== currtWord.id)
+  let customAnswers: IWord[] = []
+  function randomIndx(arr: IWord[]) {
+    const rand = Math.floor(Math.random() * arr.length)
+    return rand
+  }
+  function randomiser(arr: IWord[]) {
+    customAnswers = arr
+    // currtWord === null ? (customAnswers = data) : (customAnswers = [...arr].concat(currtWord))
+    customAnswers = [...arr, currtWord]
 
-  // function randomItem(arr: IWord[]) {
-  //   const rand = Math.floor(Math.random() * arr.length)
-  //   const rValue = arr[rand]
-  //   return rValue
-  // }
-  // function randomiser(arr: IWord[]) {
-  //   arr = []
-  //   const word = [...arr, currtWord]
-  //   for (let i = 0; i < 4; i += 1) {
-  //     word.unshift(randomItem(fakeAnswers))
-  //   }
-  //   return word.sort(() => 0.5 - Math.random())
-  // }
-  // customAnswers = randomiser(customAnswers)
+    while (customAnswers.length < 5) {
+      const rIndex = randomIndx(data)
+      const word = customAnswers.find((el) => el.id === data[rIndex].id)
+      if (!word) {
+        customAnswers.push(data[rIndex])
+      }
+    }
+    return customAnswers.sort(() => 0.5 - Math.random())
+  }
+  customAnswers = randomiser(customAnswers)
 
   return (
     <div className={styles.answers}>
@@ -43,21 +49,15 @@ function AnswerList({ currtWord, customAnswers }: IAnswerProps) {
           keyNumber={indx + 1}
           currtWord={customAnswers[indx]}
           key={item.id + new Date().getTime() + indx.toString()}
-          copyKey={item.id + new Date().getTime() + indx.toString()}
+          // copyKey={item.id + new Date().getTime() + indx.toString()}
         />
       ))}
-      {/* <NextCardBtn /> */}
     </div>
   )
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export default AnswerList
 interface IAnswerProps {
-  // [x: string]: any
-  // words: IWord[]
   currtWord: IWord
   customAnswers: IWord[]
-  // onClick: () => void
-  // ref?: MutableRefObject
 }
