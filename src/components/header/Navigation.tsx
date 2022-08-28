@@ -1,8 +1,11 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useRef, useEffect } from 'react'
 import {
   Link, NavLink,
 } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
+import { modalToggle } from '../redux/reducers/sprintGameSlice'
 import { clearUserPassw } from '../redux/reducers/userSlice'
 import styles from './Navigation.module.css'
 
@@ -47,7 +50,12 @@ export default function Navigation() {
         <NavLink to="/dictionary"><li>учебник</li></NavLink>
         <div className={styles.dropdown} ref={ref1}>
           <button className={styles.dropbtn} type="button">игры</button>
-          <div id="dropdown" className={`${styles.dropdownContent}`} ref={ref2}>
+          <div
+            id="dropdown"
+            className={`${styles.dropdownContent}`}
+            onClick={() => dispatch(modalToggle(true))}
+            ref={ref2}
+          >
             <Link to="/audiochallenge">аудиовызов</Link>
             <Link to="/sprintchallenge">спринт</Link>
           </div>
