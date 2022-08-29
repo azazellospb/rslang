@@ -1,14 +1,14 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-console */
 import React from 'react'
-import { /* IFetchParam, */ IProp } from '../../../types/sprint-game-models'
-// import { getWordsDataForSprintGame } from '../../redux/fetching'
+import { IProp } from '../../../types/sprint-game-models'
 import { useAppDispatch } from '../../redux/hooks/redux'
 import { choiceCategory } from '../sprint-game/sprint-game-actions'
 import styles from './GameModal.module.css'
 
-function CategoryButton({ id, num }:IProp) {
+function CategoryButton({ id, num }: IProp) {
   const dispatch = useAppDispatch()
+
   return (
     <button
       id={String(id)}

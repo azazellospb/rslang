@@ -5,12 +5,14 @@ import sprintGameSlice from './reducers/sprintGameSlice'
 import aggregatedSlice from './reducers/aggregatedSlice'
 import userReducer from './reducers/userSlice'
 import wordSlice from './reducers/wordSlice'
+import audioGameSlice from './reducers/audioGameSlice'
 
 const rootReducer = combineReducers({
   wordSlice,
   aggregatedSlice,
   sprintGameSlice,
   userReducer,
+  audioGameSlice,
 })
 /* eslint-disable implicit-arrow-linebreak */
 export const setupStore = () =>

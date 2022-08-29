@@ -46,6 +46,7 @@ export const getWordsDataForSprintGame = (paramForFetch: IFetchParam) => async (
     dispatch(fetchWordForSprintGameLoader())
     const response: Response = await fetch(`${url}/?group=${textbookSection}&page=${page}`)
     const data: IWord[] = await response.json()
+    console.log(data)
     dispatch(fetchWordForSprintGameSuccess(data))
   } catch (e: string | unknown) {
     dispatch(fetchWordForSprintGameError('Something went wrong...'))
