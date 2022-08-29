@@ -73,3 +73,12 @@ export const choiceCategory = (e: React.MouseEvent<HTMLButtonElement, MouseEvent
   }
   dispatch(getWordsDataForSprintGame(paramForFetch))
 }
+
+// export const filteredGameData = (gameData: IWord[], aggregatedData: ICustomWord[]) => (dispatch: AppDispatchState) => {
+//   const aggregatedLearnedDataWords = aggregatedData.filter((item, i) => item.optional?.learned === true)
+//   const notLearnedWords = gameData.filter((word) => word.id !== aggregatedLearnedDataWords.find((item) => item.wordId === word.id)?.wordId)
+//   dispatch(fetchWordForSprintGameSuccess(notLearnedWords))
+//   // dispatch(allLearnedOnPage(true))
+//   // !notLearnedWords.length && dispatch(allLearnedOnPage(true))
+//   // !notLearnedWords.length && dispatch(timerWork(0))
+// }
