@@ -56,7 +56,7 @@ export const audioGameSlice = createSlice({
 
 export default audioGameSlice.reducer
 
-interface IAudioGame {
+export interface IAudioGame {
   words: IWord[]
   learnedWords: ILearnedWord[]
   isLoaded: boolean
@@ -69,20 +69,20 @@ interface IAudioGame {
   counterProgress: number
 }
 
-interface ILearnedWord {
-  id: string
-  group: number
-  page: number
-  word: string
-  image: string
-  audio: string
-  audioMeaning: string
-  audioExample: string
-  textMeaning: string
-  textExample: string
-  transcription: string
-  textExampleTranslate: string
-  textMeaningTranslate: string
-  wordTranslate: string
+export interface ILearnedWord {
+  id?: string | undefined;
+  group?: number | undefined;
+  page?: number | undefined;
+  word?: string | undefined;
+  image?: string | undefined;
+  audio?: string | undefined;
+  audioMeaning?: string | undefined;
+  audioExample?: string | undefined;
+  textMeaning?: string | undefined;
+  textExample?: string | undefined;
+  transcription?: string | undefined;
+  textExampleTranslate?: string | undefined;
+  textMeaningTranslate?: string | undefined;
+  wordTranslate?: string | undefined;
   learned?: boolean
 }

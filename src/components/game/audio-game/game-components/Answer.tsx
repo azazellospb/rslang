@@ -9,6 +9,8 @@ import sprintGameSlice, {
   fetchDeleteWord,
   fetchWordForSprintGameSuccess,
 } from '../../../redux/reducers/sprintGameSlice'
+import createLearnedWordAndPutItToArr from '../audiogame-actions'
+// import { createStudiedWordAndPutItToArr } from '../../sprint-game/sprint-game-actions'
 import styles from '../Audiogame.module.css'
 
 function Answer({ keyNumber, currtWord }: IAnswerBtn) {
@@ -26,10 +28,12 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
     if (currtWord.word === currentWord?.word) {
       dispatch(audioGameSlice.actions.setStyles(true))
       setStyle(`${styles.answerRight}`)
+      dispatch(createLearnedWordAndPutItToArr(currtWord, true))
       // console.log('Yes', currtWord.word)
     } else {
       dispatch(audioGameSlice.actions.setStyles(true))
       setStyle(`${styles.answerWrong}`)
+      dispatch(createLearnedWordAndPutItToArr(currtWord, false))
     }
   }
 
