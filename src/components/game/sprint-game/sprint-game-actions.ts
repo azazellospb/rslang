@@ -36,14 +36,17 @@ export const createStudiedWordAndPutItToArr = (currentWord: IWord | null | undef
 export const createObjectForPostOrPutItToUserAggregatedWords = (currentWord: IWord | null | undefined, examination: boolean, aggregatedWordArr: ICustomWord[]) => (dispatch: AppDispatchState) => {
   const isAggregated = aggregatedWordArr.some((item) => item.wordId === currentWord?.id)
   const isWord = aggregatedWordArr.find((item) => item.wordId === currentWord?.id)
-  
+  const isHard = (isWord?.difficulty === 'hard')
+  let toLearn = (isWord?.optional?.toLearn || 0)
   if (isAggregated) {
     const params: IParams = {
       method: 'PUT',
-      difficulty: 'easy',
+      difficulty: isWord?.difficulty,
       wordId: currentWord?.id,
       optional: {
-        learned: examination,
+        // eslint-disable-next-line no-nested-ternary
+        toLearn: !isHard ? 0 : examination ? (!((toLearn + 1) === 3) ? toLearn += 1 : toLearn = 0) : ((toLearn - 1 > 0) ? toLearn -= 1 : toLearn = 0),
+        learned: (toLearn === 2) && examination && isHard,
         rightCounter: examination ? Number(isWord?.optional?.rightCounter) + 1 : Number(isWord?.optional?.rightCounter),
         wrongCounter: !examination ? Number(isWord?.optional?.wrongCounter) + 1 : Number(isWord?.optional?.wrongCounter),
       },
