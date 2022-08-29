@@ -34,21 +34,3 @@ a {
   text-decoration: none;
   /* color: var(--text-color); */
 }
-
-.container {
-  max-width: 1140px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin: auto;
-}
-
-.hidden {
-  visibility: hidden;
-  height: 0px;
-  width: 0px;
-  font-size: 0px;
-}
-
-/* .audiogame-page { */
-/* background-color: aliceblue; */
-/* } */

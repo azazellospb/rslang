@@ -1,12 +1,11 @@
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable spaced-comment */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/comma-dangle */
 import React, { useEffect } from 'react'
 import { getWordsDataForSprintGame } from '../../redux/fetching'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux'
 import { fetchWordForSprintGameSuccess, turnCounter } from '../../redux/reducers/sprintGameSlice'
-import { createStudiedWordAndPutItToArr, getRandomWord } from './sprint-game-actions'
+import { createObjectForPostOrPutItToUserAggregatedWords, getRandomWord, createStudiedWordAndPutItToArr } from './sprint-game-actions'
 import styles from './sprint-game.module.css'
 
 function ButtonBlock() {
@@ -15,20 +14,26 @@ function ButtonBlock() {
   const comparisonWord = useAppSelector((state) => state.sprintGameSlice.comparisonWord)
   const currentWord = useAppSelector((state) => state.sprintGameSlice.currentWord)
   const counter = useAppSelector((state) => state.sprintGameSlice.turnCounter)
+  const aggregatedWordArr = useAppSelector((state) => state.aggregatedSlice.data)
+  
   const falseButtonHandle = () => {
-    dispatch(getRandomWord(gameData, /*counter*/))
+    dispatch(getRandomWord(gameData, counter))
     const examination = comparisonWord?.id !== currentWord?.id
     dispatch(createStudiedWordAndPutItToArr(currentWord, examination))
     dispatch(fetchWordForSprintGameSuccess(gameData.filter((words) => words !== currentWord)))
     dispatch(turnCounter())
+    dispatch(createObjectForPostOrPutItToUserAggregatedWords(currentWord, examination, aggregatedWordArr))
   }
+
   const truthButtonHandle = () => {
-    dispatch(getRandomWord(gameData, /*counter*/))
+    dispatch(getRandomWord(gameData, counter))
     const examination = comparisonWord?.id === currentWord?.id
     dispatch(createStudiedWordAndPutItToArr(currentWord, examination))
     dispatch(fetchWordForSprintGameSuccess(gameData.filter((words) => words !== currentWord)))
     dispatch(turnCounter())
+    dispatch(createObjectForPostOrPutItToUserAggregatedWords(currentWord, examination, aggregatedWordArr))
   }
+
   useEffect(() => {
     gameData.length <= 1 && dispatch(getWordsDataForSprintGame(
       {

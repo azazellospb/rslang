@@ -16,6 +16,7 @@ import SprintChallenge from './pages/SprintChallenge'
 import Stats from './pages/Stats'
 import Auth from './pages/Auth'
 import { setUserName } from './components/redux/reducers/userSlice'
+import Userwords from './pages/UserWords'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -36,7 +37,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/dictionary/">
           <Route index element={<Dictionary />} />
-          <Route path="difficult" element={<Dictionary />} />
+          <Route path="difficult" element={<Userwords />} />
           <Route path=":group" element={<Dictionary />}>
             <Route path=":page" element={<Dictionary />} />
           </Route>

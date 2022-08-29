@@ -2,12 +2,14 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 /* eslint-disable import/no-named-as-default */
 /* eslint-disable import/prefer-default-export */
 import sprintGameSlice from './reducers/sprintGameSlice'
-import wordDataReducer from './reducers/wordSlice'
+import aggregatedSlice from './reducers/aggregatedSlice'
 import userReducer from './reducers/userSlice'
+import wordSlice from './reducers/wordSlice'
 import audioGameSlice from './reducers/audioGameSlice'
 
 const rootReducer = combineReducers({
-  wordDataReducer,
+  wordSlice,
+  aggregatedSlice,
   sprintGameSlice,
   userReducer,
   audioGameSlice,

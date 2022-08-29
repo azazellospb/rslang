@@ -3,8 +3,8 @@
 /* eslint-disable max-len */
 /* eslint-disable no-console */
 import { AppDispatchState } from './store'
-import { fetchWordSuccess } from './reducers/wordSlice'
-import { ICustomWord, IWord } from '../../types/models'
+import { fetchUserWords, fetchWordSuccess } from './reducers/wordSlice'
+import { ICustomWord, IParams, IWord } from '../../types/models'
 import { IFetchParam } from '../../types/sprint-game-models'
 import {
   fetchWordForSprintGameError,
@@ -17,23 +17,26 @@ const getWordsData = (
   page = 0,
   group = 0,
   data: IWord[] = [],
-  id = null,
+  id = '',
 ) => async (dispatch: AppDispatchState) => {
   try {
     // TODO: сделать лоадер
-    if (!id) {
+    if (!id.length) {
       if (data.filter((x) => (x.page === page) && (x.group === group)).length === 0) {
         const response: Response = await fetch(`http://localhost:8088/words?group=${group}&page=${page}`)
         const dataBE: IWord[] = await response.json()
         dispatch(fetchWordSuccess([...data, ...dataBE]))
       }
+    } else {
+      const response: Response = await fetch(`http://localhost:8088/words/${id}`)
+      const word: IWord = await response.json()
+      dispatch(fetchUserWords(word))
     }
   } catch (e) {
     console.log(e)
     // TODO: ОБОАБОТАТЬ ОШИБКУ
   }
 }
-
 export default getWordsData
 
 export const getWordsDataForSprintGame = (paramForFetch: IFetchParam) => async (dispatch: AppDispatchState) => {
@@ -45,6 +48,30 @@ export const getWordsDataForSprintGame = (paramForFetch: IFetchParam) => async (
     const data: IWord[] = await response.json()
     console.log(data)
     dispatch(fetchWordForSprintGameSuccess(data))
+  } catch (e: string | unknown) {
+    dispatch(fetchWordForSprintGameError('Something went wrong...'))
+  }
+}
+export const postPutWordsToServerFromGame = (params: IParams) => async (dispatch: AppDispatchState) => {
+  // const url = 'http://localhost:8088/users/'
+  const userInfo = localStorage.getItem('userInfo') as string
+  const { token, userId } = JSON.parse(userInfo)
+  const obj = {
+    difficulty: params.difficulty,
+    optional: params.optional,
+  }
+  try {
+    await fetch(
+      `http://localhost:8088/users/${userId}/words/${params.wordId}`,
+      {
+        method: params.method,
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(obj),
+      },
+    )
   } catch (e: string | unknown) {
     dispatch(fetchWordForSprintGameError('Something went wrong...'))
   }
@@ -111,8 +138,8 @@ export const toggleDifficulty = (
   }
 }
 export const toggleLearnState = (
-  isLearned: boolean,
-  wordId: IWord['id'],
+  isLearned: boolean | undefined,
+  wordId: IWord['id'] | undefined,
   aggregatedWords: ICustomWord[],
 ) => async (dispatch: AppDispatchState) => {
   try {
@@ -142,7 +169,8 @@ export const toggleLearnState = (
         body: JSON.stringify(requestBody),
       },
     )
-    dispatch(aggregateWords())
+    console.log(dispatch)
+    // dispatch(aggregateWords())
   } catch (e) {
     console.log(e)
   }

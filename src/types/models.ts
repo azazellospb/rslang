@@ -30,14 +30,14 @@ export interface IUserLogin {
 }
 
 export interface ICustomWord {
-  id?: string
-  difficulty?: string
+  id?: string | undefined
+  difficulty?: string | undefined
   wordId?: string
-  optional?: { rightCounter?: number, learned?: boolean }
+  optional?: { rightCounter?: number, wrongCounter?: number, learned?: boolean }
 }
 
 export interface IAggregatedWords {
-  paginatedResults: IUserWord[]
+  paginatedResults: ICustomWord[]
 }
 
 export interface IUserWord extends Omit<IWord, 'id'> {
@@ -51,4 +51,9 @@ export interface IAggregOrUserWord extends Omit<IWord, 'id'> {
 interface UserWordSet {
   difficulty: string
   optional: { rightCounter?: number, learned?: boolean }
+}
+
+export interface IParams extends ICustomWord {
+  method?: string,
+  body?: ICustomWord,
 }
