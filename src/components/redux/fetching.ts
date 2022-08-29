@@ -4,14 +4,20 @@
 /* eslint-disable no-console */
 import { AppDispatchState } from './store'
 import { fetchUserWords, fetchWordSuccess } from './reducers/wordSlice'
-import { ICustomWord, IParams, IWord } from '../../types/models'
+import {
+  IAggregatedWords,
+  ICustomWord,
+  IParams,
+  IWord,
+  IUnlearnedWord,
+} from '../../types/models'
 import { IFetchParam } from '../../types/sprint-game-models'
 import {
   fetchWordForSprintGameError,
   fetchWordForSprintGameLoader,
   fetchWordForSprintGameSuccess,
 } from './reducers/sprintGameSlice'
-import { fetchAggregatedWords } from './reducers/aggregatedSlice'
+import { fetchAggregatedWords, fetchBeforePageUnlearned, fetchOtherSectionUnlearned } from './reducers/aggregatedSlice'
 
 const getWordsData = (
   page = 0,
@@ -171,6 +177,39 @@ export const toggleLearnState = (
     )
     console.log(dispatch)
     // dispatch(aggregateWords())
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const getUnlearnedWords = (
+  page = 0,
+  group = 0,
+) => async (dispatch: AppDispatchState) => {
+  try {
+    const userInfo = localStorage.getItem('userInfo') as string
+    const { token, userId } = JSON.parse(userInfo)
+    const response: Response = await fetch(
+      `http://localhost:8088/users/${userId}/aggregatedWords?filter={"$and":[{ "group": ${group}}, {"$or":[{"userWord.optional.learned":null}, {"userWord.optional.learned":false}]}]}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+    const responseData: IAggregatedWords = await response.json()
+    const unlearnedWords: IUnlearnedWord[] = responseData.paginatedResults
+    let afterPageWords = []
+    const beforePageWords: IUnlearnedWord[] = unlearnedWords // отсортировано от большей к меньшей странице
+      .filter((word:IUnlearnedWord) => word.page <= page)
+      .sort((a, b) => (a.page < b.page ? 1 : -1))
+    dispatch(fetchBeforePageUnlearned(beforePageWords))
+    if (beforePageWords.length === 0) {
+      afterPageWords = unlearnedWords.filter((word:IUnlearnedWord) => word.page <= page)
+      dispatch(fetchOtherSectionUnlearned(afterPageWords))
+    }
   } catch (e) {
     console.log(e)
   }
