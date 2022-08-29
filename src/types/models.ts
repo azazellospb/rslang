@@ -45,7 +45,8 @@ export interface ICustomWord {
 }
 
 export interface IAggregatedWords {
-  paginatedResults: IUnlearnedWord[]
+  paginatedResults: IUnlearnedWord[],
+  totalCount: [count: number],
 }
 
 export interface IUserWord extends Omit<IWord, 'id'> {

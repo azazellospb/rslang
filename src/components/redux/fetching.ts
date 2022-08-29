@@ -199,8 +199,8 @@ export const getUnlearnedWords = (
         },
       },
     )
-    const responseData: IAggregatedWords = await response.json()
-    const unlearnedWords: IUnlearnedWord[] = responseData.paginatedResults
+    const responseData: IAggregatedWords[] = await response.json()
+    const unlearnedWords: IUnlearnedWord[] = responseData[0].paginatedResults
     let afterPageWords = []
     const beforePageWords: IUnlearnedWord[] = unlearnedWords // отсортировано от большей к меньшей странице
       .filter((word:IUnlearnedWord) => word.page <= page)
