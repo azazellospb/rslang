@@ -12,7 +12,6 @@ function AnswerList() {
   const data = useAppSelector((state) => state.sprintGameSlice.gameData)
   const dispatch = useAppDispatch()
   let counterWord = useAppSelector((state) => state.audioGameSlice.counterWord)
-  // const currtWord = data[counterWord]
 
   if (counterWord > 19) {
     counterWord = 19
@@ -28,7 +27,6 @@ function AnswerList() {
   }
   function randomiser(arr: IWord[]) {
     customAnswers = arr
-    // currtWord === null ? (customAnswers = data) : (customAnswers = [...arr].concat(currtWord))
     customAnswers = [...arr, currtWord]
 
     while (customAnswers.length < 5) {
@@ -49,7 +47,6 @@ function AnswerList() {
           keyNumber={indx + 1}
           currtWord={customAnswers[indx]}
           key={item.id + new Date().getTime() + indx.toString()}
-          // copyKey={item.id + new Date().getTime() + indx.toString()}
         />
       ))}
     </div>
@@ -57,7 +54,3 @@ function AnswerList() {
 }
 
 export default AnswerList
-interface IAnswerProps {
-  currtWord: IWord
-  customAnswers: IWord[]
-}

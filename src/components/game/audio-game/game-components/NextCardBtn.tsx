@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react'
+import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux'
 import { audioGameSlice } from '../../../redux/reducers/audioGameSlice'
 import styles from '../Audiogame.module.css'
@@ -11,7 +11,6 @@ export default function NextCardBtn() {
     (state) => state.audioGameSlice,
   )
   const dispatch = useAppDispatch()
-  // const [counterWord, setCounterWord] = useState(0)
 
   const handleConfirmBtn = () => {
     if (counterWord > 19) {
@@ -20,7 +19,6 @@ export default function NextCardBtn() {
       dispatch(audioGameSlice.actions.fetchCounterProgress(counterProgress))
       return
     }
-    // setCounterWord(counterWord + 1)
     dispatch(audioGameSlice.actions.setCurrentWord(data[counterWord]))
     dispatch(audioGameSlice.actions.setStyles(false))
     dispatch(audioGameSlice.actions.fetchCounterWord(counterWord + 1))
@@ -38,5 +36,3 @@ export default function NextCardBtn() {
     </div>
   )
 }
-
-// export default NextCardBtn;

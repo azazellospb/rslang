@@ -6,19 +6,12 @@
 import React, { useRef, useState } from 'react'
 import Endpoints from '../../../endpoints/endpoints'
 // import { IWord } from '../../../types/models'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux'
-// import { audioGameSlice } from '../../redux/reducers/audioGameSlice'
+import { useAppSelector } from '../../redux/hooks/redux'
 import styles from './Audiogame.module.css'
-// import AnswerList from './game-components/AnswerList'
 import AudioIcon from './game-components/AudioIcon'
-// import NextCardBtn from './game-components/NextCardBtn'
 
 function Audiogame() {
-  const dispatch = useAppDispatch()
   const { changeStyle, currentWord } = useAppSelector((state) => state.audioGameSlice)
-  // const [wordIndex, setwordIndex] = useState(0)
-  // const [progress, setProgress] = useState(1)
-  // const data = useAppSelector((state) => state.sprintGameSlice.gameData)
   const voiceBtn = useRef<HTMLAudioElement>(null)
 
   let progress = useAppSelector((state) => state.audioGameSlice.counterProgress)
