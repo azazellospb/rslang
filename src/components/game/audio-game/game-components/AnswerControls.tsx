@@ -4,7 +4,6 @@ import AnswerList from './AnswerList'
 import NextCardBtn from './NextCardBtn'
 
 function AnswerControls() {
-
   return (
     <div className={styles.controls}>
       <AnswerList />

@@ -14,7 +14,6 @@ export default function NextCardBtn() {
 
   const handleConfirmBtn = () => {
     if (counterWord > 19) {
-      console.log('word index > 20')
       dispatch(audioGameSlice.actions.fetchCounterWord(counterWord))
       dispatch(audioGameSlice.actions.fetchCounterProgress(counterProgress))
       return

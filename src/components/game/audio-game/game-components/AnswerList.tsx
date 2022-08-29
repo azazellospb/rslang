@@ -15,8 +15,8 @@ function AnswerList() {
 
   if (counterWord > 19) {
     counterWord = 19
-    console.log('counterWord')
   }
+
   const currtWord = data[counterWord]
   dispatch(audioGameSlice.actions.setCurrentWord(currtWord))
 
