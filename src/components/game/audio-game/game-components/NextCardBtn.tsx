@@ -3,6 +3,7 @@
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux'
 import { audioGameSlice } from '../../../redux/reducers/audioGameSlice'
+import { gameSlice } from '../../../redux/reducers/gameSlice'
 import styles from '../Audiogame.module.css'
 
 export default function NextCardBtn() {
@@ -11,11 +12,13 @@ export default function NextCardBtn() {
     (state) => state.audioGameSlice,
   )
   const dispatch = useAppDispatch()
-
+  let endGame = '-->'
+  if (counterWord >= data.length - 1) {
+    endGame = 'Завершить игру'
+  }
   const handleConfirmBtn = () => {
-    if (counterWord > 19) {
-      dispatch(audioGameSlice.actions.fetchCounterWord(counterWord))
-      dispatch(audioGameSlice.actions.fetchCounterProgress(counterProgress))
+    if (counterWord >= data.length - 1) {
+      dispatch(gameSlice.actions.fetchGameOver(true))
       return
     }
     dispatch(audioGameSlice.actions.setCurrentWord(data[counterWord]))
@@ -28,7 +31,7 @@ export default function NextCardBtn() {
     <div>
       <input
         type="button"
-        value={!changeStyle ? 'Не знаю' : '-->'}
+        value={!changeStyle ? 'Не знаю' : `${endGame}`}
         className={changeStyle ? styles.answerBtn : `${styles.answerBtn} ${styles.changeBtn}`}
         onClick={handleConfirmBtn}
       />

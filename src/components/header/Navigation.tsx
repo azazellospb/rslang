@@ -47,7 +47,7 @@ export default function Navigation() {
     <nav className={styles.navigation} ref={navRef}>
       <ul className={styles.menuList}>
         <NavLink to="/"><li>На главную</li></NavLink>
-        <NavLink to="/dictionary"><li>учебник</li></NavLink>
+        <NavLink to="/dictionary/0/0"><li>учебник</li></NavLink>
         <div className={styles.dropdown} ref={ref1}>
           <button className={styles.dropbtn} type="button">игры</button>
           <div

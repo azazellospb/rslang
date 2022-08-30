@@ -11,11 +11,11 @@ import { audioGameSlice } from '../../../redux/reducers/audioGameSlice'
 function AnswerList() {
   const data = useAppSelector((state) => state.sprintGameSlice.gameData)
   const dispatch = useAppDispatch()
-  let counterWord = useAppSelector((state) => state.audioGameSlice.counterWord)
+  const counterWord = useAppSelector((state) => state.audioGameSlice.counterWord)
 
-  if (counterWord > 19) {
-    counterWord = 19
-  }
+  // if (counterWord > 19) {
+  //   counterWord = 19
+  // }
 
   const currtWord = data[counterWord]
   dispatch(audioGameSlice.actions.setCurrentWord(currtWord))
