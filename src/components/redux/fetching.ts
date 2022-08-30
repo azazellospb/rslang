@@ -20,6 +20,7 @@ import {
   fetchWordForSprintGameSuccess,
 } from './reducers/sprintGameSlice'
 import { fetchAggregatedWords, fetchBeforePageUnlearned, fetchOtherSectionUnlearned } from './reducers/aggregatedSlice'
+import mergeDeep from '../../tools/mergeDeep'
 
 const getWordsData = (
   page = 0,
@@ -277,6 +278,7 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
     } return Promise.reject(new Error(`some other error: ${response.status}`))
   }).catch((error) => console.log('error is', error))
   const serverData: UserStat = await responseStat
+  delete serverData.id
   // eslint-disable-next-line no-prototype-builtins
   if (gameType === 'sprintGame' && Object.keys(serverData.optional.sprintGame!).indexOf(data) > -1) {
     const {
@@ -291,6 +293,7 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
     if (obj.optional.sprintGame?.[data].rightAnswers) obj.optional.sprintGame[data].rightAnswers += rightAnswers
     if (obj.optional.sprintGame?.[data].totalWords) obj.optional.sprintGame[data].totalWords += totalWords
     if (obj.optional.sprintGame?.[data].answerSet && answerSet > obj.optional.sprintGame?.[data].answerSet) obj.optional.sprintGame[data].answerSet = answerSet
+    const body = mergeDeep(serverData, obj)
     await fetch(
       `http://localhost:8088/users/${userId}/statistics`,
       {
@@ -299,10 +302,11 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(obj),
+        body: JSON.stringify(body),
       },
     ).catch((error) => console.log('error is', error))
   } else {
+    const body = mergeDeep(serverData, obj)
     await fetch(
       `http://localhost:8088/users/${userId}/statistics`,
       {
@@ -311,7 +315,7 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(obj),
+        body: JSON.stringify(body),
       },
     ).catch((error) => console.log('error is', error))
   }
@@ -329,6 +333,7 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
     if (obj.optional.audioGame?.[data].rightAnswers) obj.optional.audioGame[data].rightAnswers += rightAnswers
     if (obj.optional.audioGame?.[data].totalWords) obj.optional.audioGame[data].totalWords += totalWords
     if (obj.optional.audioGame?.[data].answerSet && answerSet > obj.optional.audioGame?.[data].answerSet) obj.optional.audioGame[data].answerSet = answerSet
+    const body = mergeDeep(serverData, obj)
     await fetch(
       `http://localhost:8088/users/${userId}/statistics`,
       {
@@ -337,10 +342,11 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(obj),
+        body: JSON.stringify(body),
       },
     ).catch((error) => console.log('error is', error))
   } else {
+    const body = mergeDeep(serverData, obj)
     await fetch(
       `http://localhost:8088/users/${userId}/statistics`,
       {
@@ -349,7 +355,7 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(obj),
+        body: JSON.stringify(body),
       },
     ).catch((error) => console.log('error is', error))
   }

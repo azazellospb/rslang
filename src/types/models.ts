@@ -103,6 +103,7 @@ export interface IStats extends UserStat {
 }
 
 export interface UserStat {
+  id?: string
   learnedWords: number
   optional: {
     audioGame?: {
