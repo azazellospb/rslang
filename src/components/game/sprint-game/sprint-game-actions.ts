@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-console */
@@ -7,11 +8,13 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { ICustomWord, IParams, IWord } from '../../../types/models'
+import {
+  ICustomWord, IParams, IUnlearnedWord, IWord, 
+} from '../../../types/models'
 import { IFetchParam, IStudiedWord } from '../../../types/sprint-game-models'
 import { aggregateWords, getWordsDataForSprintGame, postPutWordsToServerFromGame } from '../../redux/fetching'
 import {
-  currentWord, forComparisonWord, gameScore, studiedWord,
+  currentWord, fetchWordForSprintGameSuccess, forComparisonWord, gameScore, studiedWord,
 } from '../../redux/reducers/sprintGameSlice'
 import { AppDispatchState } from '../../redux/store'
 
@@ -115,4 +118,27 @@ export const choiceCategory = (e: React.MouseEvent<HTMLButtonElement, MouseEvent
     page: Math.floor(Math.random() * 30),
   }
   dispatch(getWordsDataForSprintGame(paramForFetch))
+}
+export const filteredUnlearnedWordsLessThanCurrentPage = (data: IUnlearnedWord[], page: number) => (dispatch: AppDispatchState) => {
+  const filteredWord = data.filter((item) => item.page <= page)
+    .map((item) => ({
+      // eslint-disable-next-line no-underscore-dangle
+      id: item._id,
+      group: item.group,
+      page: item.page,
+      word: item.image,
+      image: item.word,
+      audio: item.audio,
+      audioMeaning: item.audioMeaning,
+      audioExample: item.audioExample,
+      textMeaning: item.textMeaning,
+      textExample: item.textExample,
+      transcription: item.transcription,
+      textExampleTranslate: item.textExampleTranslate,
+      textMeaningTranslate: item.textMeaningTranslate,
+      wordTranslate: item.wordTranslate,
+    }))
+    .sort((a, b) => (a.page < b.page ? 1 : -1))
+  console.log(filteredWord)
+  dispatch(fetchWordForSprintGameSuccess(filteredWord))
 }
