@@ -1,7 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import BookIcon from './BookIcon'
 import styles from '../../game-stat/AudiogameStat.module.css'
-import { useAppDispatch } from '../../../../redux/hooks/redux'
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks/redux'
 import { audioGameSlice } from '../../../../redux/reducers/audioGameSlice'
 import { gameSlice } from '../../../../redux/reducers/gameSlice'
 
@@ -12,10 +13,12 @@ function BackToBook() {
     dispatch(audioGameSlice.actions.fetchCounterWord(0))
     dispatch(gameSlice.actions.fetchGameOver(false))
   }
+  const currentGroupPage = useAppSelector((state) => state.sprintGameSlice.currentGroupPage)
   return (
     <button type="button" className={styles.toBookBtn} onClick={ToBookHandle}>
-      {/* BackToBook */}
-      <BookIcon />
+      <Link to={`/dictionary/${currentGroupPage?.textbookSection}/${currentGroupPage?.page}`}>
+        <BookIcon />
+      </Link>
     </button>
   )
 }
