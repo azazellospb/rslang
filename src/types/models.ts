@@ -47,6 +47,7 @@ export interface ICustomWord {
 export interface IAggregatedWords {
   paginatedResults: IUnlearnedWord[],
   totalCount: [count: number],
+
 }
 
 export interface IUserWord extends Omit<IWord, 'id'> {
@@ -95,4 +96,30 @@ interface UserWordSet {
 export interface IParams extends ICustomWord {
   method?: string,
   body?: ICustomWord,
+}
+
+export interface IStats extends IUserStat {
+  method: string,
+}
+
+export interface IUserStat {
+  learnedWords: number
+  optional: {
+    audioGame?: {
+      [key:string]: {
+        answerSet: number,
+        newWords: number,
+        rightAnswers: number,
+        totalWords: number,
+      }
+    },
+    sprintGame?:{
+      [key:string]: {
+        answerSet: number,
+        newWords: number,
+        rightAnswers: number,
+        totalWords: number,
+      }
+    }
+  }
 }

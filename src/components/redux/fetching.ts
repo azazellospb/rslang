@@ -9,7 +9,9 @@ import {
   ICustomWord,
   IParams,
   IWord,
+  IStats,
   IUnlearnedWord,
+  IUserStat,
 } from '../../types/models'
 import { IFetchParam } from '../../types/sprint-game-models'
 import {
@@ -88,7 +90,7 @@ export const aggregateWords = () => async (dispatch: AppDispatchState) => {
     // const filterCond = '"$or":[{"userWord.difficulty":"hard"}, {"userWord.difficulty":"easy"}]'
     const userInfo = localStorage.getItem('userInfo') as string
     const { token, userId } = JSON.parse(userInfo)
-    const request = await fetch(
+    const response = await fetch(
       `http://localhost:8088/users/${userId}/words`,
       {
         method: 'GET',
@@ -98,7 +100,7 @@ export const aggregateWords = () => async (dispatch: AppDispatchState) => {
         },
       },
     )
-    const data: ICustomWord[] = await request.json()
+    const data: ICustomWord[] = await response.json()
 
     dispatch(fetchAggregatedWords(data))
   } catch (e) {
@@ -209,6 +211,109 @@ export const getUnlearnedWords = (
     if (beforePageWords.length === 0) {
       afterPageWords = unlearnedWords.filter((word:IUnlearnedWord) => word.page <= page)
       dispatch(fetchOtherSectionUnlearned(afterPageWords))
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const setSprintGameStats = (params: IStats, data: string, gameType: string) => async () => {
+  const userInfo = localStorage.getItem('userInfo') as string
+  const { token, userId } = JSON.parse(userInfo)
+  console.log(userId)
+  const obj = {
+    method: params.method,
+    optional: params.optional,
+  }
+  localStorage.removeItem('newWords')
+  localStorage.removeItem('rightOrwrong')
+  localStorage.removeItem('rightAnswers')
+  localStorage.removeItem('totalWords')
+  try {
+    const responseStat: Response = await fetch(
+      `http://localhost:8088/users/${userId}/statistics`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+    const serverData: IUserStat = await responseStat.json()
+    if (gameType === 'sprintGame' && (serverData.optional.sprintGame !== undefined) && serverData.optional.sprintGame?.[data] !== undefined) {
+      const {
+        newWords = 0,
+        rightAnswers = 0,
+        totalWords = 0,
+        answerSet = 0,
+      } = serverData.optional.sprintGame[data]
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      if (obj.optional.sprintGame?.[data].newWords) obj.optional.sprintGame[data].newWords += newWords
+      if (obj.optional.sprintGame?.[data].rightAnswers) obj.optional.sprintGame[data].rightAnswers += rightAnswers
+      if (obj.optional.sprintGame?.[data].totalWords) obj.optional.sprintGame[data].totalWords += totalWords
+      if (obj.optional.sprintGame?.[data].answerSet && answerSet < obj.optional.sprintGame?.[data].answerSet) obj.optional.sprintGame[data].answerSet += answerSet
+      await fetch(
+        `http:// localhost:8088/users/${userId}/statistics`,
+        {
+          method: params.method,
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(obj.optional),
+        },
+      )
+    } else if (gameType === 'sprintGame' && ((serverData.optional.sprintGame === undefined) || serverData.optional.sprintGame?.[data] === undefined)) {
+      await fetch(
+        `http:// localhost:8088/users/${userId}/statistics`,
+        {
+          method: params.method,
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(obj.optional),
+        },
+      )
+    }
+    if (gameType === 'audioGame' && (serverData.optional.audioGame !== undefined) && serverData.optional.audioGame?.[data] !== undefined) {
+      const {
+        newWords = 0,
+        rightAnswers = 0,
+        totalWords = 0,
+        answerSet = 0,
+      } = serverData.optional.audioGame[data]
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      if (obj.optional.audioGame?.[data].newWords) obj.optional.audioGame[data].newWords += newWords
+      if (obj.optional.audioGame?.[data].rightAnswers) obj.optional.audioGame[data].rightAnswers += rightAnswers
+      if (obj.optional.audioGame?.[data].totalWords) obj.optional.audioGame[data].totalWords += totalWords
+      if (obj.optional.audioGame?.[data].answerSet && answerSet < obj.optional.audioGame?.[data].answerSet) obj.optional.audioGame[data].answerSet += answerSet
+      await fetch(
+        `http:// localhost:8088/users/${userId}/statistics`,
+        {
+          method: params.method,
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(obj.optional),
+        },
+      )
+    } else if (gameType === 'sprint' && ((serverData.optional.audioGame === undefined) || serverData.optional.audioGame?.[data] === undefined)) {
+      await fetch(
+        `http:// localhost:8088/users/${userId}/statistics`,
+        {
+          method: params.method,
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(obj.optional),
+        },
+      )
     }
   } catch (e) {
     console.log(e)
