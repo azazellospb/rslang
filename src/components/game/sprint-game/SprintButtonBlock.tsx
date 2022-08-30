@@ -22,7 +22,7 @@ function ButtonBlock() {
     dispatch(createStudiedWordAndPutItToArr(currentWord, examination))
     dispatch(fetchWordForSprintGameSuccess(gameData.filter((words) => words !== currentWord)))
     dispatch(turnCounter())
-    dispatch(createObjectForPostOrPutItToUserAggregatedWords(currentWord, examination, aggregatedWordArr))
+    if (localStorage.getItem('userInfo')) dispatch(createObjectForPostOrPutItToUserAggregatedWords(currentWord, examination, aggregatedWordArr))
   }
 
   const truthButtonHandle = () => {
@@ -31,7 +31,7 @@ function ButtonBlock() {
     dispatch(createStudiedWordAndPutItToArr(currentWord, examination))
     dispatch(fetchWordForSprintGameSuccess(gameData.filter((words) => words !== currentWord)))
     dispatch(turnCounter())
-    dispatch(createObjectForPostOrPutItToUserAggregatedWords(currentWord, examination, aggregatedWordArr))
+    if (localStorage.getItem('userInfo')) dispatch(createObjectForPostOrPutItToUserAggregatedWords(currentWord, examination, aggregatedWordArr))
   }
 
   useEffect(() => {
