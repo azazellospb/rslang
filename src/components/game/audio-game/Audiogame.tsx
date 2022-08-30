@@ -9,7 +9,7 @@ import Endpoints from '../../../endpoints/endpoints'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux'
 import { audioGameSlice } from '../../redux/reducers/audioGameSlice'
 import styles from './Audiogame.module.css'
-import AudioIcon from './UI/AudioIcon'
+import AudioIcon from './game-ui/audio-btn/AudioIcon'
 
 function Audiogame() {
   // const dispatch = useAppDispatch()

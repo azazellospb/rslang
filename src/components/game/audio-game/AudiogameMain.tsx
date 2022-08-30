@@ -15,7 +15,7 @@ function AudiogameMain() {
     //   <Audiogame />
     //   <AnswerControls />
     // </>
-    <div>
+    <div className="audiogame-container container">
       {gameOver ? (
         <AudiogameStat />
       ) : (
