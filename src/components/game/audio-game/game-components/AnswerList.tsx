@@ -10,12 +10,9 @@ import { audioGameSlice } from '../../../redux/reducers/audioGameSlice'
 
 function AnswerList() {
   const data = useAppSelector((state) => state.sprintGameSlice.gameData)
+  const dataAnswers = useAppSelector((state) => state.wordSlice.data)
   const dispatch = useAppDispatch()
   const counterWord = useAppSelector((state) => state.audioGameSlice.counterWord)
-
-  // if (counterWord > 19) {
-  //   counterWord = 19
-  // }
 
   const currtWord = data[counterWord]
   dispatch(audioGameSlice.actions.setCurrentWord(currtWord))
@@ -30,10 +27,10 @@ function AnswerList() {
     customAnswers = [...arr, currtWord]
 
     while (customAnswers.length < 5) {
-      const rIndex = randomIndx(data)
-      const word = customAnswers.find((el) => el.id === data[rIndex].id)
+      const rIndex = randomIndx(dataAnswers)
+      const word = customAnswers.find((el) => el.id === dataAnswers[rIndex].id)
       if (!word) {
-        customAnswers.push(data[rIndex])
+        customAnswers.push(dataAnswers[rIndex])
       }
     }
     return customAnswers.sort(() => 0.5 - Math.random())
