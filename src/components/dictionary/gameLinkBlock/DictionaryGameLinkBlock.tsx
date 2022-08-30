@@ -10,6 +10,7 @@ import { useAppDispatch } from '../../redux/hooks/redux'
 
 import styles from './dictionaryGameLink.module.css'
 import { IFetchParam } from '../../../types/sprint-game-models'
+import { getAllNotLearningWordsFromAggregated } from '../../redux/fetching'
 
 function DictionaryGameLinkBlock() {
   const { group = 0, page = 0 } = useParams()
@@ -25,6 +26,7 @@ function DictionaryGameLinkBlock() {
     dispatch(whereEnterGame(true))
     dispatch(modalToggle(true))
     dispatch(currentGroupPage(paramForFetch))
+    dispatch(getAllNotLearningWordsFromAggregated(paramForFetch!))
   }
   return (
     <div

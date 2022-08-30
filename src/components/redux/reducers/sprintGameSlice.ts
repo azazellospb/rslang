@@ -4,11 +4,11 @@
 /* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IWord } from '../../../types/models'
+import { IUnlearnedWord, IWord } from '../../../types/models'
 import { IFetchParam, IStudiedWord } from '../../../types/sprint-game-models'
 
 interface ISprint {
-  gameData: IWord[],
+  gameData: IWord[] | IUnlearnedWord[],
   studiedArr: IStudiedWord[],
   isModalOpen: boolean,
   currentWord: IWord | null | undefined,

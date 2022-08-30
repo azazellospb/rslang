@@ -14,6 +14,35 @@ export interface IWord {
   textMeaningTranslate: string
   wordTranslate: string
 }
+// export interface IWord {
+//   _id?: string
+//   id: string
+//   group: number
+//   page: number
+//   word: string
+//   image: string
+//   audio: string
+//   audioMeaning: string
+//   audioExample: string
+//   textMeaning: string
+//   textExample: string
+//   transcription: string
+//   textExampleTranslate: string
+//   textMeaningTranslate: string
+//   wordTranslate: string
+//   userWord?: {
+//     difficulty?: string,
+//     optional?: {
+//       toLearn?: number,
+//       rightCounter?: number,
+//       wrongCounter?: number,
+//       learned?: boolean,
+//       dates?: {
+//         [key: string]: boolean
+//       }
+//     }
+//   }
+// }
 
 export interface IUser {
   message: string
@@ -56,4 +85,32 @@ interface UserWordSet {
 export interface IParams extends ICustomWord {
   method?: string,
   body?: ICustomWord,
+}
+export interface IUnlearnedWord extends IWord {
+  _id?: string
+  // group: number
+  // page: number
+  // word: string
+  // image: string
+  // audio: string
+  // audioMeaning: string
+  // audioExample: string
+  // textMeaning: string
+  // textExample: string
+  // transcription: string
+  // textExampleTranslate: string
+  // textMeaningTranslate: string
+  // wordTranslate: string
+  userWord?: {
+    difficulty?: string,
+    optional?: {
+      toLearn?: number,
+      rightCounter?: number,
+      wrongCounter?: number,
+      learned?: boolean,
+      dates?: {
+        [key: string]: boolean
+      }
+    }
+  }
 }

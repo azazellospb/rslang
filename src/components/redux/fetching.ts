@@ -1,10 +1,14 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable import/no-cycle */
 /* eslint-disable max-len */
 /* eslint-disable no-console */
 import { AppDispatchState } from './store'
 import { fetchUserWords, fetchWordSuccess } from './reducers/wordSlice'
-import { ICustomWord, IParams, IWord } from '../../types/models'
+import {
+  ICustomWord, IParams, IUnlearnedWord, IWord,
+} from '../../types/models'
 import { IFetchParam } from '../../types/sprint-game-models'
 import {
   fetchWordForSprintGameError,
@@ -72,6 +76,33 @@ export const postPutWordsToServerFromGame = (params: IParams) => async (dispatch
         body: JSON.stringify(obj),
       },
     )
+  } catch (e: string | unknown) {
+    dispatch(fetchWordForSprintGameError('Something went wrong...'))
+  }
+}
+
+export const getAllNotLearningWordsFromAggregated = (paramForFetch: IFetchParam) => async (dispatch:AppDispatchState) => {
+  const url = 'http://localhost:8088/users'
+  // const url = 'http://localhost:8088/words'
+  const { textbookSection } = paramForFetch
+  const userInfo = localStorage.getItem('userInfo') as string
+  const { token, userId } = JSON.parse(userInfo)
+  const filter = `filter={"$and":[{ "group": ${textbookSection}}, {"$or":[{"userWord.optional.learned":null}, {"userWord.optional.learned":false}]}]}`
+  try {
+    dispatch(fetchWordForSprintGameLoader())
+    const response: Response = await fetch(
+      `${url}/${userId}/aggregatedWords/?${filter}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+    const data: IUnlearnedWord[] = await response.json()
+    console.log(data[0])
+    // dispatch(fetchWordForSprintGameSuccess(data[0]))
   } catch (e: string | unknown) {
     dispatch(fetchWordForSprintGameError('Something went wrong...'))
   }
