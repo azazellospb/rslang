@@ -42,7 +42,7 @@ export const createObjectForPostOrPutItToUserAggregatedWords = (currentWord: IWo
   const isHard = (isWord?.difficulty === 'hard')
   let toLearn = (isWord?.optional?.toLearn || 0)
   const date = new Date()
-  const month = date.getMonth().toString().length !== 1 ? date.getMonth().toString() : `0${date.getMonth().toString()}`
+  const month = (date.getMonth() + 1).toString().length !== 1 ? (date.getMonth() + 1).toString() : `0${(date.getMonth() + 1).toString()}`
   const dateKey = `d${date.getDate().toString()}${month}${date.getFullYear().toString()}`
   // для серии в статистике
   if (!localStorage.getItem('rightOrwrong')) {

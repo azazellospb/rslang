@@ -99,28 +99,25 @@ export interface IParams extends ICustomWord {
   body?: ICustomWord,
 }
 
-export interface IStats extends IUserStat {
+export interface IStats extends UserStat {
   method: string,
 }
 
-export interface IUserStat {
+export interface UserStat {
+  id?: string
   learnedWords: number
   optional: {
     audioGame?: {
-      [key:string]: {
-        answerSet: number,
-        newWords: number,
-        rightAnswers: number,
-        totalWords: number,
-      }
+      [key: string]: DataStats
     },
     sprintGame?:{
-      [key:string]: {
-        answerSet: number,
-        newWords: number,
-        rightAnswers: number,
-        totalWords: number,
-      }
+      [key: string]: DataStats
     }
   }
+}
+interface DataStats {
+  answerSet: number,
+  newWords: number,
+  rightAnswers: number,
+  totalWords: number,
 }

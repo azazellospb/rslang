@@ -21,15 +21,17 @@ function GameStat() {
     </div>
   )
   const date = new Date()
-  const month = date.getMonth().toString().length !== 1 ? date.getMonth().toString() : `0${date.getMonth().toString()}`
+  const month = (date.getMonth() + 1).toString().length !== 1 ? (date.getMonth() + 1).toString() : `0${(date.getMonth() + 1).toString()}`
   const dateKey = `d${date.getDate().toString()}${month}${date.getFullYear().toString()}`
   let answersArr = [['']]
   let answerSet = 0
-  if (!localStorage.getItem('rightOrwrong')) {
+  if (localStorage.getItem('rightOrwrong')) {
+    // eslint-disable-next-line no-console
+    const aa = localStorage.getItem('rightOrwrong')
     answersArr = localStorage.getItem('rightOrwrong')!.split(',').map((v) => v || 'false').join(',').split('false')
       .map((v) => v.split(','))
     answerSet = answersArr[answersArr
-      .reduce((p, c, i, a) => (a[p].length > c.length ? p : i), 0)].length - 1
+      .reduce((p, c, i, a) => (a[p].length > c.length ? p : i), 0)].length
   }
   const params: IStats = {
     method: 'PUT',
@@ -46,7 +48,7 @@ function GameStat() {
     },
   }
   if (answerSet >= 2) params.optional.sprintGame![dateKey].answerSet = answerSet
-  dispatch(setSprintGameStats(params, dateKey, 'sprintGame'))
+  if (localStorage.getItem('userInfo')) dispatch(setSprintGameStats(params, dateKey, 'sprintGame'))
   return (
     <section className={styles.gameStatContainer}>
       <GameMenu />
