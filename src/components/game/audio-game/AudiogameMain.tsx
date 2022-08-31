@@ -1,35 +1,23 @@
 import React from 'react'
-import Audiogame from './Audiogame'
-import AnswerControls from './game-components/AnswerControls'
-import { useAppSelector } from '../../redux/hooks/redux'
+import { getUnlearnedWords } from '../../redux/fetching'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux'
 import AudiogameStat from './game-stat/AudiogameStat'
-// import { audioGameSlice } from '../../redux/reducers/audioGameSlice'
-// import AudiogameStat from './AudiogameStat'
+import GameRunner from './GameRunner'
 
 function AudiogameMain() {
-  // const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
+  const { currentGroupPage } = useAppSelector((state) => state.sprintGameSlice)
+  dispatch(getUnlearnedWords(currentGroupPage?.page, Number(currentGroupPage?.textbookSection)))
   const { gameOver } = useAppSelector((state) => state.gameSlice)
-  // const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+
   return (
     // <>
     //   <Audiogame />
     //   <AnswerControls />
     // </>
     <div className="audiogame-container container">
-      {gameOver ? (
-        <AudiogameStat />
-      ) : (
-        <>
-          <Audiogame />
-          <AnswerControls />
-        </>
-      )}
+      {gameOver ? <AudiogameStat /> : <GameRunner />}
     </div>
-    // <>
-    //   {Boolean(gameOwer) && <AudiogameStat />}
-    //   {Boolean(!gameOwer) && <Audiogame />}
-    //   {Boolean(!gameOwer) && <AnswerControls />}
-    // </>
   )
 }
 

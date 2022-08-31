@@ -6,16 +6,13 @@
 import React, { useRef } from 'react'
 import Endpoints from '../../../endpoints/endpoints'
 // import { IWord } from '../../../types/models'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux'
-import { audioGameSlice } from '../../redux/reducers/audioGameSlice'
+import { useAppSelector } from '../../redux/hooks/redux'
 import styles from './Audiogame.module.css'
 import AudioIcon from './game-ui/audio-btn/AudioIcon'
 
 function Audiogame() {
-  // const dispatch = useAppDispatch()
   const { changeStyle, currentWord } = useAppSelector((state) => state.audioGameSlice)
   const voiceBtn = useRef<HTMLAudioElement>(null)
-  // localStorage.setItem('newWords', )
   let progress = useAppSelector((state) => state.audioGameSlice.counterProgress)
   if (progress > 19) {
     progress = 20
