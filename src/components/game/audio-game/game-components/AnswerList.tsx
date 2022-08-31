@@ -2,14 +2,28 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { MutableRefObject, useState } from 'react'
-import { IWord } from '../../../../types/models'
+import { IUnlearnedWord, IWord } from '../../../../types/models'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux'
 import Answer from './Answer'
 import styles from '../Audiogame.module.css'
 import { audioGameSlice } from '../../../redux/reducers/audioGameSlice'
+import { getBeforePageWords, getOtherUnlearned } from '../../../redux/reducers/aggregatedSlice'
 
 function AnswerList() {
+  const startDada = useAppSelector(getBeforePageWords)
+  const proposeDada = useAppSelector(getOtherUnlearned)
+
+  // let data: IWord[] | IUnlearnedWord[]
+  // if (startDada.length) {
+  //   data = startDada
+  // } else if (proposeDada.length) {
+  //   data = proposeDada
+  // } else {
+  //   data = useAppSelector((state) => state.sprintGameSlice.gameData)
+  // }
+  // Эту строку убрать если код выше раскомментирован
   const data = useAppSelector((state) => state.sprintGameSlice.gameData)
+  const dataAnswers = useAppSelector((state) => state.wordSlice.data)
   const dispatch = useAppDispatch()
   let counterWord = useAppSelector((state) => state.audioGameSlice.counterWord)
 
@@ -30,8 +44,8 @@ function AnswerList() {
     customAnswers = [...arr, currtWord]
 
     while (customAnswers.length < 5) {
-      const rIndex = randomIndx(data)
-      const word = customAnswers.find((el) => el.id === data[rIndex].id)
+      const rIndex = randomIndx(dataAnswers)
+      const word = customAnswers.find((el) => el.id === dataAnswers[rIndex].id)
       if (!word) {
         customAnswers.push(data[rIndex])
       }
@@ -46,7 +60,7 @@ function AnswerList() {
         <Answer
           keyNumber={indx + 1}
           currtWord={customAnswers[indx]}
-          key={item.id + new Date().getTime() + indx.toString()}
+          key={item.id! + new Date().getTime() + indx.toString()}
         />
       ))}
     </div>
