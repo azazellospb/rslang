@@ -60,7 +60,8 @@ export interface IAggregOrUserWord extends Omit<IWord, 'id'> {
 }
 
 export interface IUnlearnedWord {
-  _id?: string
+  id?: string
+  _id: string
   group: number
   page: number
   word: string
