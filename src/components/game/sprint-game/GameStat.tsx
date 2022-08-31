@@ -6,6 +6,8 @@ import GameStatList from './GameStatList'
 import GameMenu from '../game-menu/GameMenu'
 import { IStats } from '../../../types/models'
 import { setSprintGameStats } from '../../redux/fetching'
+// import ButtonForMoreWords from '../modal/modalForDictionary/ButtonForMoreWords'
+import OfferModal from '../modal/modalForDictionary/OfferModal'
 
 export interface IProp {
   id: number,
@@ -13,6 +15,7 @@ export interface IProp {
 function GameStat() {
   const dispatch = useAppDispatch()
   const studiedWords = useAppSelector((state) => state.sprintGameSlice.studiedArr)
+  const allWordStudiedOnPage = useAppSelector((state) => state.sprintGameSlice.allWordStudiedOnPage)
   const message = (
     <div className={styles.messageText}>
       <h3>Упс....!</h3>
@@ -52,8 +55,11 @@ function GameStat() {
   return (
     <section className={styles.gameStatContainer}>
       <GameMenu />
-      {Boolean(!studiedWords.length) && message}
-      {Boolean(studiedWords.length) && <GameStatList />}
+      {/* {Boolean(!studiedWords.length) && message}
+      {Boolean(studiedWords.length) && <GameStatList />} */}
+      {allWordStudiedOnPage && Boolean(!studiedWords.length) && <OfferModal />}
+      {!allWordStudiedOnPage && Boolean(!studiedWords.length) && message}
+      {!allWordStudiedOnPage && Boolean(studiedWords.length) && <GameStatList />}
     </section>
   )
 }

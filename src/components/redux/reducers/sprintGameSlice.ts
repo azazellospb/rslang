@@ -20,6 +20,8 @@ interface ISprint {
   score: number,
   turnCounter: number,
   isFromDictionary: boolean,
+  allWordStudiedOnPage: boolean,
+  offer: boolean,
 }
 
 const initialState: ISprint = {
@@ -35,6 +37,8 @@ const initialState: ISprint = {
   score: 0,
   turnCounter: 1,
   isFromDictionary: false,
+  allWordStudiedOnPage: false,
+  offer: false,
 }
 
 const sprintGameSlice = createSlice({
@@ -85,6 +89,12 @@ const sprintGameSlice = createSlice({
     currentGroupPage(state, action: PayloadAction<IFetchParam>) {
       state.currentGroupPage = action.payload
     },
+    showMessageIfAllWordStudiedOnPage(state, action: PayloadAction<boolean>) {
+      state.allWordStudiedOnPage = action.payload
+    },
+    isGetOffer(state, action: PayloadAction<boolean>) {
+      state.offer = action.payload
+    },
 
   },
 })
@@ -102,6 +112,8 @@ export const {
   modalToggle,
   whereEnterGame,
   currentGroupPage,
+  showMessageIfAllWordStudiedOnPage,
+  isGetOffer,
 } = sprintGameSlice.actions
 
 export default sprintGameSlice.reducer

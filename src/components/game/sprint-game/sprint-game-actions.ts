@@ -13,9 +13,9 @@ import {
 } from '../../../types/models'
 import { IFetchParam, IStudiedWord } from '../../../types/sprint-game-models'
 import { aggregateWords, getWordsDataForSprintGame, postPutWordsToServerFromGame } from '../../redux/fetching'
-import { fetchOtherSectionUnlearned } from '../../redux/reducers/aggregatedSlice'
+import { fetchBeforePageUnlearned, fetchOtherSectionUnlearned } from '../../redux/reducers/aggregatedSlice'
 import {
-  currentWord, fetchWordForSprintGameSuccess, forComparisonWord, gameScore, studiedWord, timerWork, turnCounter,
+  currentWord, fetchWordForSprintGameSuccess, forComparisonWord, gameScore, showMessageIfAllWordStudiedOnPage, studiedWord, timerWork, turnCounter,
 } from '../../redux/reducers/sprintGameSlice'
 import { AppDispatchState } from '../../redux/store'
 
@@ -141,13 +141,33 @@ export const filteredUnlearnedWordsLessThanCurrentPage = (data: IUnlearnedWord[]
     }))
     .sort((a, b) => (a.page < b.page ? 1 : -1))
   console.log('action')
+  dispatch(fetchWordForSprintGameSuccess(filteredWord))
+  filteredWord.length === 0 ? dispatch(showMessageIfAllWordStudiedOnPage(true)) : dispatch(showMessageIfAllWordStudiedOnPage(false))
+}
+export const filteredUnlearnedWordsMoreThanCurrentPage = (data: IUnlearnedWord[], page: number) => (dispatch: AppDispatchState) => {
+  const filteredWord = data.filter((item) => item.page >= page)
+    .map((item) => ({
+      // eslint-disable-next-line no-underscore-dangle
+      id: item._id,
+      group: item.group,
+      page: item.page,
+      word: item.word,
+      image: item.image,
+      audio: item.audio,
+      audioMeaning: item.audioMeaning,
+      audioExample: item.audioExample,
+      textMeaning: item.textMeaning,
+      textExample: item.textExample,
+      transcription: item.transcription,
+      textExampleTranslate: item.textExampleTranslate,
+      textMeaningTranslate: item.textMeaningTranslate,
+      wordTranslate: item.wordTranslate,
+    }))
+    .sort((a, b) => (a.page < b.page ? 1 : -1))
+  console.log('action')
   console.log(filteredWord)
   dispatch(fetchWordForSprintGameSuccess(filteredWord))
-  // filteredWord.length === 0 ? dispatch(timerWork(0)) : dispatch(fetchWordForSprintGameSuccess(filteredWord))
-  // if (filteredWord.length === 0) {
-  //   const afterPageWords = filteredWord.filter((word:IUnlearnedWord) => word.page <= page)
-  //   dispatch(fetchOtherSectionUnlearned(afterPageWords))
-  // }
+  filteredWord.length === 0 ? dispatch(showMessageIfAllWordStudiedOnPage(true)) : dispatch(showMessageIfAllWordStudiedOnPage(false))
 }
 export const refreshGameParams = () => (dispatch: AppDispatchState) => {
   dispatch(timerWork(5))
