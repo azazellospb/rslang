@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react'
 import { IUnlearnedWord, IWord } from '../../../../types/models'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux'
@@ -12,32 +13,30 @@ import { getBeforePageWords, getOtherUnlearned } from '../../../redux/reducers/a
 function AnswerList() {
   const startDada = useAppSelector(getBeforePageWords)
   const proposeDada = useAppSelector(getOtherUnlearned)
-
-  // let data: IWord[] | IUnlearnedWord[]
-  // if (startDada.length) {
-  //   data = startDada
-  // } else if (proposeDada.length) {
-  //   data = proposeDada
-  // } else {
-  //   data = useAppSelector((state) => state.sprintGameSlice.gameData)
-  // }
-  // Эту строку убрать если код выше раскомментирован
-  const data = useAppSelector((state) => state.sprintGameSlice.gameData)
-  const dataAnswers = useAppSelector((state) => state.wordSlice.data)
   const dispatch = useAppDispatch()
+  let data: IWord[] | IUnlearnedWord[]
+  if (startDada.length) {
+    data = startDada
+  } else if (proposeDada.length) {
+    data = proposeDada
+  } else {
+    data = useAppSelector((state) => state.sprintGameSlice.gameData)
+  }
+  // const data = useAppSelector((state) => state.sprintGameSlice.gameData)
+  const dataAnswers = useAppSelector((state) => state.wordSlice.data)
   const counterWord = useAppSelector((state) => state.audioGameSlice.counterWord)
 
   const currtWord = data[counterWord]
   dispatch(audioGameSlice.actions.setCurrentWord(currtWord))
 
-  let customAnswers: IWord[] = []
+  let customAnswers: IWord[] | (IWord[] & IUnlearnedWord[]) = []
   function randomIndx(arr: IWord[]) {
     const rand = Math.floor(Math.random() * arr.length)
     return rand
   }
-  function randomiser(arr: IWord[]) {
+  function randomiser(arr: IWord[] | (IWord[] & IUnlearnedWord[])) {
     customAnswers = arr
-    customAnswers = [...arr, currtWord]
+    customAnswers = [...arr, currtWord] as IWord[] | (IWord[] & IUnlearnedWord[])
 
     while (customAnswers.length < 5) {
       const rIndex = randomIndx(dataAnswers)

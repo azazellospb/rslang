@@ -5,7 +5,6 @@
 /* eslint-disable max-len */
 import React, { useRef } from 'react'
 import Endpoints from '../../../endpoints/endpoints'
-// import { IWord } from '../../../types/models'
 import { useAppSelector } from '../../redux/hooks/redux'
 import styles from './Audiogame.module.css'
 import AudioIcon from './game-ui/audio-btn/AudioIcon'
@@ -13,10 +12,7 @@ import AudioIcon from './game-ui/audio-btn/AudioIcon'
 function Audiogame() {
   const { changeStyle, currentWord } = useAppSelector((state) => state.audioGameSlice)
   const voiceBtn = useRef<HTMLAudioElement>(null)
-  let progress = useAppSelector((state) => state.audioGameSlice.counterProgress)
-  if (progress > 19) {
-    progress = 20
-  }
+  const progress = useAppSelector((state) => state.audioGameSlice.counterProgress)
 
   function handleVoice() {
     voiceBtn.current?.play()

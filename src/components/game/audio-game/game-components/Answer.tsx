@@ -20,7 +20,7 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
       dispatch(audioGameSlice.actions.setStyles(true))
       setStyle(`${styles.answerRight}`)
       dispatch(createLearnedWordAndPutItToArr(currtWord, true))
-      localStorage.setItem('newWords', currtWord.word)
+      // localStorage.setItem('newWords', currtWord.word)
     } else {
       dispatch(audioGameSlice.actions.setStyles(true))
       setStyle(`${styles.answerWrong}`)

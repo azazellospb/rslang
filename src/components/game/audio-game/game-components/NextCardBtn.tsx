@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable object-curly-newline */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react'
 import { IUnlearnedWord, IWord } from '../../../../types/models'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux'
@@ -18,29 +19,30 @@ export default function NextCardBtn() {
   const startDada = useAppSelector(getBeforePageWords)
   const proposeDada = useAppSelector(getOtherUnlearned)
 
-  // let data: IWord[] | IUnlearnedWord[]
-  // if (startDada.length) {
-  //   data = startDada
-  // } else if (proposeDada.length) {
-  //   data = proposeDada
-  // } else {
-  //   data = useAppSelector((state) => state.sprintGameSlice.gameData)
-  // }
-  // Эту строку убрать если код выше раскомментирован
-  const data = useAppSelector((state) => state.sprintGameSlice.gameData)
+  let data: IWord[] | IUnlearnedWord[]
+  if (startDada.length) {
+    data = startDada
+  } else if (proposeDada.length) {
+    data = proposeDada
+  } else {
+    data = useAppSelector((state) => state.sprintGameSlice.gameData)
+  }
+  // const data = useAppSelector((state) => state.sprintGameSlice.gameData)
+  if (data.length > MAX_NUMBER_WORDS) {
+    numberOfWords = MAX_NUMBER_WORDS
+  } else {
+    numberOfWords = data.length
+  }
 
-  data.length > MAX_NUMBER_WORDS ? numberOfWords = MAX_NUMBER_WORDS : numberOfWords = data.length
   const { changeStyle, counterProgress, counterWord, currentWord } = useAppSelector(
     (state) => state.audioGameSlice,
   )
 
-  let endGame = '-->'
-  // if (counterWord >= data.length - 1) {
+  let endGame = '▶▷▶▷▶'
   if (counterWord >= numberOfWords) {
     endGame = 'Завершить игру'
   }
   const handleConfirmBtn = () => {
-    // if (counterWord >= data.length - 1) {
     if (counterWord >= numberOfWords) {
       dispatch(gameSlice.actions.fetchGameOver(true))
       dispatch(createLearnedWordAndPutItToArr(currentWord, false))

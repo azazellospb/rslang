@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IWord } from '../../../types/models'
+import { IUnlearnedWord, IWord } from '../../../types/models'
 /* eslint-disable no-nested-ternary */
 const initialState: IAudioGame = {
   words: [],
@@ -33,7 +33,7 @@ export const audioGameSlice = createSlice({
       state.isLoaded = false
       state.error = action.payload
     },
-    setCurrentWord(state, action: PayloadAction<IWord>) {
+    setCurrentWord(state, action: PayloadAction<IWord | IUnlearnedWord>) {
       state.currentWord = action.payload
     },
     learnedWord(state, action: PayloadAction<ILearnedWord>) {
@@ -65,11 +65,11 @@ export const audioGameSlice = createSlice({
 export default audioGameSlice.reducer
 
 export interface IAudioGame {
-  words: IWord[]
+  words: IWord[] | IUnlearnedWord[]
   learnedWords: ILearnedWord[]
   isLoaded: boolean
   error: string
-  currentWord: IWord | null
+  currentWord: IWord | null | IUnlearnedWord
   rightWords: IWord[]
   changeStyle: boolean
   customAnswers: IWord[]
