@@ -1,26 +1,47 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable object-curly-newline */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React from 'react'
+import { IUnlearnedWord, IWord } from '../../../../types/models'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux'
+import { getBeforePageWords, getOtherUnlearned } from '../../../redux/reducers/aggregatedSlice'
 import { audioGameSlice } from '../../../redux/reducers/audioGameSlice'
 import { gameSlice } from '../../../redux/reducers/gameSlice'
 import createLearnedWordAndPutItToArr from '../audiogame-actions'
 import styles from '../Audiogame.module.css'
 
 export default function NextCardBtn() {
+  const MAX_NUMBER_WORDS = 19
+  let numberOfWords: number
+  const dispatch = useAppDispatch()
+  const startDada = useAppSelector(getBeforePageWords)
+  const proposeDada = useAppSelector(getOtherUnlearned)
+
+  // let data: IWord[] | IUnlearnedWord[]
+  // if (startDada.length) {
+  //   data = startDada
+  // } else if (proposeDada.length) {
+  //   data = proposeDada
+  // } else {
+  //   data = useAppSelector((state) => state.sprintGameSlice.gameData)
+  // }
+  // Эту строку убрать если код выше раскомментирован
   const data = useAppSelector((state) => state.sprintGameSlice.gameData)
-  const {
-    changeStyle, counterProgress, counterWord, currentWord,
-  } = useAppSelector(
+
+  data.length > MAX_NUMBER_WORDS ? numberOfWords = MAX_NUMBER_WORDS : numberOfWords = data.length
+  const { changeStyle, counterProgress, counterWord, currentWord } = useAppSelector(
     (state) => state.audioGameSlice,
   )
-  const dispatch = useAppDispatch()
+
   let endGame = '-->'
-  if (counterWord >= data.length - 1) {
+  // if (counterWord >= data.length - 1) {
+  if (counterWord >= numberOfWords) {
     endGame = 'Завершить игру'
   }
   const handleConfirmBtn = () => {
-    if (counterWord >= data.length - 1) {
+    // if (counterWord >= data.length - 1) {
+    if (counterWord >= numberOfWords) {
       dispatch(gameSlice.actions.fetchGameOver(true))
       dispatch(createLearnedWordAndPutItToArr(currentWord, false))
       return

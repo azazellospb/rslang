@@ -1,14 +1,27 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import React, { MutableRefObject, useState } from 'react'
-import { IWord } from '../../../../types/models'
+import React from 'react'
+import { IUnlearnedWord, IWord } from '../../../../types/models'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux'
 import Answer from './Answer'
 import styles from '../Audiogame.module.css'
 import { audioGameSlice } from '../../../redux/reducers/audioGameSlice'
+import { getBeforePageWords, getOtherUnlearned } from '../../../redux/reducers/aggregatedSlice'
 
 function AnswerList() {
+  const startDada = useAppSelector(getBeforePageWords)
+  const proposeDada = useAppSelector(getOtherUnlearned)
+
+  // let data: IWord[] | IUnlearnedWord[]
+  // if (startDada.length) {
+  //   data = startDada
+  // } else if (proposeDada.length) {
+  //   data = proposeDada
+  // } else {
+  //   data = useAppSelector((state) => state.sprintGameSlice.gameData)
+  // }
+  // Эту строку убрать если код выше раскомментирован
   const data = useAppSelector((state) => state.sprintGameSlice.gameData)
   const dataAnswers = useAppSelector((state) => state.wordSlice.data)
   const dispatch = useAppDispatch()
@@ -51,3 +64,7 @@ function AnswerList() {
 }
 
 export default AnswerList
+
+// export interface IUnlearn {
+//   _id?: string
+// }
