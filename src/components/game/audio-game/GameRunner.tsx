@@ -2,22 +2,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
 import AnswerControls from './game-components/AnswerControls'
-import { useAppSelector } from '../../redux/hooks/redux'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux'
 import { getBeforePageWords, getOtherUnlearned } from '../../redux/reducers/aggregatedSlice'
 import ProposeChapter from './audio-modal/ProposeChapter'
 import ProposeGame from './audio-modal/ProposeGame'
 import Audiogame from './Audiogame'
+import { gameSlice } from '../../redux/reducers/gameSlice'
 
 function GameRunner() {
   const isFromDictionary = useAppSelector((state) => state.sprintGameSlice.isFromDictionary)
-  const startDada = useAppSelector(getBeforePageWords)
+  const unlearnedDada = useAppSelector(getBeforePageWords)
   const proposeDada = useAppSelector(getOtherUnlearned)
-  // let propose
-  // if (proposeDada) {
-  //   propose = ProposeGame
-  // } else {
-  //   propose = ProposeChapter
-  // }
+
   return (
     <div>
       {/* <Audiogame />
@@ -33,12 +29,12 @@ function GameRunner() {
           <Audiogame />
           <AnswerControls />
         </>
-      ) : startDada.length > 0 ? (
+      ) : (unlearnedDada.length > 0) ? (
         <>
           <Audiogame />
           <AnswerControls />
         </>
-      ) : proposeDada.length > 0 ? (
+      ) : (proposeDada.length <= 0) ? (
         <ProposeGame />
       ) : (
         <ProposeChapter />
