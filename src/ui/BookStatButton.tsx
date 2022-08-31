@@ -4,6 +4,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { refreshGameParams } from '../components/game/sprint-game/sprint-game-actions'
 import { useAppDispatch, useAppSelector } from '../components/redux/hooks/redux'
+import { whereEnterGame } from '../components/redux/reducers/sprintGameSlice'
 import styles from './bookStatButton.module.css'
 
 function BookStatButton() {
@@ -12,6 +13,7 @@ function BookStatButton() {
 
   const bookHandel = () => {
     dispatch(refreshGameParams())
+    dispatch(whereEnterGame(true))
   }
   return (
     <button

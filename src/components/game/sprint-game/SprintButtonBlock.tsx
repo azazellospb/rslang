@@ -4,7 +4,7 @@
 import React, { useEffect } from 'react'
 import { getWordsDataForSprintGame } from '../../redux/fetching'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux'
-import { fetchWordForSprintGameSuccess, turnCounter } from '../../redux/reducers/sprintGameSlice'
+import { fetchWordForSprintGameSuccess, timerWork, /* timerWork, */ turnCounter } from '../../redux/reducers/sprintGameSlice'
 import { createObjectForPostOrPutItToUserAggregatedWords, getRandomWord, createStudiedWordAndPutItToArr } from './sprint-game-actions'
 import styles from './sprint-game.module.css'
 
@@ -13,6 +13,7 @@ function ButtonBlock() {
   const gameData = useAppSelector((state) => state.sprintGameSlice.gameData)
   const comparisonWord = useAppSelector((state) => state.sprintGameSlice.comparisonWord)
   const currentWord = useAppSelector((state) => state.sprintGameSlice.currentWord)
+  const isFromDictionary = useAppSelector((state) => state.sprintGameSlice.isFromDictionary)
   const counter = useAppSelector((state) => state.sprintGameSlice.turnCounter)
   const aggregatedWordArr = useAppSelector((state) => state.aggregatedSlice.data)
   
@@ -35,13 +36,20 @@ function ButtonBlock() {
   }
 
   useEffect(() => {
-    gameData.length <= 1 && dispatch(getWordsDataForSprintGame(
+    (!localStorage.getItem('userInfo') || localStorage.getItem('userInfo'))
+    && !isFromDictionary && gameData.length < 1 && dispatch(getWordsDataForSprintGame(
       {
         textbookSection: String(currentWord?.group),
         page: Math.floor(Math.random() * 30),
       },
     ))
-  }, [currentWord?.group, dispatch, gameData.length])
+  }, [currentWord?.group, dispatch, gameData.length, isFromDictionary])
+
+  useEffect(() => {
+    if (isFromDictionary && localStorage.getItem('userInfo') && gameData.length === 0) {
+      dispatch(timerWork(0))
+    }
+  }, [currentWord?.group, dispatch, gameData.length, isFromDictionary])
 
   return (
     <section className={styles.sprintButtonBlock}>

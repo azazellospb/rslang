@@ -84,7 +84,7 @@ export const createObjectForPostOrPutItToUserAggregatedWords = (currentWord: IWo
         dates: {},
       },
     }
-  
+    console.log(params.optional?.rightCounter)
     // eslint-disable-next-line no-nested-ternary, no-unneeded-ternary
     if (examination && (!isHard ? true : (isHard && toLearn === 2) ? true : false)) params.optional!.dates![dateKey] = true
     dispatch(postPutWordsToServerFromGame(params))
@@ -143,6 +143,7 @@ export const filteredUnlearnedWordsLessThanCurrentPage = (data: IUnlearnedWord[]
   console.log('action')
   console.log(filteredWord)
   dispatch(fetchWordForSprintGameSuccess(filteredWord))
+  // filteredWord.length === 0 ? dispatch(timerWork(0)) : dispatch(fetchWordForSprintGameSuccess(filteredWord))
   // if (filteredWord.length === 0) {
   //   const afterPageWords = filteredWord.filter((word:IUnlearnedWord) => word.page <= page)
   //   dispatch(fetchOtherSectionUnlearned(afterPageWords))
