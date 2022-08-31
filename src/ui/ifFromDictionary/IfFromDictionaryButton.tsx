@@ -6,12 +6,14 @@ import styles from './IfFromDictionaryButton.module.css'
 
 function IfFromDictionaryButton() {
   const dispatch = useAppDispatch()
-  const paramForFetch = useAppSelector((state) => state.sprintGameSlice.currentGroupPage)
+  // const paramForFetch = useAppSelector((state) => state.sprintGameSlice.currentGroupPage)
+  const currentGroupPage = useAppSelector((state) => state.sprintGameSlice.currentGroupPage)
   return (
     <button
       className={styles.button}
       type="button"
-      onClick={() => dispatch(getWordsDataForSprintGame(paramForFetch!))}
+      // onClick={() => dispatch(getWordsDataForSprintGame(paramForFetch!))}
+      onClick={() => dispatch(getWordsDataForSprintGame(currentGroupPage!))}
     >
       Начать игру
     </button>
