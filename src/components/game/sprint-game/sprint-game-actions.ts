@@ -78,9 +78,9 @@ export const createObjectForPostOrPutItToUserAggregatedWords = (currentWord: IWo
       optional: {
         // eslint-disable-next-line no-nested-ternary
         toLearn: !isHard ? 0 : examination ? (!((toLearn + 1) === 3) ? toLearn += 1 : toLearn = 0) : ((toLearn - 1 > 0) ? toLearn -= 1 : toLearn = 0),
-        learned: (toLearn === 2) && examination && isHard,
-        rightCounter: examination ? Number(isWord?.optional?.rightCounter) + 1 : Number(isWord?.optional?.rightCounter),
-        wrongCounter: !examination ? Number(isWord?.optional?.wrongCounter) + 1 : Number(isWord?.optional?.wrongCounter),
+        learned: ((toLearn === 2) && isHard) || (examination && !isHard),
+        rightCounter: examination ? Number(isWord?.optional?.rightCounter) + 1 : Number(isWord?.optional?.rightCounter) || 0,
+        wrongCounter: !examination ? Number(isWord?.optional?.wrongCounter) + 1 : Number(isWord?.optional?.wrongCounter) || 0,
         dates: {},
       },
     }
