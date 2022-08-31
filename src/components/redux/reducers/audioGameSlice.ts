@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IWord } from '../../../types/models'
-
+/* eslint-disable no-nested-ternary */
 const initialState: IAudioGame = {
   words: [],
   learnedWords: [],
@@ -37,10 +37,14 @@ export const audioGameSlice = createSlice({
       state.currentWord = action.payload
     },
     learnedWord(state, action: PayloadAction<ILearnedWord>) {
-      // console.log('learnedWord')
-      state.learnedWords.some((item) => item.id === action.payload.id)
-        ? null
-        : state.learnedWords.push(action.payload)
+      // state.learnedWords.some((item) => item.id === action.payload.id)
+      //   ? null
+      //   : state.learnedWords.push(action.payload)
+      Object.keys(action.payload).length === 0
+        ? (state.learnedWords = [])
+        : state.learnedWords.some((item) => item.id === action.payload.id)
+          ? null
+          : state.learnedWords.push(action.payload)
     },
     setStyles(state, action: PayloadAction<boolean>) {
       state.changeStyle = action.payload
