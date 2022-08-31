@@ -13,8 +13,9 @@ import {
 } from '../../../types/models'
 import { IFetchParam, IStudiedWord } from '../../../types/sprint-game-models'
 import { aggregateWords, getWordsDataForSprintGame, postPutWordsToServerFromGame } from '../../redux/fetching'
+import { fetchOtherSectionUnlearned } from '../../redux/reducers/aggregatedSlice'
 import {
-  currentWord, fetchWordForSprintGameSuccess, forComparisonWord, gameScore, studiedWord,
+  currentWord, fetchWordForSprintGameSuccess, forComparisonWord, gameScore, studiedWord, timerWork, turnCounter,
 } from '../../redux/reducers/sprintGameSlice'
 import { AppDispatchState } from '../../redux/store'
 
@@ -126,8 +127,8 @@ export const filteredUnlearnedWordsLessThanCurrentPage = (data: IUnlearnedWord[]
       id: item._id,
       group: item.group,
       page: item.page,
-      word: item.image,
-      image: item.word,
+      word: item.word,
+      image: item.image,
       audio: item.audio,
       audioMeaning: item.audioMeaning,
       audioExample: item.audioExample,
@@ -139,6 +140,17 @@ export const filteredUnlearnedWordsLessThanCurrentPage = (data: IUnlearnedWord[]
       wordTranslate: item.wordTranslate,
     }))
     .sort((a, b) => (a.page < b.page ? 1 : -1))
+  console.log('action')
   console.log(filteredWord)
   dispatch(fetchWordForSprintGameSuccess(filteredWord))
+  // if (filteredWord.length === 0) {
+  //   const afterPageWords = filteredWord.filter((word:IUnlearnedWord) => word.page <= page)
+  //   dispatch(fetchOtherSectionUnlearned(afterPageWords))
+  // }
+}
+export const refreshGameParams = () => (dispatch: AppDispatchState) => {
+  dispatch(timerWork(5))
+  dispatch(turnCounter())
+  dispatch(studiedWord({}))
+  dispatch(gameScore(0))
 }

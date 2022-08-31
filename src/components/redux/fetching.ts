@@ -21,6 +21,7 @@ import {
 } from './reducers/sprintGameSlice'
 import { fetchAggregatedWords, fetchBeforePageUnlearned, fetchOtherSectionUnlearned } from './reducers/aggregatedSlice'
 import mergeDeep from '../../tools/mergeDeep'
+import { filteredUnlearnedWordsLessThanCurrentPage } from '../game/sprint-game/sprint-game-actions'
 
 const getWordsData = (
   page = 0,
@@ -69,6 +70,7 @@ export const postPutWordsToServerFromGame = (params: IParams) => async (dispatch
     difficulty: params.difficulty,
     optional: params.optional,
   }
+  console.log(params)
   try {
     await fetch(
       `http://localhost:8088/users/${userId}/words/${params.wordId}`,
@@ -213,6 +215,30 @@ export const getUnlearnedWords = (
       afterPageWords = unlearnedWords.filter((word:IUnlearnedWord) => word.page <= page)
       dispatch(fetchOtherSectionUnlearned(afterPageWords))
     }
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const getUnlearnedWordsForGames = (currentGroupPage: IFetchParam) => async (dispatch: AppDispatchState) => {
+  const { textbookSection, page } = currentGroupPage
+  const userInfo = localStorage.getItem('userInfo') as string
+  const { token, userId } = JSON.parse(userInfo)
+  try {
+    const response: Response = await fetch(
+      `http://localhost:8088/users/${userId}/aggregatedWords?filter={"$and":[{ "group": ${textbookSection}}, {"$or":[{"userWord.optional.learned":null}, {"userWord.optional.learned":false}]}]}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+    const responseData: IAggregatedWords[] = await response.json()
+    const unlearnedWords: IUnlearnedWord[] = responseData[0].paginatedResults
+    console.log('fetch')
+    await dispatch(filteredUnlearnedWordsLessThanCurrentPage(unlearnedWords, page))
   } catch (e) {
     console.log(e)
   }

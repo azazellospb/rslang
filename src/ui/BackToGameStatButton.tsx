@@ -2,11 +2,21 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { refreshGameParams } from '../components/game/sprint-game/sprint-game-actions'
+import { useAppDispatch } from '../components/redux/hooks/redux'
 import styles from './backToGameStatButton.module.css'
 
 function BackToGameStatButton() {
+  const dispatch = useAppDispatch()
+  const BackToGameHandel = () => {
+    dispatch(refreshGameParams())
+  }
   return (
-    <button type="button" className={styles.gameButton}>
+    <button
+      type="button"
+      className={styles.gameButton}
+      onClick={BackToGameHandel}
+    >
       <Link to="/">
         <svg className={styles.game} data-name="Layer 1" id="Layer_1" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <title />

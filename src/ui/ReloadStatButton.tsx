@@ -1,18 +1,16 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
-import { useAppDispatch } from '../components/redux/hooks/redux'
-import {
-  gameScore, studiedWord, timerWork, turnCounter,
-} from '../components/redux/reducers/sprintGameSlice'
+import { refreshGameParams } from '../components/game/sprint-game/sprint-game-actions'
+import { getUnlearnedWordsForGames } from '../components/redux/fetching'
+import { useAppDispatch, useAppSelector } from '../components/redux/hooks/redux'
 import styles from './reloadButton.module.css'
 
 function ReloadStatButton() {
+  const currentGroupPage = useAppSelector((state) => state.sprintGameSlice.currentGroupPage)
   const dispatch = useAppDispatch()
   const refreshHandel = () => {
-    dispatch(timerWork(5))
-    dispatch(turnCounter())
-    dispatch(studiedWord({}))
-    dispatch(gameScore(0))
+    dispatch(refreshGameParams())
+    dispatch(getUnlearnedWordsForGames(currentGroupPage!))
   }
   return (
     <button
