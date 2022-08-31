@@ -1,3 +1,4 @@
+@import-normalize;
 @import url('./fonts.css');
 
 :root {
@@ -5,6 +6,7 @@
   --text-color: #410002;
   --tetriary-color: #7a4f7d;
   --border-color: rgb(0, 88, 201);
+  --color-bg: #F5F5F5;
 }
 
 body {
@@ -17,13 +19,16 @@ body {
 }
 
 * {
-  margin: 0;
+  margin: 0px;
+  padding: 0px;
+  
 }
 
 #root {
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
+  overflow: hidden;
 }
 
 code {
@@ -33,4 +38,11 @@ code {
 a {
   text-decoration: none;
   /* color: var(--text-color); */
+}
+
+.container {
+  max-width: 1280px;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin: 0 auto
 }
