@@ -36,7 +36,7 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
       disabled={changeStyle}
     >
       <span>{`${keyNumber}. `}</span>
-      <span>{currtWord.word}</span>
+      <span>{currtWord.wordTranslate}</span>
     </button>
   )
 }
