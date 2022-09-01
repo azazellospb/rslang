@@ -8,8 +8,8 @@
 }
 
 body {
-  font-family: 'Nunito-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Nunito-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* color: var(--text-color); */
@@ -33,4 +33,11 @@ code {
 a {
   text-decoration: none;
   /* color: var(--text-color); */
+}
+
+.container {
+  width: 1280px;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin: auto;
 }

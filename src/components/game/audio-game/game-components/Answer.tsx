@@ -2,7 +2,7 @@
 /* eslint-disable no-empty */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react'
-import { IWord } from '../../../../types/models'
+import { IUnlearnedWord, IWord } from '../../../../types/models'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux'
 import { audioGameSlice } from '../../../redux/reducers/audioGameSlice'
 import createLearnedWordAndPutItToArr from '../audiogame-actions'
@@ -20,6 +20,7 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
       dispatch(audioGameSlice.actions.setStyles(true))
       setStyle(`${styles.answerRight}`)
       dispatch(createLearnedWordAndPutItToArr(currtWord, true))
+      // localStorage.setItem('newWords', currtWord.word)
     } else {
       dispatch(audioGameSlice.actions.setStyles(true))
       setStyle(`${styles.answerWrong}`)
@@ -35,7 +36,7 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
       disabled={changeStyle}
     >
       <span>{`${keyNumber}. `}</span>
-      <span>{currtWord.word}</span>
+      <span>{currtWord.wordTranslate}</span>
     </button>
   )
 }
@@ -44,5 +45,5 @@ export default Answer
 
 interface IAnswerBtn {
   keyNumber: object | number | string
-  currtWord: IWord
+  currtWord: IWord | IUnlearnedWord
 }

@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IWord } from '../../../types/models'
-
+import { IUnlearnedWord, IWord } from '../../../types/models'
+/* eslint-disable no-nested-ternary */
 const initialState: IAudioGame = {
   words: [],
   learnedWords: [],
@@ -14,6 +14,7 @@ const initialState: IAudioGame = {
   customAnswers: [],
   counterWord: 0,
   counterProgress: 1,
+  totalNumOfWords: 20,
 }
 
 export const audioGameSlice = createSlice({
@@ -32,14 +33,18 @@ export const audioGameSlice = createSlice({
       state.isLoaded = false
       state.error = action.payload
     },
-    setCurrentWord(state, action: PayloadAction<IWord>) {
+    setCurrentWord(state, action: PayloadAction<IWord | IUnlearnedWord>) {
       state.currentWord = action.payload
     },
     learnedWord(state, action: PayloadAction<ILearnedWord>) {
-      // console.log('learnedWord')
-      state.learnedWords.some((item) => item.id === action.payload.id)
-        ? null
-        : state.learnedWords.push(action.payload)
+      // state.learnedWords.some((item) => item.id === action.payload.id)
+      //   ? null
+      //   : state.learnedWords.push(action.payload)
+      Object.keys(action.payload).length === 0
+        ? (state.learnedWords = [])
+        : state.learnedWords.some((item) => item.id === action.payload.id)
+          ? null
+          : state.learnedWords.push(action.payload)
     },
     setStyles(state, action: PayloadAction<boolean>) {
       state.changeStyle = action.payload
@@ -51,38 +56,42 @@ export const audioGameSlice = createSlice({
     fetchCounterProgress(state, action: PayloadAction<number>) {
       state.counterProgress = action.payload
     },
+    fetchTotalNumOfWords(state, action: PayloadAction<number>) {
+      state.totalNumOfWords = action.payload
+    },
   },
 })
 
 export default audioGameSlice.reducer
 
 export interface IAudioGame {
-  words: IWord[]
+  words: IWord[] | IUnlearnedWord[]
   learnedWords: ILearnedWord[]
   isLoaded: boolean
   error: string
-  currentWord: IWord | null
+  currentWord: IWord | null | IUnlearnedWord
   rightWords: IWord[]
   changeStyle: boolean
   customAnswers: IWord[]
   counterWord: number
   counterProgress: number
+  totalNumOfWords: number
 }
 
 export interface ILearnedWord {
-  id?: string | undefined;
-  group?: number | undefined;
-  page?: number | undefined;
-  word?: string | undefined;
-  image?: string | undefined;
-  audio?: string | undefined;
-  audioMeaning?: string | undefined;
-  audioExample?: string | undefined;
-  textMeaning?: string | undefined;
-  textExample?: string | undefined;
-  transcription?: string | undefined;
-  textExampleTranslate?: string | undefined;
-  textMeaningTranslate?: string | undefined;
-  wordTranslate?: string | undefined;
+  id?: string | undefined
+  group?: number | undefined
+  page?: number | undefined
+  word?: string | undefined
+  image?: string | undefined
+  audio?: string | undefined
+  audioMeaning?: string | undefined
+  audioExample?: string | undefined
+  textMeaning?: string | undefined
+  textExample?: string | undefined
+  transcription?: string | undefined
+  textExampleTranslate?: string | undefined
+  textMeaningTranslate?: string | undefined
+  wordTranslate?: string | undefined
   learned?: boolean
 }

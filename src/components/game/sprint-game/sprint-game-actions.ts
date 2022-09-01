@@ -8,8 +8,10 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-hooks/rules-of-hooks */
+
+/* eslint-disable import/no-cycle */
 import {
-  ICustomWord, IParams, IUnlearnedWord, IWord, 
+  ICustomWord, IParams, IUnlearnedWord, IWord,
 } from '../../../types/models'
 import { IFetchParam, IStudiedWord } from '../../../types/sprint-game-models'
 import { aggregateWords, getWordsDataForSprintGame, postPutWordsToServerFromGame } from '../../redux/fetching'
