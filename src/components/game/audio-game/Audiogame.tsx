@@ -12,7 +12,7 @@ import AudioIcon from './game-ui/audio-btn/AudioIcon'
 function Audiogame() {
   const { changeStyle, currentWord } = useAppSelector((state) => state.audioGameSlice)
   const voiceBtn = useRef<HTMLAudioElement>(null)
-  const progress = useAppSelector((state) => state.audioGameSlice.counterProgress)
+  const { counterProgress, totalNumOfWords } = useAppSelector((state) => state.audioGameSlice)
 
   function handleVoice() {
     voiceBtn.current?.play()
@@ -20,7 +20,7 @@ function Audiogame() {
 
   return (
     <div className={['container', styles.wrapper].join(' ')}>
-      <div className={styles.counter}>{`${progress} / 20`}</div>
+      <div className={styles.counter}>{`${counterProgress} / ${totalNumOfWords}`}</div>
       <div className={styles.gameContent}>
         <div className={styles.answerContent}>
           <div className={styles.imgWrapper}>

@@ -13,12 +13,12 @@ import createLearnedWordAndPutItToArr from '../audiogame-actions'
 import styles from '../Audiogame.module.css'
 
 export default function NextCardBtn() {
-  const MAX_NUMBER_WORDS = 19
+  const MAX_NUMBER_WORDS = 20
   let numberOfWords: number
   const dispatch = useAppDispatch()
   const startDada = useAppSelector(getBeforePageWords)
   const proposeDada = useAppSelector(getOtherUnlearned)
-
+  const { isFromDictionary } = useAppSelector((state) => state.sprintGameSlice)
   let data: IWord[] | IUnlearnedWord[]
   if (startDada.length) {
     data = startDada
@@ -26,24 +26,26 @@ export default function NextCardBtn() {
     data = proposeDada
   } else {
     data = useAppSelector((state) => state.sprintGameSlice.gameData)
+    if (!isFromDictionary) data = useAppSelector((state) => state.sprintGameSlice.gameData)
   }
+
   // const data = useAppSelector((state) => state.sprintGameSlice.gameData)
   if (data.length > MAX_NUMBER_WORDS) {
     numberOfWords = MAX_NUMBER_WORDS
   } else {
     numberOfWords = data.length
   }
-
+  dispatch(audioGameSlice.actions.fetchTotalNumOfWords(numberOfWords))
   const { changeStyle, counterProgress, counterWord, currentWord } = useAppSelector(
     (state) => state.audioGameSlice,
   )
 
   let endGame = '▶▷▶▷▶'
-  if (counterWord >= numberOfWords) {
+  if (counterWord >= numberOfWords - 1) {
     endGame = 'Завершить игру'
   }
   const handleConfirmBtn = () => {
-    if (counterWord >= numberOfWords) {
+    if (counterWord >= numberOfWords - 1) {
       dispatch(gameSlice.actions.fetchGameOver(true))
       dispatch(createLearnedWordAndPutItToArr(currentWord, false))
       return

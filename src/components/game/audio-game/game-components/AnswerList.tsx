@@ -14,6 +14,7 @@ function AnswerList() {
   const startDada = useAppSelector(getBeforePageWords)
   const proposeDada = useAppSelector(getOtherUnlearned)
   const dispatch = useAppDispatch()
+  const { isFromDictionary } = useAppSelector((state) => state.sprintGameSlice)
   let data: IWord[] | IUnlearnedWord[]
   if (startDada.length) {
     data = startDada
@@ -21,8 +22,9 @@ function AnswerList() {
     data = proposeDada
   } else {
     data = useAppSelector((state) => state.sprintGameSlice.gameData)
+    if (!isFromDictionary) data = useAppSelector((state) => state.sprintGameSlice.gameData)
   }
-  // const data = useAppSelector((state) => state.sprintGameSlice.gameData)
+
   const dataAnswers = useAppSelector((state) => state.wordSlice.data)
   const counterWord = useAppSelector((state) => state.audioGameSlice.counterWord)
 
