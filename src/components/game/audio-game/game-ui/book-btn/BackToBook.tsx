@@ -13,13 +13,20 @@ function BackToBook() {
     dispatch(audioGameSlice.actions.fetchCounterProgress(1))
     dispatch(audioGameSlice.actions.fetchCounterWord(0))
     dispatch(audioGameSlice.actions.learnedWord({}))
+    dispatch(audioGameSlice.actions.fetchTotalNumOfWords(20))
   }
   const currentGroupPage = useAppSelector((state) => state.sprintGameSlice.currentGroupPage)
   return (
     <button type="button" className={styles.toBookBtn} onClick={ToBookHandle}>
-      <Link to={`/dictionary/${currentGroupPage?.textbookSection}/${currentGroupPage?.page}`}>
-        <BookIcon />
-      </Link>
+      {currentGroupPage ? (
+        <Link to={`/dictionary/${currentGroupPage?.textbookSection}/${currentGroupPage?.page}`}>
+          <BookIcon />
+        </Link>
+      ) : (
+        <Link to="/dictionary/0/0">
+          <BookIcon />
+        </Link>
+      )}
     </button>
   )
 }
