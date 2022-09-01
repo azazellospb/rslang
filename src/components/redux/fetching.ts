@@ -273,7 +273,7 @@ export const getUnlearnedWords = (
       .sort((a, b) => (a.page < b.page ? 1 : -1))
     dispatch(fetchBeforePageUnlearned(beforePageWords))
     if (beforePageWords.length === 0) {
-      afterPageWords = unlearnedWords.filter((word:IUnlearnedWord) => word.page <= page)
+      afterPageWords = unlearnedWords.filter((word:IUnlearnedWord) => word.page > page)
       dispatch(fetchOtherSectionUnlearned(afterPageWords))
     }
   } catch (e) {
