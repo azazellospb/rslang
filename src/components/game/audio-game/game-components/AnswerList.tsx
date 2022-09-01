@@ -22,8 +22,8 @@ function AnswerList() {
     data = proposeDada
   } else {
     data = useAppSelector((state) => state.sprintGameSlice.gameData)
-    if (!isFromDictionary) data = useAppSelector((state) => state.sprintGameSlice.gameData)
   }
+  if (!isFromDictionary) data = useAppSelector((state) => state.sprintGameSlice.gameData)
 
   const dataAnswers = useAppSelector((state) => state.wordSlice.data)
   const counterWord = useAppSelector((state) => state.audioGameSlice.counterWord)
