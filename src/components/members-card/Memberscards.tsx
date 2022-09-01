@@ -1,6 +1,5 @@
 import React from 'react'
 import GitLogo from './GitLogo'
-import RSLogo from './RSLogo'
 
 export interface IPropObj {
   title: string,
@@ -14,7 +13,7 @@ export interface IPropObj {
 
 function MemberCard(obj: IPropObj) {
   const {
-    title, role, imgUrl, gitUrl, rssUrl, country, about,
+    title, role, imgUrl, gitUrl, country,
   } = obj
   return (
     <section className="card">
@@ -23,18 +22,16 @@ function MemberCard(obj: IPropObj) {
       </div>
       <div className="about-member-container">
         <h2 className="member-info member-name">
-          {' '}
           {title}
+        </h2>
+        <h3 className="member-info member-role">
+          {role}
           {', '}
           {country}
-          {' '}
-        </h2>
-        <h3 className="member-info member-role">{role}</h3>
-        <span className="member-info member-info">{about}</span>
+        </h3>
       </div>
       <div className="logo-block">
         <GitLogo href={gitUrl} />
-        <RSLogo href={rssUrl} />
       </div>
     </section>
   )
