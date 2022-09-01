@@ -1,0 +1,26 @@
+.wordBlock {
+  margin: 20px;
+  padding: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap:4vw;
+  margin-top: 4rem;
+  border-radius: 10px;
+  background-color: antiquewhite;
+}
+.pagination {
+  background-color: antiquewhite;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0 auto;
+  width: 80vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.pagination a {
+  display: block;
+  border-bottom: 2px solid transparent;
+}

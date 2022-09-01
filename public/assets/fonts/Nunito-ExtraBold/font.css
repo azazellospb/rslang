@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Nunito-ExtraBold';
+  src: url('Nunito-ExtraBold.eot');
+  src: url('Nunito-ExtraBold.eot?#iefix') format('embedded-opentype'),
+       url('Nunito-ExtraBold.svg#Nunito-ExtraBold') format('svg'),
+       url('Nunito-ExtraBold.ttf') format('truetype'),
+       url('Nunito-ExtraBold.woff') format('woff'),
+       url('Nunito-ExtraBold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
