@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-console */
@@ -7,14 +8,16 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-hooks/rules-of-hooks */
+
 /* eslint-disable import/no-cycle */
 import {
   ICustomWord, IParams, IUnlearnedWord, IWord,
 } from '../../../types/models'
 import { IFetchParam, IStudiedWord } from '../../../types/sprint-game-models'
 import { aggregateWords, getWordsDataForSprintGame, postPutWordsToServerFromGame } from '../../redux/fetching'
+import { fetchBeforePageUnlearned, fetchOtherSectionUnlearned } from '../../redux/reducers/aggregatedSlice'
 import {
-  currentWord, fetchWordForSprintGameSuccess, forComparisonWord, gameScore, studiedWord,
+  currentWord, fetchWordForSprintGameSuccess, forComparisonWord, gameScore, showMessageIfAllWordStudiedOnPage, studiedWord, timerWork, turnCounter,
 } from '../../redux/reducers/sprintGameSlice'
 import { AppDispatchState } from '../../redux/store'
 
@@ -42,7 +45,7 @@ export const createObjectForPostOrPutItToUserAggregatedWords = (currentWord: IWo
   const isHard = (isWord?.difficulty === 'hard')
   let toLearn = (isWord?.optional?.toLearn || 0)
   const date = new Date()
-  const month = date.getMonth().toString().length !== 1 ? date.getMonth().toString() : `0${date.getMonth().toString()}`
+  const month = (date.getMonth() + 1).toString().length !== 1 ? (date.getMonth() + 1).toString() : `0${(date.getMonth() + 1).toString()}`
   const dateKey = `d${date.getDate().toString()}${month}${date.getFullYear().toString()}`
   // для серии в статистике
   if (!localStorage.getItem('rightOrwrong')) {
@@ -72,21 +75,23 @@ export const createObjectForPostOrPutItToUserAggregatedWords = (currentWord: IWo
   if (isAggregated) {
     const params: IParams = {
       method: 'PUT',
-      difficulty: isWord?.difficulty,
+      // eslint-disable-next-line no-nested-ternary
+      difficulty: !isHard ? isWord?.difficulty : examination ? ((toLearn === 2) ? 'easy' : isWord?.difficulty) : isWord?.difficulty,
       wordId: currentWord?.id,
       optional: {
         // eslint-disable-next-line no-nested-ternary
         toLearn: !isHard ? 0 : examination ? (!((toLearn + 1) === 3) ? toLearn += 1 : toLearn = 0) : ((toLearn - 1 > 0) ? toLearn -= 1 : toLearn = 0),
-        learned: (toLearn === 2) && examination && isHard,
-        rightCounter: examination ? Number(isWord?.optional?.rightCounter) + 1 : Number(isWord?.optional?.rightCounter),
-        wrongCounter: !examination ? Number(isWord?.optional?.wrongCounter) + 1 : Number(isWord?.optional?.wrongCounter),
+        learned: ((toLearn === 2) && isHard) || (examination && !isHard),
+        rightCounter: examination ? Number(isWord?.optional?.rightCounter) + 1 : Number(isWord?.optional?.rightCounter) || 0,
+        wrongCounter: !examination ? Number(isWord?.optional?.wrongCounter) + 1 : Number(isWord?.optional?.wrongCounter) || 0,
         dates: {},
       },
     }
-  
+    console.log(params.optional?.rightCounter)
     // eslint-disable-next-line no-nested-ternary, no-unneeded-ternary
     if (examination && (!isHard ? true : (isHard && toLearn === 2) ? true : false)) params.optional!.dates![dateKey] = true
     dispatch(postPutWordsToServerFromGame(params))
+    console.log(params)
   } else {
     if (!localStorage.getItem('newWords')) {
       localStorage.setItem('newWords', '1')
@@ -119,7 +124,6 @@ export const choiceCategory = (e: React.MouseEvent<HTMLButtonElement, MouseEvent
   }
   dispatch(getWordsDataForSprintGame(paramForFetch))
 }
-
 export const filteredUnlearnedWordsLessThanCurrentPage = (data: IUnlearnedWord[], page: number) => (dispatch: AppDispatchState) => {
   const filteredWord = data.filter((item) => item.page <= page)
     .map((item) => ({
@@ -141,10 +145,37 @@ export const filteredUnlearnedWordsLessThanCurrentPage = (data: IUnlearnedWord[]
     }))
     .sort((a, b) => (a.page < b.page ? 1 : -1))
   console.log('action')
+  dispatch(fetchWordForSprintGameSuccess(filteredWord))
+  filteredWord.length === 0 ? dispatch(showMessageIfAllWordStudiedOnPage(true)) : dispatch(showMessageIfAllWordStudiedOnPage(false))
+}
+export const filteredUnlearnedWordsMoreThanCurrentPage = (data: IUnlearnedWord[], page: number) => (dispatch: AppDispatchState) => {
+  const filteredWord = data.filter((item) => item.page >= page)
+    .map((item) => ({
+      // eslint-disable-next-line no-underscore-dangle
+      id: item._id,
+      group: item.group,
+      page: item.page,
+      word: item.word,
+      image: item.image,
+      audio: item.audio,
+      audioMeaning: item.audioMeaning,
+      audioExample: item.audioExample,
+      textMeaning: item.textMeaning,
+      textExample: item.textExample,
+      transcription: item.transcription,
+      textExampleTranslate: item.textExampleTranslate,
+      textMeaningTranslate: item.textMeaningTranslate,
+      wordTranslate: item.wordTranslate,
+    }))
+    .sort((a, b) => (a.page < b.page ? 1 : -1))
+  console.log('action')
   console.log(filteredWord)
   dispatch(fetchWordForSprintGameSuccess(filteredWord))
-  // if (filteredWord.length === 0) {
-  //   const afterPageWords = filteredWord.filter((word:IUnlearnedWord) => word.page <= page)
-  //   dispatch(fetchOtherSectionUnlearned(afterPageWords))
-  // }
+  filteredWord.length === 0 ? dispatch(showMessageIfAllWordStudiedOnPage(true)) : dispatch(showMessageIfAllWordStudiedOnPage(false))
+}
+export const refreshGameParams = () => (dispatch: AppDispatchState) => {
+  dispatch(timerWork(5))
+  dispatch(turnCounter())
+  dispatch(studiedWord({}))
+  dispatch(gameScore(0))
 }

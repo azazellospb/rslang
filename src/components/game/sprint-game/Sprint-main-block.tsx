@@ -11,6 +11,7 @@ function SprintGameMainBlock() {
   const gameData = useAppSelector((state) => state.sprintGameSlice.gameData)
   const timer = useAppSelector((state) => state.sprintGameSlice.timer)
   const counter = useAppSelector((state) => state.sprintGameSlice.turnCounter)
+  const isFromDictionary = useAppSelector((state) => state.sprintGameSlice.isFromDictionary)
   useMemo(() => {
     dispatch(getRandomWord(gameData, counter))
   }, [counter, dispatch, gameData])
@@ -18,7 +19,10 @@ function SprintGameMainBlock() {
     <>
       { Boolean(timer) && <Timer /> }
       { Boolean(timer) && <PlayingField /> }
-      { Boolean(!timer) && <GameStat /> }
+      {/* { Boolean(!timer) && <GameStat /> } */}
+      { isFromDictionary
+        ? ((Boolean(gameData.length === 0) || Boolean(!timer)) && <GameStat />)
+        : (Boolean(!timer) && <GameStat />)}
     </>
 
   )

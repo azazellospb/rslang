@@ -1,11 +1,15 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useRef, useEffect } from 'react'
 import {
   Link, NavLink,
 } from 'react-router-dom'
+import { refreshGameParams } from '../game/sprint-game/sprint-game-actions'
 import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
-import { modalToggle, whereEnterGame } from '../redux/reducers/sprintGameSlice'
+import {
+  isGetOffer, modalToggle, showMessageIfAllWordStudiedOnPage, whereEnterGame,
+} from '../redux/reducers/sprintGameSlice'
 import { clearUserPassw } from '../redux/reducers/userSlice'
 import styles from './Navigation.module.css'
 
@@ -26,6 +30,8 @@ export default function Navigation() {
     const handleClick = () => {
       const dropDown = document.querySelector('#dropdown') as HTMLElement
       dropDown.style.display = 'none'
+      dispatch(refreshGameParams())
+      dispatch(dispatch(isGetOffer(false)))
     }
     const element1 = ref1.current!
     const element2 = ref2.current!
@@ -45,7 +51,14 @@ export default function Navigation() {
   navbar?.addEventListener('click', getPassword)
   return (
     <nav className={styles.navigation} ref={navRef}>
-      <ul className={styles.menuList}>
+      <ul
+        onClick={() => {
+          dispatch(refreshGameParams())
+          dispatch(dispatch(isGetOffer(false)))
+          showMessageIfAllWordStudiedOnPage(false)
+        }}
+        className={styles.menuList}
+      >
         <NavLink to="/"><li>На главную</li></NavLink>
         <NavLink to="/dictionary/0/0"><li>учебник</li></NavLink>
         <div className={styles.dropdown} ref={ref1}>
@@ -53,7 +66,11 @@ export default function Navigation() {
           <div
             id="dropdown"
             className={`${styles.dropdownContent}`}
-            onClick={() => { dispatch(modalToggle(true)); dispatch(whereEnterGame(false)) }}
+            onClick={() => {
+              dispatch(modalToggle(true))
+              dispatch(whereEnterGame(false))
+              showMessageIfAllWordStudiedOnPage(false)
+            }}
             ref={ref2}
           >
             <Link to="/audiochallenge">аудиовызов</Link>
