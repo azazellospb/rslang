@@ -1,18 +1,29 @@
+/* eslint-disable max-len */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
-import { useAppDispatch } from '../components/redux/hooks/redux'
-import {
-  gameScore, studiedWord, timerWork, turnCounter,
-} from '../components/redux/reducers/sprintGameSlice'
+import { refreshGameParams } from '../components/game/sprint-game/sprint-game-actions'
+import { getUnlearnedWordsForGames, getUnlearnedWordsForGamesAfterCurrentPage, getWordsDataForSprintGame } from '../components/redux/fetching'
+import { useAppDispatch, useAppSelector } from '../components/redux/hooks/redux'
 import styles from './reloadButton.module.css'
 
 function ReloadStatButton() {
+  const currentGroupPage = useAppSelector((state) => state.sprintGameSlice.currentGroupPage)
+  const isFromDictionary = useAppSelector((state) => state.sprintGameSlice.isFromDictionary)
+  const offer = useAppSelector((state) => state.sprintGameSlice.offer)
+  const currentWord = useAppSelector((state) => state.sprintGameSlice.currentWord)
   const dispatch = useAppDispatch()
   const refreshHandel = () => {
-    dispatch(timerWork(5))
-    dispatch(turnCounter())
-    dispatch(studiedWord({}))
-    dispatch(gameScore(0))
+    dispatch(refreshGameParams())
+    isFromDictionary
+      ? offer ? dispatch(getUnlearnedWordsForGamesAfterCurrentPage(currentGroupPage!)) : dispatch(getUnlearnedWordsForGames(currentGroupPage!))
+      : dispatch(getWordsDataForSprintGame(
+        {
+          textbookSection: String(currentWord?.group),
+          page: Math.floor(Math.random() * 30),
+        },
+      ))
   }
   return (
     <button

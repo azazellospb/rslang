@@ -21,7 +21,6 @@ function FirstModalForGame(props : IPropModal) {
             {obj.description}
           </span>
         </div>
-        {/* // TODO: условие если чтото то рендерим блок с кнопками или просто кнопку */}
         <ButtonList />
       </div>
     </section>
