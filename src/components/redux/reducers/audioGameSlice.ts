@@ -3,6 +3,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IUnlearnedWord, IWord } from '../../../types/models'
 /* eslint-disable no-nested-ternary */
+/* eslint-disable no-underscore-dangle */
 const initialState: IAudioGame = {
   words: [],
   learnedWords: [],
@@ -21,14 +22,6 @@ export const audioGameSlice = createSlice({
   name: 'audiogame',
   initialState,
   reducers: {
-    // wordsFetch(state) {
-    //   state.isLoaded = true
-    // },
-    // wordsFetchSuccess(state, action: PayloadAction<IWord[]>) {
-    //   state.isLoaded = false
-    //   state.words = action.payload
-    //   state.error = ''
-    // },
     wordsFetchError(state, action: PayloadAction<string>) {
       state.isLoaded = false
       state.error = action.payload
@@ -36,10 +29,18 @@ export const audioGameSlice = createSlice({
     setCurrentWord(state, action: PayloadAction<IWord | IUnlearnedWord>) {
       state.currentWord = action.payload
     },
+    /**
+     * Create array word for statistics after game
+     * @param action.payload - word can contain different keynames { id } or { _id }
+     */
     learnedWord(state, action: PayloadAction<ILearnedWord>) {
-      // state.learnedWords.some((item) => item.id === action.payload.id)
-      //   ? null
-      //   : state.learnedWords.push(action.payload)
+      if (action.payload.id === undefined) {
+        Object.keys(action.payload).length === 0
+          ? (state.learnedWords = [])
+          : state.learnedWords.some((item) => item._id === action.payload._id)
+            ? null
+            : state.learnedWords.push(action.payload)
+      }
       Object.keys(action.payload).length === 0
         ? (state.learnedWords = [])
         : state.learnedWords.some((item) => item.id === action.payload.id)
@@ -49,7 +50,6 @@ export const audioGameSlice = createSlice({
     setStyles(state, action: PayloadAction<boolean>) {
       state.changeStyle = action.payload
     },
-    // getCustomAnswers(state, )
     fetchCounterWord(state, action: PayloadAction<number>) {
       state.counterWord = action.payload
     },
@@ -79,6 +79,7 @@ export interface IAudioGame {
 }
 
 export interface ILearnedWord {
+  _id?: string
   id?: string | undefined
   group?: number | undefined
   page?: number | undefined

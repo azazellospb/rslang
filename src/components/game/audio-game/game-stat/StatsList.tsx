@@ -9,7 +9,7 @@ function StatsList() {
   return (
     <div>
       {learnedWords.map((el, i) => (
-        <StatsCard id={i} key={el.id} />
+        <StatsCard id={i} key={el.id! + Date.now()} />
       ))}
     </div>
   )
