@@ -1,11 +1,10 @@
 /* eslint-disable no-template-curly-in-string */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
-import getWordsData from '../redux/fetching'
-import { useAppDispatch } from '../redux/hooks/redux'
-import { getWordsArray } from '../redux/reducers/wordSlice'
+import { getDictPageWords } from '../redux/fetching'
+import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
+import { dictPageWords } from '../redux/reducers/aggregatedSlice'
 import WordCard from './WordCard'
 import styles from './WordsBunch.module.css'
 
@@ -15,12 +14,15 @@ export default function WordsBunch() {
     borderBottom: '2px solid black',
   }
   // eslint-disable-next-line no-console
+
   const dispatch = useAppDispatch()
-  const data = useSelector(getWordsArray)
-  const pageData = data.filter((x) => (x.page === +page) && (x.group === +group))
+  const pageData = useAppSelector(dictPageWords)
+  // eslint-disable-next-line no-console
+  console.log('page')
   useEffect(() => {
-    dispatch(getWordsData(+page, +group, data))
-  }, [dispatch, group, page, data])
+    dispatch(getDictPageWords(+page, +group))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [group, page])
 
   const current = Number(page!)
 
@@ -37,8 +39,8 @@ export default function WordsBunch() {
       </div>
       <div className={styles.wordBlock}>
         {pageData.map((item) => (
-          // eslint-disable-next-line react/jsx-props-no-spreading, no-console
-          <WordCard key={item.id + new Date().getTime()} obj={item} callback={() => console.log('!')} />
+          // eslint-disable-next-line react/jsx-props-no-spreading, no-console, no-underscore-dangle
+          <WordCard key={item._id + new Date().getTime()} callback={() => console.log('')} id={item._id} reg="dict" />
         ))}
       </div>
     </div>

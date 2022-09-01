@@ -1,14 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ICustomWord, IUnlearnedWord } from '../../../types/models'
+import { IAggregatedWords, ICustomWord, IUnlearnedWord } from '../../../types/models'
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 /* eslint-disable import/prefer-default-export */
 
 interface IAggregatedWordsState {
   data: ICustomWord[],
-  hardWords:ICustomWord[],
+  hardWords: IUnlearnedWord[],
   beforePageWords: IUnlearnedWord[],
   otherUnlearned: IUnlearnedWord[],
+  dictPageWords: IUnlearnedWord[],
 }
 
 const initialState: IAggregatedWordsState = {
@@ -16,6 +17,7 @@ const initialState: IAggregatedWordsState = {
   hardWords: [],
   beforePageWords: [],
   otherUnlearned: [],
+  dictPageWords: [],
 }
 export const aggregatedSlice = createSlice({
   name: 'aggregatedData',
@@ -23,16 +25,24 @@ export const aggregatedSlice = createSlice({
   reducers: {
     fetchAggregatedWords(state, action: PayloadAction<ICustomWord[]>) {
       state.data = action.payload
-      state.hardWords = action.payload.filter((word) => word.difficulty === 'hard')
     },
-    deleteHardWord(state, action: PayloadAction<ICustomWord>) {
+    deleteHardWord(state, action: PayloadAction<IUnlearnedWord>) {
       state.hardWords = state.hardWords.filter((word) => word.id !== action.payload.id)
+    },
+    addHardWord(state, action: PayloadAction<IUnlearnedWord>) {
+      state.hardWords = [...state.hardWords, action.payload]
     },
     fetchBeforePageUnlearned(state, action: PayloadAction<IUnlearnedWord[]>) {
       state.beforePageWords = action.payload
     },
     fetchOtherSectionUnlearned(state, action: PayloadAction<IUnlearnedWord[]>) {
       state.otherUnlearned = action.payload
+    },
+    fetchDictPage(state, action: PayloadAction<IUnlearnedWord[]>) {
+      state.dictPageWords = action.payload
+    },
+    fetchHardWords(state, action: PayloadAction<IAggregatedWords[]>) {
+      state.hardWords = action.payload[0].paginatedResults
     },
   },
 })
@@ -42,12 +52,15 @@ export const {
   deleteHardWord,
   fetchBeforePageUnlearned,
   fetchOtherSectionUnlearned,
+  fetchDictPage,
+  fetchHardWords,
+  addHardWord,
 } = aggregatedSlice.actions
 export const getAggregatedWords = (state: {
   aggregatedSlice: { data: ICustomWord[] }
 }) => state.aggregatedSlice.data
 export const getHardWords = (state: {
-  aggregatedSlice: { hardWords: ICustomWord[] }
+  aggregatedSlice: { hardWords: IUnlearnedWord[] }
 }) => state.aggregatedSlice.hardWords
 export const getBeforePageWords = (state: {
   aggregatedSlice: { beforePageWords: IUnlearnedWord[] }
@@ -55,3 +68,6 @@ export const getBeforePageWords = (state: {
 export const getOtherUnlearned = (state: {
   aggregatedSlice: { otherUnlearned: IUnlearnedWord[] }
 }) => state.aggregatedSlice.otherUnlearned
+export const dictPageWords = (state: {
+  aggregatedSlice: { dictPageWords: IUnlearnedWord[] }
+}) => state.aggregatedSlice.dictPageWords
