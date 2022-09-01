@@ -69,7 +69,8 @@ export const createObjectForPostOrPutItToUserAggregatedWords = (currentWord: IWo
   if (isAggregated) {
     const params: IParams = {
       method: 'PUT',
-      difficulty: isWord?.difficulty,
+      // eslint-disable-next-line no-nested-ternary
+      difficulty: !isHard ? isWord?.difficulty : examination ? ((toLearn === 2) ? 'easy' : isWord?.difficulty) : isWord?.difficulty,
       wordId: currentWord?.id,
       optional: {
         // eslint-disable-next-line no-nested-ternary
@@ -84,6 +85,7 @@ export const createObjectForPostOrPutItToUserAggregatedWords = (currentWord: IWo
     // eslint-disable-next-line no-nested-ternary, no-unneeded-ternary
     if (examination && (!isHard ? true : (isHard && toLearn === 2) ? true : false)) params.optional!.dates![dateKey] = true
     dispatch(postPutWordsToServerFromGame(params))
+    console.log(params)
   } else {
     if (!localStorage.getItem('newWords')) {
       localStorage.setItem('newWords', '1')
