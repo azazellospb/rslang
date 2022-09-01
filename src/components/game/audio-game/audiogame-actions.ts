@@ -1,6 +1,6 @@
 import { IUnlearnedWord, IWord } from '../../../types/models'
 import { audioGameSlice, ILearnedWord } from '../../redux/reducers/audioGameSlice'
-// import { gameSlice } from '../../redux/reducers/gameSlice'
+import { gameSlice } from '../../redux/reducers/gameSlice'
 import { AppDispatchState } from '../../redux/store'
 /* eslint-disable operator-linebreak */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
@@ -18,9 +18,10 @@ const createLearnedWordAndPutItToArr =
 
 export default createLearnedWordAndPutItToArr
 
-// export const refreshAudiogameParams = () => (dispatch: AppDispatchState) => {
-//   dispatch(gameSlice.actions.fetchGameOver(false))
-//   dispatch(audioGameSlice.actions.learnedWord({}))
-//   dispatch(audioGameSlice.actions.fetchCounterProgress(1))
-//   dispatch(audioGameSlice.actions.fetchCounterWord(0))
-// }
+export const refreshAudiogameParams = () => ( dispatch: AppDispatchState) =>{
+  dispatch(gameSlice.actions.fetchGameOver(false))
+  dispatch(audioGameSlice.actions.fetchCounterProgress(1))
+  dispatch(audioGameSlice.actions.fetchCounterWord(0))
+  dispatch(audioGameSlice.actions.learnedWord({}))
+  dispatch(audioGameSlice.actions.fetchTotalNumOfWords(20))
+}
