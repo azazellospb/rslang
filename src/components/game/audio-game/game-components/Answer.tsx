@@ -2,7 +2,7 @@
 /* eslint-disable no-empty */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react'
-import { IWord } from '../../../../types/models'
+import { IUnlearnedWord, IWord } from '../../../../types/models'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux'
 import { audioGameSlice } from '../../../redux/reducers/audioGameSlice'
 import createLearnedWordAndPutItToArr from '../audiogame-actions'
@@ -45,5 +45,5 @@ export default Answer
 
 interface IAnswerBtn {
   keyNumber: object | number | string
-  currtWord: IWord
+  currtWord: IWord | IUnlearnedWord
 }
