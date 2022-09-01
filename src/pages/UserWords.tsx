@@ -9,7 +9,7 @@ export default function Userwords() {
   return (
     <div className={styles.dictWrapper}>
       <h2>Difficulty words</h2>
-      <NavLink to="/dictionary/">Back to dictionary</NavLink>
+      <NavLink to="/dictionary/0/0">Back to dictionary</NavLink>
       <AggregatedWords />
     </div>
   )

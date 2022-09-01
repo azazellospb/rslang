@@ -54,10 +54,6 @@ export interface IUserWord extends Omit<IWord, 'id'> {
   _id: string
   userWord: UserWordSet
 }
-export interface IAggregOrUserWord extends Omit<IWord, 'id'> {
-  _id?: string
-  id?: string
-}
 
 export interface IUnlearnedWord {
   _id: string
