@@ -7,7 +7,7 @@ import { getBeforePageWords, getOtherUnlearned } from '../../redux/reducers/aggr
 import ProposeChapter from './audio-modal/ProposeChapter'
 import ProposeGame from './audio-modal/ProposeGame'
 import Audiogame from './Audiogame'
-import { gameSlice } from '../../redux/reducers/gameSlice'
+// import { gameSlice } from '../../redux/reducers/gameSlice'
 
 function GameRunner() {
   const isFromDictionary = useAppSelector((state) => state.sprintGameSlice.isFromDictionary)
@@ -24,20 +24,15 @@ function GameRunner() {
           <AnswerControls />
         </>
       )} */}
-      {!isFromDictionary ? (
+      {!isFromDictionary || (unlearnedDada.length > 0) ? (
         <>
           <Audiogame />
           <AnswerControls />
         </>
-      ) : (unlearnedDada.length > 0) ? (
-        <>
-          <Audiogame />
-          <AnswerControls />
-        </>
-      ) : (proposeDada.length <= 0) ? (
-        <ProposeGame />
-      ) : (
+      ) : (proposeDada.length === 0) ? (
         <ProposeChapter />
+      ) : (
+        <ProposeGame />
       )}
     </div>
   )
