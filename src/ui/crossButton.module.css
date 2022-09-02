@@ -4,8 +4,9 @@
   right: 15px;
   width: 35px;
   height: 35px;
-  border: none;
-  background-color: #C80707;
+  border: 1px solid #548DFF;
+  border-radius: 6px;
+  background-color: transparent;
 }
 .cross,
 .crossButtonLink {
@@ -16,17 +17,14 @@
   color: transparent;
 }
 .crossButtonContainer:hover{
-  background-color: #8a0404;
+  background-color: #3961b3;
   cursor: pointer;
 }
 .crossButtonContainer:active{
-  transition: all ease-in-out 1s;
-  transform: scale(0.95);
-  background-color: transparent;
+  transform: scale(0.98);
+  background-color: #548DFF;
   cursor: pointer;
-  border: 1px solid #C80707;
-  color: #C80707
 }
 .crossButtonContainer:active .cross{
-  transform: scale(0.9);
+  transform: scale(0.98);
 } 
