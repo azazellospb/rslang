@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="footer-item footer-logo">
           <a
             href="https://rs.school/js/"
-            className="footer-logo"
+            // className="footer-logo"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -47,7 +47,7 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-        <div className="footer-item ">
+        <div className="footer-item footer-date-team">
           <p className="footer-date">© 2022 RS Lang</p>
           <Link className="footer-about-link" to="/about">
             Developed by Dream Team
