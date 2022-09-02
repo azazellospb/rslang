@@ -1,23 +1,28 @@
 .button{
-  width: 150px;
-  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 100%;
   border: none;
-  border-radius: 5px;
-  font-size: 1.25em;
-  font-weight: 600;
-  color: var(--text-color);
-  background-color: rgb(62, 180, 137);
-  -webkit-box-shadow: 0px 1px 7px 7px rgba(13, 199, 133, 0.2);
-  -moz-box-shadow: 0px 1px 7px 7px rgba(13, 199, 133, 0.2);
-  box-shadow: 0px 1px 7px 7px rgba(13, 199, 133, 0.2);
+  border-radius: 6px;
+  background-color: transparent;
+  border: 1px solid #548DFF;
+  font-size: 14px;
+  line-height: 21px;
+  color: #548DFF;
+  padding: 0 12px;
+  font-weight: 700;
 }
 .button:hover {
-  background-color: rgb(135, 175, 160);
+  background-color: #548DFF;
+  border: none;
+  color: #FFFFFF;
   cursor: pointer;
 }
 .button:active {
-  transform: scale(0.9);
-  background-color: rgb(135, 175, 160);
+  background-color: transparent;
+  border: 1px solid #548DFF;
+  color:  #548DFF;
   cursor: pointer;
-  border: 1px solid green ;
 }
