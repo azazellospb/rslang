@@ -26,6 +26,7 @@ export const audioGameSlice = createSlice({
       state.isLoaded = false
       state.error = action.payload
     },
+
     setCurrentWord(state, action: PayloadAction<IWord | IUnlearnedWord>) {
       state.currentWord = action.payload
     },
@@ -47,12 +48,15 @@ export const audioGameSlice = createSlice({
           ? null
           : state.learnedWords.push(action.payload)
     },
+
     setStyles(state, action: PayloadAction<boolean>) {
       state.changeStyle = action.payload
     },
+
     fetchCounterWord(state, action: PayloadAction<number>) {
       state.counterWord = action.payload
     },
+
     fetchCounterProgress(state, action: PayloadAction<number>) {
       state.counterProgress = action.payload
     },
