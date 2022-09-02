@@ -40,6 +40,9 @@ function GameStat() {
     method: 'PUT',
     learnedWords: studiedWords.length,
     optional: {
+      newWords: {
+        [dateKey]: Number(localStorage.getItem('newWords')) || 0,
+      },
       sprintGame: {
         [dateKey]: {
           answerSet: 0,

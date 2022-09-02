@@ -5,7 +5,12 @@ import {
   Route,
 } from 'react-router-dom'
 import Layout from './components/Layout'
-import getWordsData, { aggregateWords } from './components/redux/fetching'
+import getWordsData, {
+  aggregateWords,
+  getLearnedWithDates,
+  getTodayLearned,
+  getUserStats,
+} from './components/redux/fetching'
 import { useAppDispatch } from './components/redux/hooks/redux'
 import About from './pages/About'
 import AudioChallenge from './pages/AudioChallenge'
@@ -20,9 +25,15 @@ import Userwords from './pages/UserWords'
 
 function App() {
   const dispatch = useAppDispatch()
+  const date = new Date()
+  const month = (date.getMonth() + 1).toString().length !== 1 ? (date.getMonth() + 1).toString() : `0${(date.getMonth() + 1).toString()}`
+  const dateKey = `d${date.getDate().toString()}${month}${date.getFullYear().toString()}`
   useEffect(() => {
     dispatch(getWordsData())
-  }, [dispatch])
+    dispatch(getUserStats())
+    dispatch(getLearnedWithDates())
+    dispatch(getTodayLearned(dateKey))
+  }, [dispatch, dateKey])
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('userInfo') as string)?.name
     if (data) {

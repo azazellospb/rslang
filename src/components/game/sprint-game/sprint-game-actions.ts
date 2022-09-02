@@ -110,7 +110,6 @@ export const createObjectForPostOrPutItToUserAggregatedWords = (currentWord: IWo
       },
     }
     if (examination) params.optional!.dates![dateKey] = true
-    console.log(params.optional)
     dispatch(postPutWordsToServerFromGame(params))
   }
 }
@@ -142,7 +141,6 @@ export const filteredUnlearnedWordsLessThanCurrentPage = (data: IUnlearnedWord[]
       wordTranslate: item.wordTranslate,
     }))
     .sort((a, b) => (a.page < b.page ? 1 : -1))
-  console.log('action')
   dispatch(fetchWordForSprintGameSuccess(filteredWord))
   filteredWord.length === 0 ? dispatch(showMessageIfAllWordStudiedOnPage(true)) : dispatch(showMessageIfAllWordStudiedOnPage(false))
 }

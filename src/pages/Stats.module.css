@@ -1,0 +1,93 @@
+.dayTable {
+  padding: 1vw 2vw;
+  table-layout: fixed;
+  width: 78.28vw;
+  margin: 40px auto;
+  border: 1px solid rgba(84, 141, 255, 1);
+  border-radius: 6px;
+}
+tbody td {
+  text-align: center;
+}
+tbody th,
+tfoot th {
+  text-align: left;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #ffffff;
+}
+tbody tr:nth-child(odd) {
+  background-color: #d4e4f5;
+
+}
+tbody tr {
+  border-bottom: 0.7px solid black;
+}
+.tableHeader {
+  font-size: 1.3rem;
+}
+.chartWrapper {
+  width: 78.28vw;
+  margin: 40px auto;
+  border: 1px solid rgba(84, 141, 255, 1);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1vw 2vw;
+  box-sizing: border-box;
+  gap: 1vw;
+}
+.chartBlock {
+  display: flex;
+  flex-direction: row; 
+  width: 100%;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 5vw;
+  height: 10vw;  
+}
+.chart {
+  display: flex;
+  align-items: flex-end;
+  padding: 0 1vw;
+  gap: 1vw;
+  width: 80%;
+  height: 100%;
+  background-color: #d4e4f5;
+}
+.bar {
+  width: 20px;
+  background-color: rgba(84, 141, 255, 1);
+}
+.chartUnit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4vw;
+}
+.chartUnit > div {
+  border: 0.1px solid black;
+  padding: 0;
+}
+.chartLegend {
+  width: 20%;
+
+}
+.title {
+  text-align: justify;
+}
+
+.popupInfo:hover::after { 
+  content: attr(data-title);
+  position: absolute; 
+  left: 20%; top: 30%; 
+  z-index: 1; 
+  background: rgba(255,255,230,0.9); 
+  font-family: Arial, sans-serif;
+  font-size: 11px; 
+  padding: 5px 10px; 
+  border: 1px solid #333;
+}

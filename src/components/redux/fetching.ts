@@ -28,6 +28,7 @@ import {
 } from './reducers/aggregatedSlice'
 import mergeDeep from '../../tools/mergeDeep'
 import { filteredUnlearnedWordsLessThanCurrentPage, filteredUnlearnedWordsMoreThanCurrentPage } from '../game/sprint-game/sprint-game-actions'
+import { setAllLearned, setTodayLearnedWords, setUserStats } from './reducers/userSlice'
 
 const getWordsData = (
   page = 0,
@@ -101,7 +102,6 @@ export const postPutWordsToServerFromGame = (params: IParams) => async (dispatch
     difficulty: params.difficulty,
     optional: params.optional,
   }
-  console.log(params)
   try {
     await fetch(
       `http://localhost:8088/users/${userId}/words/${params.wordId}`,
@@ -300,7 +300,6 @@ export const getUnlearnedWordsForGames = (currentGroupPage: IFetchParam) => asyn
     )
     const responseData: IAggregatedWords[] = await response.json()
     const unlearnedWords: IUnlearnedWord[] = responseData[0].paginatedResults
-    console.log('fetch')
 
     await dispatch(filteredUnlearnedWordsLessThanCurrentPage(unlearnedWords, page))
   } catch (e) {
@@ -332,10 +331,74 @@ export const getUnlearnedWordsForGamesAfterCurrentPage = (currentGroupPage: IFet
   }
 }
 
+export const getUserStats = () => async (dispatch: AppDispatchState) => {
+  try {
+    const userInfo = localStorage.getItem('userInfo') as string
+    const { token, userId } = JSON.parse(userInfo)
+    const responseStat = await fetch(
+      `http://localhost:8088/users/${userId}/statistics`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+    const responseData: UserStat = await responseStat.json()
+    dispatch(setUserStats(responseData))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const getTodayLearned = (date: string) => async (dispatch: AppDispatchState) => {
+  try {
+    const userInfo = localStorage.getItem('userInfo') as string
+    const { token, userId } = JSON.parse(userInfo)
+    const responseStat = await fetch(
+      `http://localhost:8088/users/${userId}/aggregatedWords?filter={"userWord.optional.dates.${date}":true}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+    const responseData: IAggregatedWords[] = await responseStat.json()
+    const todayLearnedWords = responseData[0].paginatedResults.length
+    dispatch(setTodayLearnedWords(todayLearnedWords))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const getLearnedWithDates = () => async (dispatch: AppDispatchState) => {
+  try {
+    const userInfo = localStorage.getItem('userInfo') as string
+    const { token, userId } = JSON.parse(userInfo)
+    const responseStat = await fetch(
+      `http://localhost:8088/users/${userId}/aggregatedWords?filter={"$nor":[{"userWord.optional.dates":null}]}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+    const responseData: IAggregatedWords[] = await responseStat.json()
+    const learnedWithDates = responseData[0].paginatedResults
+    dispatch(setAllLearned(learnedWithDates))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 export const setSprintGameStats = (params: IStats, data: string, gameType: string) => async () => {
   const userInfo = localStorage.getItem('userInfo') as string
   const { token, userId } = JSON.parse(userInfo)
-  console.log(userId)
   const obj = {
     learnedWords: params.learnedWords,
     optional: params.optional,
@@ -368,6 +431,7 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
           body: JSON.stringify({
             learnedWords: 0,
             optional: {
+              newWords: {},
               sprintGame: {
                 d0: {
                   answerSet: null,
@@ -392,6 +456,7 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
     } return Promise.reject(new Error(`some other error: ${response.status}`))
   }).catch((error) => console.log('error is', error))
   const serverData: UserStat = await responseStat
+  const thisDateWords: number = serverData.optional.newWords?.[data]
   delete serverData.id
   // eslint-disable-next-line no-prototype-builtins
   if (gameType === 'sprintGame' && Object.keys(serverData.optional.sprintGame!).indexOf(data) > -1) {
@@ -407,6 +472,7 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
     if (obj.optional.sprintGame?.[data].rightAnswers) obj.optional.sprintGame[data].rightAnswers += rightAnswers
     if (obj.optional.sprintGame?.[data].totalWords) obj.optional.sprintGame[data].totalWords += totalWords
     if (obj.optional.sprintGame?.[data].answerSet && answerSet > obj.optional.sprintGame?.[data].answerSet) obj.optional.sprintGame[data].answerSet = answerSet
+    if (obj.optional.sprintGame?.[data].newWords) obj.optional.newWords[data] = thisDateWords + obj.optional.sprintGame[data].newWords
     const body = mergeDeep(serverData, obj)
     await fetch(
       `http://localhost:8088/users/${userId}/statistics`,
@@ -447,6 +513,7 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
     if (obj.optional.audioGame?.[data].rightAnswers) obj.optional.audioGame[data].rightAnswers += rightAnswers
     if (obj.optional.audioGame?.[data].totalWords) obj.optional.audioGame[data].totalWords += totalWords
     if (obj.optional.audioGame?.[data].answerSet && answerSet > obj.optional.audioGame?.[data].answerSet) obj.optional.audioGame[data].answerSet = answerSet
+    if (obj.optional.audioGame?.[data].newWords) obj.optional.newWords[data] = thisDateWords + obj.optional.audioGame[data].newWords
     const body = mergeDeep(serverData, obj)
     await fetch(
       `http://localhost:8088/users/${userId}/statistics`,
