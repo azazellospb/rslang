@@ -12,13 +12,12 @@ const createLearnedWordAndPutItToArr =
       ...currentWord,
       learned: examination,
     }
-    // examination && dispatch(gameScore())
     dispatch(audioGameSlice.actions.learnedWord(examsWord))
   }
 
 export default createLearnedWordAndPutItToArr
 
-export const refreshAudiogameParams = () => ( dispatch: AppDispatchState) =>{
+export const refreshAudiogameParams = () => (dispatch: AppDispatchState) => {
   dispatch(gameSlice.actions.fetchGameOver(false))
   dispatch(audioGameSlice.actions.fetchCounterProgress(1))
   dispatch(audioGameSlice.actions.fetchCounterWord(0))

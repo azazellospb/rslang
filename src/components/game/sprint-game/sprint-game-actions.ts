@@ -16,6 +16,8 @@ import {
 import { IFetchParam, IStudiedWord } from '../../../types/sprint-game-models'
 import { aggregateWords, getWordsDataForSprintGame, postPutWordsToServerFromGame } from '../../redux/fetching'
 import { fetchBeforePageUnlearned, fetchOtherSectionUnlearned } from '../../redux/reducers/aggregatedSlice'
+import { audioGameSlice } from '../../redux/reducers/audioGameSlice'
+import { gameSlice } from '../../redux/reducers/gameSlice'
 import {
   currentWord, fetchWordForSprintGameSuccess, forComparisonWord, gameScore, showMessageIfAllWordStudiedOnPage, studiedWord, timerWork, turnCounter,
 } from '../../redux/reducers/sprintGameSlice'
@@ -178,4 +180,10 @@ export const refreshGameParams = () => (dispatch: AppDispatchState) => {
   dispatch(turnCounter())
   dispatch(studiedWord({}))
   dispatch(gameScore(0))
+
+  dispatch(gameSlice.actions.fetchGameOver(false))
+  dispatch(audioGameSlice.actions.fetchCounterProgress(1))
+  dispatch(audioGameSlice.actions.fetchCounterWord(0))
+  dispatch(audioGameSlice.actions.learnedWord({}))
+  dispatch(audioGameSlice.actions.fetchTotalNumOfWords(20))
 }

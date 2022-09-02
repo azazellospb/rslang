@@ -26,10 +26,9 @@ export default function NextCardBtn() {
     data = proposeDada
   } else {
     data = useAppSelector((state) => state.sprintGameSlice.gameData)
-    if (!isFromDictionary) data = useAppSelector((state) => state.sprintGameSlice.gameData)
   }
+  if (!isFromDictionary) data = useAppSelector((state) => state.sprintGameSlice.gameData)
 
-  // const data = useAppSelector((state) => state.sprintGameSlice.gameData)
   if (data.length > MAX_NUMBER_WORDS) {
     numberOfWords = MAX_NUMBER_WORDS
   } else {

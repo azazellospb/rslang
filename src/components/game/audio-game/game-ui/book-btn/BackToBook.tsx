@@ -3,17 +3,12 @@ import { Link } from 'react-router-dom'
 import BookIcon from './BookIcon'
 import styles from '../../game-stat/AudiogameStat.module.css'
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks/redux'
-import { gameSlice } from '../../../../redux/reducers/gameSlice'
-import { audioGameSlice } from '../../../../redux/reducers/audioGameSlice'
+import { refreshAudiogameParams } from '../../audiogame-actions'
 
 function BackToBook() {
   const dispatch = useAppDispatch()
   const ToBookHandle = () => {
-    dispatch(gameSlice.actions.fetchGameOver(false))
-    dispatch(audioGameSlice.actions.fetchCounterProgress(1))
-    dispatch(audioGameSlice.actions.fetchCounterWord(0))
-    dispatch(audioGameSlice.actions.learnedWord({}))
-    dispatch(audioGameSlice.actions.fetchTotalNumOfWords(20))
+    dispatch(refreshAudiogameParams())
   }
   const currentGroupPage = useAppSelector((state) => state.sprintGameSlice.currentGroupPage)
   return (
