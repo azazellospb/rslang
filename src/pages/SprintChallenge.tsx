@@ -14,9 +14,11 @@ export default function SprintChallenge() {
   const isOpenModal = useAppSelector((state) => state.sprintGameSlice.isModalOpen)
   return (
     <div className={styles.printChallengePage}>
-      {isOpenModal && <FirstModalForGame obj={descriptObj} />}
-      {/* {gameLoader && Loader} */}
-      {!isOpenModal && <SprintGameMainBlock />}
+      <div className={styles.printChallengePageContainer}>
+        {isOpenModal && <FirstModalForGame obj={descriptObj} />}
+        {/* {gameLoader && Loader} */}
+        {!isOpenModal && <SprintGameMainBlock />}
+      </div>
     </div>
   )
 }

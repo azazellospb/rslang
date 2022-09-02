@@ -24,20 +24,21 @@ function Timer() {
   return (
     <section className={styles.gameInfo}>
       <div className={styles.sprintGameTimer}>
-        <span className={styles.sprintGameTimerContent}>
+        <span className={styles.sprintGameScoreContent}>
           Ваш результат:
-          <span className={styles.sprintGameTimerTikTak}>
-            { score }
-          </span>
+          {/* <span className={styles.sprintGameTimerTikTak}> */}
+          {' '}
+          { score }
+          {/* </span> */}
         </span>
       </div>
-      <div className={styles.sprintGameTimer}>
+      <div className={styles.sprintGameScore}>
         <span className={styles.sprintGameTimerContent}>
-          У Вас осталось:
-          <span className={styles.sprintGameTimerTikTak}>
-            { time }
-          </span>
-          сeкунд!
+          Оставшееся время:
+          {/* <span className={styles.sprintGameTimerTikTak}> */}
+          {' '}
+          { time }
+          {/* </span> */}
         </span>
       </div>
     </section>
