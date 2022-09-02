@@ -30,7 +30,9 @@ function GameStatCard({ id }: IIndexProp): JSX.Element {
         {studiedArr[id].wordTranslate}
       </div>
       <div className={`${styles.gameStatCard} ${styles.checked}`}>
-        {studiedArr[id].learned ? 'ok' : 'no'}
+        {studiedArr[id].learned
+          ? <div className={styles.greenYes}>ok</div>
+          : <div className={styles.redNo}>no</div>}
       </div>
       <div className={`${styles.gameStatCard} ${styles.audio}`}>
         <div
