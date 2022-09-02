@@ -1,0 +1,51 @@
+.footer {
+  background-color: var(--color-bg);
+}
+
+.footer-container {
+  font-family: 'Nunito-Light';
+  font-size: 14px;
+  line-height: 21px;
+  font-style: normal;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+  padding-bottom: 27px;
+}
+
+.nav-menu-item {
+  margin-bottom: 6px;
+}
+
+.footer-title-dev {
+  font-family: 'Nunito-Medium';
+  font-style: normal;
+  font-weight: 500;
+}
+
+.footer-list-dev {
+  list-style: none;
+}
+
+.list-dev-item {
+  margin-bottom: 6px;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.footer-about-link,
+.footer-date {
+  letter-spacing: 0.2px;
+  padding-top: 0px;
+  margin-bottom: 5px;
+}
+
+.footer-date {
+  font-family: 'Nunito-Regular';
+  color: #000000;
+}
