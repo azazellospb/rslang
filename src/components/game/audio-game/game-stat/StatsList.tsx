@@ -4,7 +4,7 @@ import StatsCard from './StatsCard'
 
 function StatsList() {
   const { learnedWords } = useAppSelector((state) => state.audioGameSlice)
-  console.log(learnedWords)
+  // console.log(learnedWords)
 
   return (
     <div>

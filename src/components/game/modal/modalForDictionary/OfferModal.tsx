@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppSelector } from '../../../redux/hooks/redux'
-import OfferModalButton from './ButtonForMoreWords'
+import OfferModalButton from './offerModalButton'
 import styles from './offerModal.module.css'
 
 function OfferModal() {
