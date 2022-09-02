@@ -12,12 +12,12 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* color: var(--text-color); */
-  background-color: aliceblue;
 }
 
 * {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 #root {
@@ -36,7 +36,7 @@ a {
 }
 
 .container {
-  width: 1280px;
+  max-width: 1280px;
   padding-left: 40px;
   padding-right: 40px;
   margin: auto;
