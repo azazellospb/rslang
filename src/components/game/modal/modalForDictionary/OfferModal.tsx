@@ -6,6 +6,7 @@ import styles from './offerModal.module.css'
 function OfferModal() {
   const page = useAppSelector((state) => state.sprintGameSlice.currentGroupPage?.page)
   return (
+  // <div className={styles.mainModal}>
     <div className={styles.littleModal}>
       <div className={styles.gameInfoBlock}>
         <h3 className={styles.modalTitle}>
@@ -22,6 +23,7 @@ function OfferModal() {
       </div>
       <OfferModalButton />
     </div>
+  // </div>
   )
 }
 export default OfferModal

@@ -20,7 +20,7 @@
   justify-content: flex-start;
   align-items: center;
   width: 800px;
-  max-width: 850px;
+  max-width: 800px;
   height: 300px;
   background-color: transparent;
   border: 1px solid #0058C9;
@@ -36,6 +36,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #0058C9;
+  margin-bottom: 46px;
 }
 .gameInfoBlock{
   display: flex;
@@ -52,9 +53,9 @@
   line-height: 24px;
   color: #000000;
 }
-.modalTitle{
-  margin-bottom: 46px;
-}
+/* .modalTitle{
+
+} */
 .buttonList{
   display: flex;
   align-items: center;

@@ -1,6 +1,6 @@
 .printChallengePage{
   position: relative;
-  background-color: aliceblue;
+  background-color: #F5F5F5;
 }
 .sprintGameFieldWherePlaying {
   position: relative;
@@ -124,7 +124,7 @@
   background-color: inherit;
   cursor: pointer;
   border: 1px solid green ;
-  color:  green;
+  color: green;
 }
 .falseButton:hover {
   background-color: rgb(250, 137, 137);

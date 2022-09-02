@@ -13,17 +13,6 @@
   color: #548DFF;
   padding: 0 12px;
   font-weight: 700;
-  /* width: 150px;
-  height: 60px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1.25em;
-  
-  color: var(--text-color);
-  background-color: rgb(62, 180, 137);
-  -webkit-box-shadow: 0px 1px 7px 7px rgba(13, 199, 133, 0.2);
-  -moz-box-shadow: 0px 1px 7px 7px rgba(13, 199, 133, 0.2);
-  box-shadow: 0px 1px 7px 7px rgba(13, 199, 133, 0.2); */
 }
 .button:hover {
   background-color: #548DFF;
