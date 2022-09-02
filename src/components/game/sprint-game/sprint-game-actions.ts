@@ -8,12 +8,16 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-hooks/rules-of-hooks */
+
+/* eslint-disable import/no-cycle */
 import {
-  ICustomWord, IParams, IUnlearnedWord, IWord, 
+  ICustomWord, IParams, IUnlearnedWord, IWord,
 } from '../../../types/models'
 import { IFetchParam, IStudiedWord } from '../../../types/sprint-game-models'
 import { aggregateWords, getWordsDataForSprintGame, postPutWordsToServerFromGame } from '../../redux/fetching'
 import { fetchBeforePageUnlearned, fetchOtherSectionUnlearned } from '../../redux/reducers/aggregatedSlice'
+import { audioGameSlice } from '../../redux/reducers/audioGameSlice'
+import { gameSlice } from '../../redux/reducers/gameSlice'
 import {
   currentWord, fetchWordForSprintGameSuccess, forComparisonWord, gameScore, showMessageIfAllWordStudiedOnPage, studiedWord, timerWork, turnCounter,
 } from '../../redux/reducers/sprintGameSlice'
@@ -170,8 +174,14 @@ export const filteredUnlearnedWordsMoreThanCurrentPage = (data: IUnlearnedWord[]
   filteredWord.length === 0 ? dispatch(showMessageIfAllWordStudiedOnPage(true)) : dispatch(showMessageIfAllWordStudiedOnPage(false))
 }
 export const refreshGameParams = () => (dispatch: AppDispatchState) => {
-  dispatch(timerWork(5))
+  dispatch(timerWork(60))
   dispatch(turnCounter())
   dispatch(studiedWord({}))
   dispatch(gameScore(0))
+
+  dispatch(gameSlice.actions.fetchGameOver(false))
+  dispatch(audioGameSlice.actions.fetchCounterProgress(1))
+  dispatch(audioGameSlice.actions.fetchCounterWord(0))
+  dispatch(audioGameSlice.actions.learnedWord({}))
+  dispatch(audioGameSlice.actions.fetchTotalNumOfWords(20))
 }

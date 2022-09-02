@@ -1,13 +1,23 @@
 import React from 'react'
-import Audiogame from './Audiogame'
-import AnswerControls from './game-components/AnswerControls'
+import { getUnlearnedWords } from '../../redux/fetching'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux'
+import AudiogameStat from './game-stat/AudiogameStat'
+import GameRunner from './GameRunner'
 
 function AudiogameMain() {
+  const dispatch = useAppDispatch()
+  const { currentGroupPage } = useAppSelector((state) => state.sprintGameSlice)
+  dispatch(getUnlearnedWords(currentGroupPage?.page, Number(currentGroupPage?.textbookSection)))
+  const { gameOver } = useAppSelector((state) => state.gameSlice)
+
   return (
-    <>
-      <Audiogame />
-      <AnswerControls />
-    </>
+    // <>
+    //   <Audiogame />
+    //   <AnswerControls />
+    // </>
+    <div className="audiogame-container container">
+      {gameOver ? <AudiogameStat /> : <GameRunner />}
+    </div>
   )
 }
 

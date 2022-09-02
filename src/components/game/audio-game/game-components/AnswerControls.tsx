@@ -5,7 +5,7 @@ import NextCardBtn from './NextCardBtn'
 
 function AnswerControls() {
   return (
-    <div className={styles.controls}>
+    <div className={`${styles.controls} container`}>
       <AnswerList />
       <NextCardBtn />
     </div>

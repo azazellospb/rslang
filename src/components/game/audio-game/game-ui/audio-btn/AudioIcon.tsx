@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../Audiogame.module.css'
+import styles from '../../Audiogame.module.css'
 
 function AudioIcon() {
   return (

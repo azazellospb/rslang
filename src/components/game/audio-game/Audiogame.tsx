@@ -3,19 +3,16 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable max-len */
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import Endpoints from '../../../endpoints/endpoints'
-// import { IWord } from '../../../types/models'
 import { useAppSelector } from '../../redux/hooks/redux'
 import styles from './Audiogame.module.css'
-import AudioIcon from './game-components/AudioIcon'
+import AudioIcon from './game-ui/audio-btn/AudioIcon'
 
 function Audiogame() {
   const { changeStyle, currentWord } = useAppSelector((state) => state.audioGameSlice)
   const voiceBtn = useRef<HTMLAudioElement>(null)
-
-  let progress = useAppSelector((state) => state.audioGameSlice.counterProgress)
-  if (progress > 19) progress = 20
+  const { counterProgress, totalNumOfWords } = useAppSelector((state) => state.audioGameSlice)
 
   function handleVoice() {
     voiceBtn.current?.play()
@@ -23,7 +20,7 @@ function Audiogame() {
 
   return (
     <div className={['container', styles.wrapper].join(' ')}>
-      <div className={styles.counter}>{`${progress} / 20`}</div>
+      <div className={styles.counter}>{`${counterProgress} / ${totalNumOfWords}`}</div>
       <div className={styles.gameContent}>
         <div className={styles.answerContent}>
           <div className={styles.imgWrapper}>
