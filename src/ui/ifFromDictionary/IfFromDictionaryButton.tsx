@@ -6,9 +6,7 @@ import styles from './IfFromDictionaryButton.module.css'
 
 function IfFromDictionaryButton() {
   const dispatch = useAppDispatch()
-
   const currentGroupPage = useAppSelector((state) => state.sprintGameSlice.currentGroupPage)
-
   return (
     <button
       className={styles.button}

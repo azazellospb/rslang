@@ -42,13 +42,14 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
         dispatch(setUserName(userInfo.name))
         localStorage.setItem('userInfo', JSON.stringify(userInfo))
         // move to user object name for proper communication with LoginBlock
+        navigate('/')
       } else {
         setUserInf('Email или пароль неверны!')
       }
     } catch (e) {
       setUserInf('Email или пароль неверны!')
     }
-    navigate('/')
+    // navigate('/')
   }
 
   function handleSwitch(e: any) {

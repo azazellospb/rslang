@@ -1,39 +1,50 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import React, { MutableRefObject, useState } from 'react'
-import { IWord } from '../../../../types/models'
+/* eslint-disable react-hooks/rules-of-hooks */
+import React from 'react'
+import { IUnlearnedWord, IWord } from '../../../../types/models'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux'
 import Answer from './Answer'
 import styles from '../Audiogame.module.css'
 import { audioGameSlice } from '../../../redux/reducers/audioGameSlice'
+import { getBeforePageWords, getOtherUnlearned } from '../../../redux/reducers/aggregatedSlice'
 
 function AnswerList() {
-  const data = useAppSelector((state) => state.sprintGameSlice.gameData)
+  const startDada = useAppSelector(getBeforePageWords)
+  const proposeDada = useAppSelector(getOtherUnlearned)
   const dispatch = useAppDispatch()
-  let counterWord = useAppSelector((state) => state.audioGameSlice.counterWord)
-
-  if (counterWord > 19) {
-    counterWord = 19
+  const { isFromDictionary } = useAppSelector((state) => state.sprintGameSlice)
+  let data: IWord[] | IUnlearnedWord[]
+  if (startDada.length) {
+    data = startDada
+  } else if (proposeDada.length) {
+    data = proposeDada
+  } else {
+    data = useAppSelector((state) => state.sprintGameSlice.gameData)
   }
+  if (!isFromDictionary) data = useAppSelector((state) => state.sprintGameSlice.gameData)
+
+  const dataAnswers = useAppSelector((state) => state.wordSlice.data)
+  const counterWord = useAppSelector((state) => state.audioGameSlice.counterWord)
 
   const currtWord = data[counterWord]
   dispatch(audioGameSlice.actions.setCurrentWord(currtWord))
 
-  let customAnswers: IWord[] = []
+  let customAnswers: IWord[] | (IWord[] & IUnlearnedWord[]) = []
   function randomIndx(arr: IWord[]) {
     const rand = Math.floor(Math.random() * arr.length)
     return rand
   }
-  function randomiser(arr: IWord[]) {
+  function randomiser(arr: IWord[] | (IWord[] & IUnlearnedWord[])) {
     customAnswers = arr
-    customAnswers = [...arr, currtWord]
+    customAnswers = [...arr, currtWord] as IWord[] | (IWord[] & IUnlearnedWord[])
 
     while (customAnswers.length < 5) {
-      const rIndex = randomIndx(data)
-      const word = customAnswers.find((el) => el.id === data[rIndex].id)
+      const rIndex = randomIndx(dataAnswers)
+      const word = customAnswers.find((el) => el.id === dataAnswers[rIndex].id)
       if (!word) {
-        customAnswers.push(data[rIndex])
+        customAnswers.push(dataAnswers[rIndex])
       }
     }
     return customAnswers.sort(() => 0.5 - Math.random())
@@ -46,7 +57,7 @@ function AnswerList() {
         <Answer
           keyNumber={indx + 1}
           currtWord={customAnswers[indx]}
-          key={item.id + new Date().getTime() + indx.toString()}
+          key={item.id! + new Date().getTime() + indx.toString()}
         />
       ))}
     </div>
@@ -54,3 +65,7 @@ function AnswerList() {
 }
 
 export default AnswerList
+
+// export interface IUnlearn {
+//   _id?: string
+// }

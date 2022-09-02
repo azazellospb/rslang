@@ -2,18 +2,32 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/no-danger */
 import React, { useEffect, useRef } from 'react'
-import { IAggregOrUserWord, IWord } from '../../types/models'
+import { useSelector } from 'react-redux'
+import { IUnlearnedWord } from '../../types/models'
 import { toggleDifficulty, toggleLearnState } from '../redux/fetching'
 import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
-import { deleteHardWord, getAggregatedWords } from '../redux/reducers/aggregatedSlice'
+import {
+  dictPageWords,
+  getHardWords,
+} from '../redux/reducers/aggregatedSlice'
 import { getUserName } from '../redux/reducers/userSlice'
-import { deleteUserWord } from '../redux/reducers/wordSlice'
 import styles from './WordCard.module.css'
 
-function WordCard(props: { obj: IAggregOrUserWord; callback: (reload: boolean) => void }) {
+export default function WordCard(
+  props: {
+    id: string;
+    reg: string;
+    callback: (act: boolean) => void
+  },
+) {
+  const { id, reg, callback } = props
   const ref1 = useRef<HTMLButtonElement>(null)
   const ref2 = useRef<HTMLButtonElement>(null)
-  const { obj, callback } = props
+  const dispatch = useAppDispatch()
+  let pageData: IUnlearnedWord[] = []
+  if (reg === 'dict') pageData = useAppSelector(dictPageWords) as IUnlearnedWord[]
+  else pageData = useSelector(getHardWords) as IUnlearnedWord[]
+  const obj = { ...pageData.find((word) => word._id === id)! }
   const {
     word,
     image,
@@ -23,41 +37,36 @@ function WordCard(props: { obj: IAggregOrUserWord; callback: (reload: boolean) =
     textExampleTranslate,
     wordTranslate,
   } = obj
-  // eslint-disable-next-line react/destructuring-assignment
-  const id = (obj.id || obj._id) as string
+  // eslint-disable-next-line react/destructuring-assignment, prefer-object-spread
   const name = useAppSelector(getUserName)
-  const userWords = useAppSelector(getAggregatedWords)
-  const currentWord = userWords.find((item) => item.wordId === id)
-  const rightCount = currentWord?.optional?.rightCounter
-  const wrongCount = currentWord?.optional?.wrongCounter
+  const isAggregated = obj?.userWord !== undefined
+  if (!isAggregated) {
+    obj.userWord = {
+      difficulty: 'easy',
+      optional: {
+        learned: false,
+        rightCounter: 0,
+        wrongCounter: 0,
+      },
+    }
+  }
+  const rightCount = obj?.userWord!.optional?.rightCounter
+  const wrongCount = obj?.userWord!.optional?.wrongCounter
   const hide = !!(rightCount || wrongCount)
+  // eslint-disable-next-line no-console
+  console.log('card')
   if (name) {
-    const isHard = !!userWords.find((item) => (item.difficulty === 'hard') && (item.wordId === id))
-    // const hardWord = userWords.find((item) => (item.wordId === id))
+    const isHard = obj?.userWord?.difficulty === 'hard'
     // eslint-disable-next-line react/destructuring-assignment
-    // const harddWord = userWords.find((item) => (item.id === id))
-    const isLearned = !!userWords.find(
-      (item) => ((item.optional?.learned === true) && (item.wordId === id))
-      || ((item.optional?.rightCounter === (isHard ? 3 : 2)) && (item.wordId === id)),
-    )
-    const dispatch = useAppDispatch()
+    const isLearned = obj?.userWord?.optional?.learned
     useEffect(() => {
       const toggleDifficultyEffect = () => {
-        dispatch(toggleDifficulty(isHard, id, userWords))
-        if (isHard) {
-          callback(true)
-          dispatch(deleteUserWord(obj as IWord))
-          dispatch(deleteHardWord(currentWord!))
-        }
+        callback(true)
+        dispatch(toggleDifficulty(isAggregated, obj))
       }
       const toggleLearnedEffect = () => {
         callback(true)
-        dispatch(toggleLearnState(isLearned, id, userWords))
-        if (isHard && !isLearned) {
-          dispatch(toggleDifficulty(isHard, id, userWords))
-          dispatch(deleteUserWord(obj as IWord))
-          dispatch(deleteHardWord(currentWord!))
-        }
+        dispatch(toggleLearnState(isAggregated, obj))
       }
       const toggleHardBtn = ref1.current!
       const toggleLearnedBtn = ref2.current!
@@ -67,6 +76,7 @@ function WordCard(props: { obj: IAggregOrUserWord; callback: (reload: boolean) =
         if (!isLearned) toggleHardBtn.removeEventListener('click', toggleDifficultyEffect)
         toggleLearnedBtn.removeEventListener('click', toggleLearnedEffect)
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     })
     return (
       <section className={styles.card}>
@@ -168,4 +178,3 @@ function WordCard(props: { obj: IAggregOrUserWord; callback: (reload: boolean) =
     </section>
   )
 }
-export default WordCard

@@ -8,12 +8,16 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-hooks/rules-of-hooks */
+
+/* eslint-disable import/no-cycle */
 import {
-  ICustomWord, IParams, IUnlearnedWord, IWord, 
+  ICustomWord, IParams, IUnlearnedWord, IWord,
 } from '../../../types/models'
 import { IFetchParam, IStudiedWord } from '../../../types/sprint-game-models'
 import { aggregateWords, getWordsDataForSprintGame, postPutWordsToServerFromGame } from '../../redux/fetching'
 import { fetchBeforePageUnlearned, fetchOtherSectionUnlearned } from '../../redux/reducers/aggregatedSlice'
+import { audioGameSlice } from '../../redux/reducers/audioGameSlice'
+import { gameSlice } from '../../redux/reducers/gameSlice'
 import {
   currentWord, fetchWordForSprintGameSuccess, forComparisonWord, gameScore, showMessageIfAllWordStudiedOnPage, studiedWord, timerWork, turnCounter,
 } from '../../redux/reducers/sprintGameSlice'
@@ -73,7 +77,8 @@ export const createObjectForPostOrPutItToUserAggregatedWords = (currentWord: IWo
   if (isAggregated) {
     const params: IParams = {
       method: 'PUT',
-      difficulty: isWord?.difficulty,
+      // eslint-disable-next-line no-nested-ternary
+      difficulty: !isHard ? isWord?.difficulty : examination ? ((toLearn === 2) ? 'easy' : isWord?.difficulty) : isWord?.difficulty,
       wordId: currentWord?.id,
       optional: {
         // eslint-disable-next-line no-nested-ternary
@@ -88,6 +93,7 @@ export const createObjectForPostOrPutItToUserAggregatedWords = (currentWord: IWo
     // eslint-disable-next-line no-nested-ternary, no-unneeded-ternary
     if (examination && (!isHard ? true : (isHard && toLearn === 2) ? true : false)) params.optional!.dates![dateKey] = true
     dispatch(postPutWordsToServerFromGame(params))
+    console.log(params)
   } else {
     if (!localStorage.getItem('newWords')) {
       localStorage.setItem('newWords', '1')
@@ -170,8 +176,14 @@ export const filteredUnlearnedWordsMoreThanCurrentPage = (data: IUnlearnedWord[]
   filteredWord.length === 0 ? dispatch(showMessageIfAllWordStudiedOnPage(true)) : dispatch(showMessageIfAllWordStudiedOnPage(false))
 }
 export const refreshGameParams = () => (dispatch: AppDispatchState) => {
-  dispatch(timerWork(5))
+  dispatch(timerWork(60))
   dispatch(turnCounter())
   dispatch(studiedWord({}))
   dispatch(gameScore(0))
+
+  dispatch(gameSlice.actions.fetchGameOver(false))
+  dispatch(audioGameSlice.actions.fetchCounterProgress(1))
+  dispatch(audioGameSlice.actions.fetchCounterWord(0))
+  dispatch(audioGameSlice.actions.learnedWord({}))
+  dispatch(audioGameSlice.actions.fetchTotalNumOfWords(20))
 }

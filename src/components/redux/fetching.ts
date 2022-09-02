@@ -1,3 +1,4 @@
+/* eslint-disable import/export */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable import/no-cycle */
 /* eslint-disable max-len */
@@ -10,8 +11,8 @@ import {
   IParams,
   IWord,
   IStats,
-  IUnlearnedWord,
   UserStat,
+  IUnlearnedWord,
 } from '../../types/models'
 import { IFetchParam } from '../../types/sprint-game-models'
 import {
@@ -19,7 +20,13 @@ import {
   fetchWordForSprintGameLoader,
   fetchWordForSprintGameSuccess,
 } from './reducers/sprintGameSlice'
-import { fetchAggregatedWords, fetchBeforePageUnlearned, fetchOtherSectionUnlearned } from './reducers/aggregatedSlice'
+import {
+  fetchAggregatedWords,
+  fetchBeforePageUnlearned,
+  fetchDictPage,
+  fetchHardWords,
+  fetchOtherSectionUnlearned,
+} from './reducers/aggregatedSlice'
 import mergeDeep from '../../tools/mergeDeep'
 import { filteredUnlearnedWordsLessThanCurrentPage, filteredUnlearnedWordsMoreThanCurrentPage } from '../game/sprint-game/sprint-game-actions'
 
@@ -48,6 +55,31 @@ const getWordsData = (
   }
 }
 export default getWordsData
+
+export const getDictPageWords = (
+  page = 0,
+  group = 0,
+) => async (dispatch: AppDispatchState) => {
+  try {
+    const userInfo = localStorage.getItem('userInfo') as string
+    const { token, userId } = JSON.parse(userInfo)
+    const response: Response = await fetch(
+      `http://localhost:8088/users/${userId}/aggregatedWords?filter={"$and":[{ "group": ${group}}, {"page": ${page}}]}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+    const responseData: IAggregatedWords[] = await response.json()
+    const pageWords = responseData[0].paginatedResults
+    dispatch(fetchDictPage(pageWords))
+  } catch (e) {
+    console.log(e)
+  }
+}
 
 export const getWordsDataForSprintGame = (paramForFetch: IFetchParam) => async (dispatch: AppDispatchState) => {
   const { textbookSection, page } = paramForFetch
@@ -90,7 +122,6 @@ export const postPutWordsToServerFromGame = (params: IParams) => async (dispatch
 
 export const aggregateWords = () => async (dispatch: AppDispatchState) => {
   try {
-    // const filterCond = '"$or":[{"userWord.difficulty":"hard"}, {"userWord.difficulty":"easy"}]'
     const userInfo = localStorage.getItem('userInfo') as string
     const { token, userId } = JSON.parse(userInfo)
     const response = await fetch(
@@ -108,80 +139,113 @@ export const aggregateWords = () => async (dispatch: AppDispatchState) => {
     dispatch(fetchAggregatedWords(data))
   } catch (e) {
     console.log(e)
-    // TODO: ОБОАБОТАТЬ ОШИБКУ
   }
 }
-// Здесь можно посмотреть пример POST PUT логики для записи слова
-export const toggleDifficulty = (
-  isDifficult: boolean,
-  wordId: IWord['id'],
-  aggregatedWords: ICustomWord[],
-) => async (dispatch: AppDispatchState) => {
+
+export const aggregateHardWords = () => async (dispatch: AppDispatchState) => {
   try {
-    const difficultyState = isDifficult ? { difficulty: 'easy' } : { difficulty: 'hard' }
     const userInfo = localStorage.getItem('userInfo') as string
     const { token, userId } = JSON.parse(userInfo)
-    const isAggregated = !!aggregatedWords.find((item) => item.wordId === wordId)
-    let userWordProp = {}
-    const requestBody = { optional: {} }
-    if (isAggregated) {
-      userWordProp = aggregatedWords.find((item) => item.wordId === wordId)!
-      const oldState = { ...userWordProp }
-      userWordProp = Object.assign(oldState, difficultyState)
+    const response = await fetch(
+      `http://localhost:8088/users/${userId}/aggregatedWords?filter={"userWord.difficulty":"hard"}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+    const data: IAggregatedWords[] = await response.json()
+
+    dispatch(fetchHardWords(data))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const toggleDifficulty = (
+  isAggregated: boolean,
+  word: IUnlearnedWord,
+) => async (dispatch: AppDispatchState) => {
+  try {
+    const userInfo = localStorage.getItem('userInfo') as string
+    const { token, userId } = JSON.parse(userInfo)
+    let method = 'PUT'
+    const body = { ...word.userWord }
+    Object.defineProperty(body, 'difficulty', {
+      writable: true,
+      configurable: true,
+    })
+    if (body.difficulty === 'easy') {
+      body.difficulty = 'hard'
     } else {
-      userWordProp = Object.assign(requestBody, difficultyState)
+      body.difficulty = 'easy'
     }
-    const method = isAggregated ? 'PUT' : 'POST'
+    if (!isAggregated) method = 'POST'
     await fetch(
-      `http://localhost:8088/users/${userId}/words/${wordId}`,
+      `http://localhost:8088/users/${userId}/words/${word._id}`,
       {
         method,
         headers: {
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(difficultyState),
+        body: JSON.stringify(body),
       },
     )
-    dispatch(aggregateWords())
+    dispatch(getDictPageWords(word.page, word.group))
+    dispatch(aggregateHardWords())
   } catch (e) {
     console.log(e)
   }
 }
 export const toggleLearnState = (
-  isLearned: boolean | undefined,
-  wordId: IWord['id'] | undefined,
-  aggregatedWords: ICustomWord[],
+  isAggregated: boolean,
+  word: IUnlearnedWord,
 ) => async (dispatch: AppDispatchState) => {
   try {
-    const learnState = isLearned ? { learned: false, rightCounter: 0 } : { learned: true, rightCounter: 2 }
     const userInfo = localStorage.getItem('userInfo') as string
     const { token, userId } = JSON.parse(userInfo)
-    const isAggregated = !!aggregatedWords.find((item) => item.wordId === wordId)
-    const requestBody = { difficulty: 'easy', optional: {} }
-    if (isAggregated) {
-      const wordOptions = { ...aggregatedWords.find((item) => item.wordId === wordId)?.optional }
-      const optionalObj = Object.assign(wordOptions!, learnState)
-      const { difficulty } = aggregatedWords.find((item) => item.wordId === wordId)!
-      requestBody.difficulty = difficulty!
-      requestBody.optional = optionalObj
-    } else {
-      requestBody.optional = learnState
+    let method = 'PUT'
+    const {
+      difficulty,
+    } = word.userWord!
+    const {
+      learned,
+      toLearn,
+      rightCounter,
+      wrongCounter,
+      dates,
+    } = word.userWord!.optional!
+    const body = {
+      difficulty,
+      optional: {
+        learned,
+        toLearn,
+        rightCounter,
+        wrongCounter,
+        dates,
+      },
     }
-    const method = isAggregated ? 'PUT' : 'POST'
+    if (difficulty === 'hard' && !body.optional?.learned) {
+      body.difficulty = 'easy'
+      dispatch(aggregateHardWords())
+    }
+    body.optional!.learned = !body.optional?.learned
+    if (!isAggregated) method = 'POST'
     await fetch(
-      `http://localhost:8088/users/${userId}/words/${wordId}`,
+      `http://localhost:8088/users/${userId}/words/${word._id}`,
       {
         method,
         headers: {
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(requestBody),
+        body: JSON.stringify(body),
       },
     )
-    console.log(dispatch)
-    // dispatch(aggregateWords())
+    dispatch(getDictPageWords(word.page, word.group))
   } catch (e) {
     console.log(e)
   }
@@ -212,7 +276,7 @@ export const getUnlearnedWords = (
       .sort((a, b) => (a.page < b.page ? 1 : -1))
     dispatch(fetchBeforePageUnlearned(beforePageWords))
     if (beforePageWords.length === 0) {
-      afterPageWords = unlearnedWords.filter((word:IUnlearnedWord) => word.page <= page)
+      afterPageWords = unlearnedWords.filter((word:IUnlearnedWord) => word.page > page)
       dispatch(fetchOtherSectionUnlearned(afterPageWords))
     }
   } catch (e) {
@@ -411,3 +475,27 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
     ).catch((error) => console.log('error is', error))
   }
 }
+
+// export const getUnlearnedWordsForGames = (currentGroupPage: IFetchParam) => async (dispatch: AppDispatchState) => {
+//   const { textbookSection, page } = currentGroupPage
+//   const userInfo = localStorage.getItem('userInfo') as string
+//   const { token, userId } = JSON.parse(userInfo)
+//   try {
+//     const response: Response = await fetch(
+//       `http://localhost:8088/users/${userId}/aggregatedWords?filter={"$and":[{ "group": ${textbookSection}}, {"$or":[{"userWord.optional.learned":null}, {"userWord.optional.learned":false}]}]}`,
+//       {
+//         method: 'GET',
+//         headers: {
+//           'Content-type': 'application/json',
+//           Authorization: `Bearer ${token}`,
+//         },
+//       },
+//     )
+//     const responseData: IAggregatedWords[] = await response.json()
+//     const unlearnedWords: IUnlearnedWord[] = responseData[0].paginatedResults
+//     console.log('fetch')
+//     await dispatch(filteredUnlearnedWordsLessThanCurrentPage(unlearnedWords, page))
+//   } catch (e) {
+//     console.log(e)
+//   }
+// }
