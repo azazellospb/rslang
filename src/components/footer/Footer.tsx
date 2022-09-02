@@ -28,7 +28,7 @@ export default function Footer() {
           </ul>
         </nav>
         <div className="footer-item">
-          <h4 className="footer-title-dev list-dev-item">Разработчики:</h4>
+          <h4 className="footer-title-dev">Разработчики:</h4>
           <ul className="footer-list-dev">
             <li className="list-dev-item">
               <a href="https://github.com/azazellospb" target="_blank" rel="noopener noreferrer">

@@ -4,8 +4,9 @@
 :root {
   --main-color: rgba(84, 141, 255, 1);
   --text-color: #410002;
+  --text-altcolor: rgba(62, 57, 57, 1);
   --tetriary-color: #7a4f7d;
-  --border-color: rgb(0, 88, 201);
+  --border-color: rgb(0, 88, 201, 1);
   --color-bg: #f5f5f5;
   /* 200: 'Nunito-ExtraLight'; */
   /* 300: 'Nunito-Light'; */
@@ -23,7 +24,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* color: var(--text-color); */
-  background-color: aliceblue;
+  /* background-color: aliceblue; */
 }
 
 * {
