@@ -4,6 +4,7 @@ import { gameSlice } from '../../redux/reducers/gameSlice'
 import { AppDispatchState } from '../../redux/store'
 /* eslint-disable operator-linebreak */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable max-len */
 const createLearnedWordAndPutItToArr =
   (currentWord: IWord | null | undefined | IUnlearnedWord, examination: boolean) => (
     dispatch: AppDispatchState,

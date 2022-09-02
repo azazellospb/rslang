@@ -57,7 +57,7 @@ function AnswerList() {
         <Answer
           keyNumber={indx + 1}
           currtWord={customAnswers[indx]}
-          key={item.id + new Date().getTime() + indx.toString()}
+          key={item.id! + new Date().getTime() + indx.toString()}
         />
       ))}
     </div>
