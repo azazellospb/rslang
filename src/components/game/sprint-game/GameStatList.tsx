@@ -6,7 +6,7 @@ import GameStatCard from './GameStatCard'
 function GameStatList() {
   const studiedWords = useAppSelector((state) => state.sprintGameSlice.studiedArr)
   return (
-    <div className={styles.buttonList}>
+    <div className={styles.gameStatList}>
       {studiedWords.map((num, i) => (
         <GameStatCard key={num.id} id={i} />
       ))}

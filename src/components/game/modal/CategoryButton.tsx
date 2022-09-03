@@ -20,7 +20,9 @@ function CategoryButton({ id, num }: IProp) {
       className={styles.categoryButton}
       onClick={(e: React.MouseEvent<HTMLButtonElement>) => categoryButton(e)}
     >
-      {num}
+      Уровень
+      {' '}
+      <span className={styles.categoryTitle}>{num}</span>
     </button>
   )
 }

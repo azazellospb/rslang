@@ -8,7 +8,7 @@ export default function Auth() {
   const switchForms = (isClick: boolean) => setLogIn(isClick)
 
   return (
-    <div className="auth-container">
+    <div className="auth-container container">
       {logIn ? <Signin switchForm={switchForms} /> : <Signup switchForm={switchForms} />}
     </div>
   )

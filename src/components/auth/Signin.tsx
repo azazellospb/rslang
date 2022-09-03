@@ -49,23 +49,23 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
     } catch (e) {
       setUserInf('Email или пароль неверны!')
     }
-    // navigate('/')
   }
 
   function handleSwitch(e: any) {
     e.preventDefault()
     props.switchForm(false)
   }
-
+/* eslint-disable jsx-a11y/label-has-associated-control */
   return (
     <section className={styles.wrapper}>
-      <h2 className={styles.title}>Вход в аккаунт</h2>
+      <h2 className={styles.title}>Войти</h2>
       <form className={styles.signup} onSubmit={handleSubmit}>
         <div className="form-group">
+          <label htmlFor="usermail">Email</label>
           <input
             type="text"
             id="usermail"
-            placeholder="Email..."
+            // placeholder="Email..."
             autoComplete="off"
             onChange={(event) => setMail(event.target.value)}
             value={usermail}
@@ -73,10 +73,11 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
           />
         </div>
         <div className="form-group">
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
-            placeholder="Пароль 8 - 12 знаков"
+            // placeholder="Пароль 8 - 12 знаков"
             value={userpassw}
             onChange={(event) => setPass(event.target.value)}
             required

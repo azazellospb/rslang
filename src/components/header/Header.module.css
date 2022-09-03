@@ -1,15 +1,16 @@
 .header {
+  font-size: 16px;
+  line-height: 22px;
+
+  background-color: rgba(84, 141, 255, 1);
+}
+
+.headerContainer {
   display: flex;
-  filter: drop-shadow();
-  flex-direction: row;
+  align-content: center;
   align-items: center;
-  height: 16vh;
-  background-image: url('../../../public/assets/main/header-img.png'), linear-gradient(to right bottom, rgba(126, 213, 111, 0.02), #2877b4a4);
-  background-size: contain;
-  background-position: left;
-  background-repeat: no-repeat;
-  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 80% 80%, 70% 90%, 50% 80%, 30% 95%, 0 100%);
-          clip-path: polygon(0 0, 100% 0, 100% 100%, 80% 80%, 70% 90%, 50% 80%, 30% 95%, 0 100%);
-  position: relative;
-  box-shadow: 0 2rem 4rem chocolate;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-top: 14px;
+  padding-bottom: 14px;
 }

@@ -53,8 +53,6 @@ export default function WordCard(
   const rightCount = obj?.userWord!.optional?.rightCounter
   const wrongCount = obj?.userWord!.optional?.wrongCounter
   const hide = !!(rightCount || wrongCount)
-  // eslint-disable-next-line no-console
-  console.log('card')
   if (name) {
     const isHard = obj?.userWord?.difficulty === 'hard'
     // eslint-disable-next-line react/destructuring-assignment

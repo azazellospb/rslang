@@ -1,0 +1,28 @@
+.homepage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+  padding-left: 13%;
+  padding-right: 13%;
+  line-height: 24px;
+  text-align: justify;
+}
+
+.homepage-title {
+  flex: 1 0 100%;
+  font-family: 'Nunito-Medium';
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--border-color);
+  font-size: 22px;
+  line-height: 33px;
+  letter-spacing: 0.1em;
+  margin-bottom: 48px;
+}
+
+.homepage-about {
+  color: var(--text-altcolor);
+  margin-bottom: 48px;
+}

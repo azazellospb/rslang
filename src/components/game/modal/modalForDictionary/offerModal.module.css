@@ -1,52 +1,80 @@
+.mainModal {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:100vw;
+  height: 100vh;
+  max-width: 1280px;
+  margin:0 auto;
+  background-color: #F5F5F5;
+  opacity: 0.9;
+}
 .littleModal {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width:75%;
+  width: 800px;
+  max-width: 800px;
   height: 300px;
-  background-color: rgb(185, 193, 212);
-  border-radius: 5px;
+  background-color: transparent;;
+  border: 1px solid #0058C9;
+  border-radius: 6px;
+  margin: auto;
 }
 .modalTitle {
   display: block;
-  font-weight: 600;  
+  font-weight: 600;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 33px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0058C9;
+  margin-bottom: 46px;
 }
 .gameInfoBlock{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80%;
-  font-size: 1em;
-  font-weight: 500;
+  width: 60%;
   text-align:center;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-.modalTitle{
-  margin-bottom: 25px;
+  margin-top: 25px;
+  margin-bottom: 30px;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
 }
 .offerModalButton{
-  width: 150px;
-  height: 60px;
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  width: 120px;
+  height: 35px;
   border: none;
-  border-radius: 5px;
-  font-size: 1.25em;
-  font-weight: 600;
-  color: var(--text-color);
-  background-color: rgb(62, 180, 137);
-  -webkit-box-shadow: 0px 1px 7px 7px rgba(13, 199, 133, 0.2);
-  -moz-box-shadow: 0px 1px 7px 7px rgba(13, 199, 133, 0.2);
-  box-shadow: 0px 1px 7px 7px rgba(13, 199, 133, 0.2);
+  border-radius: 6px;
+  background-color: transparent;
+  border: 1px solid #548DFF;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+  color: #548DFF;
+  padding: 0 12px;
 }
 .offerModalButton:hover {
-  background-color: rgb(135, 175, 160);
+  background-color: #548DFF;
+  border: none;
+  color: #FFFFFF;
   cursor: pointer;
 }
 .offerModalButton:active {
-  transform: scale(0.9);
-  background-color: rgb(135, 175, 160);
+  background-color: transparent;
+  border: 1px solid #548DFF;
+  color:  #548DFF;
   cursor: pointer;
-  border: 1px solid green ;
 }
