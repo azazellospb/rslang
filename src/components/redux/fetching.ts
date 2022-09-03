@@ -86,11 +86,13 @@ export const getWordsDataForSprintGame = (paramForFetch: IFetchParam) => async (
   const { textbookSection, page } = paramForFetch
   const url = 'http://localhost:8088/words'
   try {
-    dispatch(fetchWordForSprintGameLoader())
+    dispatch(fetchWordForSprintGameLoader(true))
     const response: Response = await fetch(`${url}/?group=${textbookSection}&page=${page}`)
     const data: IWord[] = await response.json()
+    dispatch(fetchWordForSprintGameLoader(false))
     dispatch(fetchWordForSprintGameSuccess(data))
   } catch (e: string | unknown) {
+    dispatch(fetchWordForSprintGameLoader(false))
     dispatch(fetchWordForSprintGameError('Something went wrong...'))
   }
 }
@@ -288,6 +290,7 @@ export const getUnlearnedWordsForGames = (currentGroupPage: IFetchParam) => asyn
   const userInfo = localStorage.getItem('userInfo') as string
   const { token, userId } = JSON.parse(userInfo)
   try {
+    dispatch(fetchWordForSprintGameLoader(true))
     const response: Response = await fetch(
       `http://localhost:8088/users/${userId}/aggregatedWords?filter={"$and":[{ "group": ${textbookSection}}, {"$or":[{"userWord.optional.learned":null}, {"userWord.optional.learned":false}]}]}`,
       {
@@ -300,9 +303,10 @@ export const getUnlearnedWordsForGames = (currentGroupPage: IFetchParam) => asyn
     )
     const responseData: IAggregatedWords[] = await response.json()
     const unlearnedWords: IUnlearnedWord[] = responseData[0].paginatedResults
-
+    dispatch(fetchWordForSprintGameLoader(false))
     await dispatch(filteredUnlearnedWordsLessThanCurrentPage(unlearnedWords, page))
   } catch (e) {
+    dispatch(fetchWordForSprintGameLoader(false))
     console.log(e)
   }
 }
@@ -311,6 +315,7 @@ export const getUnlearnedWordsForGamesAfterCurrentPage = (currentGroupPage: IFet
   const userInfo = localStorage.getItem('userInfo') as string
   const { token, userId } = JSON.parse(userInfo)
   try {
+    dispatch(fetchWordForSprintGameLoader(true))
     const response: Response = await fetch(
       `http://localhost:8088/users/${userId}/aggregatedWords?filter={"$and":[{ "group": ${textbookSection}}, {"$or":[{"userWord.optional.learned":null}, {"userWord.optional.learned":false}]}]}`,
       {
@@ -324,9 +329,10 @@ export const getUnlearnedWordsForGamesAfterCurrentPage = (currentGroupPage: IFet
     const responseData: IAggregatedWords[] = await response.json()
     const unlearnedWords: IUnlearnedWord[] = responseData[0].paginatedResults
     console.log('fetch')
-
+    dispatch(fetchWordForSprintGameLoader(false))
     await dispatch(filteredUnlearnedWordsMoreThanCurrentPage(unlearnedWords, page))
   } catch (e) {
+    dispatch(fetchWordForSprintGameLoader(false))
     console.log(e)
   }
 }
