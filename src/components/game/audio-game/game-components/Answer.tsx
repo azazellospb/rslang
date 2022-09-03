@@ -19,12 +19,12 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
     if (currtWord.word === currentWord?.word) {
       dispatch(audioGameSlice.actions.setStyles(true))
       setStyle(`${styles.answerRight}`)
-      dispatch(createLearnedWordAndPutItToArr(currtWord, true))
+      dispatch(createLearnedWordAndPutItToArr(currentWord, true))
       // localStorage.setItem('newWords', currtWord.word)
     } else {
       dispatch(audioGameSlice.actions.setStyles(true))
       setStyle(`${styles.answerWrong}`)
-      dispatch(createLearnedWordAndPutItToArr(currtWord, false))
+      dispatch(createLearnedWordAndPutItToArr(currentWord, false))
     }
   }
 
