@@ -89,7 +89,6 @@ export const getWordsDataForSprintGame = (paramForFetch: IFetchParam) => async (
     dispatch(fetchWordForSprintGameLoader())
     const response: Response = await fetch(`${url}/?group=${textbookSection}&page=${page}`)
     const data: IWord[] = await response.json()
-    console.log(data)
     dispatch(fetchWordForSprintGameSuccess(data))
   } catch (e: string | unknown) {
     dispatch(fetchWordForSprintGameError('Something went wrong...'))
@@ -473,7 +472,7 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
     if (obj.optional.sprintGame?.[data].rightAnswers) obj.optional.sprintGame[data].rightAnswers += rightAnswers
     if (obj.optional.sprintGame?.[data].totalWords) obj.optional.sprintGame[data].totalWords += totalWords
     if (obj.optional.sprintGame?.[data].answerSet && answerSet > obj.optional.sprintGame?.[data].answerSet) obj.optional.sprintGame[data].answerSet = answerSet
-    if (obj.optional.sprintGame?.[data].newWords) obj.optional.newWords[data] = thisDateWords + obj.optional.sprintGame[data].newWords
+    if (obj.optional.sprintGame?.[data].newWords) obj.optional.newWords[data] = thisDateWords + newWords
     const body = mergeDeep(serverData, obj)
     await fetch(
       `http://localhost:8088/users/${userId}/statistics`,
@@ -514,7 +513,7 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
     if (obj.optional.audioGame?.[data].rightAnswers) obj.optional.audioGame[data].rightAnswers += rightAnswers
     if (obj.optional.audioGame?.[data].totalWords) obj.optional.audioGame[data].totalWords += totalWords
     if (obj.optional.audioGame?.[data].answerSet && answerSet > obj.optional.audioGame?.[data].answerSet) obj.optional.audioGame[data].answerSet = answerSet
-    if (obj.optional.audioGame?.[data].newWords) obj.optional.newWords[data] = thisDateWords + obj.optional.audioGame[data].newWords
+    if (obj.optional.audioGame?.[data].newWords) obj.optional.newWords[data] = thisDateWords + newWords
     const body = mergeDeep(serverData, obj)
     await fetch(
       `http://localhost:8088/users/${userId}/statistics`,

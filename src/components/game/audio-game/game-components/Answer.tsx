@@ -68,12 +68,8 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
       if (examination && (!isHard ? true : (isHard && toLearn === 2) ? true : false)) params.optional!.dates![dateKey] = true
       dispatch(postPutWordsToServerFromGame(params))
     } else {
-      if (!localStorage.getItem('newWords')) {
-        localStorage.setItem('newWords', '1')
-      } else {
-        const newWordsData = localStorage.getItem('newWords')!
-        localStorage.setItem('newWords', (Number(newWordsData) + 1).toString())
-      }
+      const newWordsData = localStorage.getItem('newWords') || 0
+      localStorage.setItem('newWords', Number(+newWordsData + 1).toString())
       const word = currentWord as IUnlearnedWord
       const params: IParams = {
         method: 'POST',

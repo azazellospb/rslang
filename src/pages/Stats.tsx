@@ -82,7 +82,7 @@ export default function Stats() {
     return (
       <div className={styles.statsWrapper}>
         <table className={styles.dayTable}>
-          <thead>
+          <thead className={styles.legend}>
             <tr>
               <th colSpan={4}>Краткосрочная статистика</th>
             </tr>
@@ -95,19 +95,19 @@ export default function Stats() {
           </thead>
           <tbody>
             <tr>
-              <th scope="row">Количество новых слов за день:</th>
+              <th className={styles.legend} scope="row">Количество новых слов за день:</th>
               <td>{audioNewWords || 'нет данных'}</td>
               <td>{sprintNewWords || 'нет данных'}</td>
               <td>{((sprintNewWords || 0) + (audioNewWords || 0))}</td>
             </tr>
             <tr>
-              <th scope="row">Процент правильных ответов:</th>
+              <th className={styles.legend} scope="row">Процент правильных ответов:</th>
               <td>{audioRightRate || 'нет данных'}</td>
               <td>{sprintRightRate || 'нет данных'}</td>
               <td>{totalRR}</td>
             </tr>
             <tr>
-              <th scope="row">Самая длинная серия правильных ответов:</th>
+              <th className={styles.legend} scope="row">Самая длинная серия правильных ответов:</th>
               <td>{audioRightSet || 'нет данных'}</td>
               <td>{sprintRightSet || 'нет данных'}</td>
               <td>{sprintRightSet > audioRightSet ? sprintRightSet : audioRightSet}</td>
@@ -115,13 +115,13 @@ export default function Stats() {
           </tbody>
           <tfoot>
             <tr>
-              <th scope="row">Количество изученных слов за день:</th>
+              <th className={styles.legend} scope="row">Количество изученных слов за день:</th>
               <td colSpan={3}>{todayLearned}</td>
             </tr>
           </tfoot>
         </table>
         <div className={styles.chartWrapper}>
-          <h4>Долгосрочная статистика</h4>
+          <h4 className={styles.legend}>Долгосрочная статистика</h4>
           <div className={styles.chartBlock}>
             <div className={styles.chartLegend}>
               <h4 className={styles.title}>Изученные слова нарастающим итогом</h4>
@@ -156,6 +156,10 @@ export default function Stats() {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err)
-    return <>an error!</>
+    return (
+      <div className={styles.chartWrapper}>
+        Пока данных для построения статистики недостаточно. Поиграйте в наши игры.
+      </div>
+    )
   }
 }
