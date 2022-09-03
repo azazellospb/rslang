@@ -6,7 +6,7 @@ import styles from './GameModal.module.css'
 
 function ButtonList() {
   const isFromDictionary = useAppSelector((state) => state.sprintGameSlice.isFromDictionary)
-  const categoryArr = [1, 2, 3, 4, 5, 6]
+  const categoryArr = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
   return (
     <div className={`${styles.buttonList} ${isFromDictionary ? styles.center : styles.between}`}>
       {isFromDictionary && <IfFromDictionaryButton />}

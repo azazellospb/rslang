@@ -1,6 +1,6 @@
 export interface IProp {
   id: string,
-  num: number
+  num: string,
 }
 export interface IFetchParam {
   textbookSection: string,
