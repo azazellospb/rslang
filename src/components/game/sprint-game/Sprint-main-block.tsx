@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux'
 import GameStat from './GameStat'
 import { getRandomWord } from './sprint-game-actions'
 import PlayingField from './SprintPlayingField'
-import styles from './sprint-game.module.css'
+// import styles from './sprint-game.module.css'
 import Timer from './timer'
 
 function SprintGameMainBlock() {
@@ -17,7 +17,6 @@ function SprintGameMainBlock() {
   }, [counter, dispatch, gameData])
   return (
     <>
-      <h1 className={styles.sprintGameTitle}>Спринт</h1>
       { Boolean(timer) && <Timer /> }
       { Boolean(timer) && <PlayingField /> }
       {/* { Boolean(!timer) && <GameStat /> } */}
