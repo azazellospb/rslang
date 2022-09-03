@@ -39,7 +39,7 @@ export default function NextCardBtn() {
     (state) => state.audioGameSlice,
   )
 
-  let endGame = '▶▷▶▷▶'
+  let endGame = 'Следующее слово'
   if (counterWord >= numberOfWords - 1) {
     endGame = 'Завершить игру'
   }
@@ -54,16 +54,29 @@ export default function NextCardBtn() {
     dispatch(audioGameSlice.actions.fetchCounterWord(counterWord + 1))
     dispatch(audioGameSlice.actions.fetchCounterProgress(counterProgress + 1))
     dispatch(createLearnedWordAndPutItToArr(currentWord, false))
+    // if (counterWord >= numberOfWords - 2) {
+    //   console.log(counterWord)
+    //   endGame = 'Завершить игру'
+    // }
   }
 
   return (
-    <div>
-      <input
-        type="button"
-        value={!changeStyle ? 'Не знаю' : `${endGame}`}
-        className={changeStyle ? styles.answerBtn : `${styles.answerBtn} ${styles.changeBtn}`}
-        onClick={handleConfirmBtn}
-      />
+    <div className={styles.nextBtn}>
+      {counterWord >= numberOfWords - 1 ? (
+        <input
+          type="button"
+          value="Завершить игру"
+          className={changeStyle ? styles.answerBtn : `${styles.answerBtn} ${styles.changeBtn}`}
+          onClick={handleConfirmBtn}
+        />
+      ) : (
+        <input
+          type="button"
+          value={!changeStyle ? 'Следующее слово' : `${endGame}`}
+          className={changeStyle ? styles.answerBtn : `${styles.answerBtn} ${styles.changeBtn}`}
+          onClick={handleConfirmBtn}
+        />
+      )}
     </div>
   )
 }

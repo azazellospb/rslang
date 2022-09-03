@@ -7,7 +7,9 @@
   --text-altcolor: rgba(62, 57, 57, 1);
   --tetriary-color: #7a4f7d;
   --border-color: rgb(0, 88, 201, 1);
-  --color-bg: #f5f5f5;
+  --color-bg: rgba(248, 249, 252, 1);
+  --color-right: rgba(6, 151, 6, 1);
+  --color-false: #C80707;
   /* 200: 'Nunito-ExtraLight'; */
   /* 300: 'Nunito-Light'; */
   /* 400: 'Nunito-Regular'; */

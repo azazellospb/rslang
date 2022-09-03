@@ -8,21 +8,41 @@
 .wrapper {
   display: flex;
   justify-content: center;
-  /* height: 100%; */
+  flex-direction: column;
+  align-items: center;
   flex-wrap: wrap;
-  align-content: flex-start;
-  /* position: relative; */
+  padding-top: 120px;
 }
 
-.counter {
-  flex: 0 0 100%;
-  width: 100px;
-  height: 50px;
-  text-align: center;
-  padding-top: 20px;
-  /* position: absolute; */
-  /* top: 30px; */
-  /* left: 30px; */
+.title {
+  font-family: 'Nunito-Bold';
+  font-size: 22px;
+  line-height: 33px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--border-color);
+  margin-bottom: 58px;
+}
+
+.answerWrapper {
+  font-family: 'Nunito-Light';
+  width: 250px;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  font-size: 10px;
+  line-height: 15px;
+  letter-spacing: 0.1em;
+  margin-bottom: 15px;
+}
+
+.answerCounter {
+  color: var(--border-color);
+}
+
+.rightAnswer {
+  color: var(--color-right);
 }
 
 .gameContent {
@@ -30,8 +50,8 @@
 }
 
 .imgWrapper {
-  height: 240px;
-  width: 240px;
+  height: 250px;
+  width: 250px;
   display: flex;
   justify-content: center;
   align-content: center;
@@ -39,19 +59,14 @@
   margin: auto;
   border-radius: 25%;
   overflow: hidden;
+  border-radius: 6px;
 }
 
 .answerImg {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* visibility: visible; */
   transition: all 0.4s ease;
-}
-
-.answerImg.hideImg {
-  visibility: hidden;
-  transition: all 0.05s ease;
 }
 
 .answerWordContainer {
@@ -59,15 +74,13 @@
   justify-content: center;
   align-items: center;
   align-content: center;
-  margin: 20px 0px 40px 0px;
+  margin: 18px 0px 45px 0px;
 }
 
 .answerWord {
-  color: var(--text-color);
-  font-size: 2.5rem;
-  font-weight: 600;
-  /* visibility: visible; */
-  /* transition: all 0.05s ease; */
+  font-family: 'Nunito-Bold';
+  font-size: 24px;
+  line-height: 36px;
 }
 
 .answerWord.hiddenAnswer {
@@ -75,56 +88,73 @@
   visibility: hidden;
 }
 
+.currAnswer {
+  display: inline-block;
+}
+
+.answerWord::first-letter,
+.currAnswer::first-letter {
+  text-transform: uppercase;
+}
+
 .controls {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 130px;
 }
 
 .answers {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 80px;
-  font-size: 1.5rem;
-  flex: 1 0 95%;
-  /* gap: 0px 10px; */
+  margin-bottom: 50px;
+  flex: 1 0 100%;
+  gap: 0px 20px;
 }
 
-.answersItem {
-  padding: 5px 25px;
+.answersItem,
+.answerBtn {
+  font-family: 'Nunito-Bold';
+  padding: 7px 25px;
   cursor: pointer;
   transition: box-shadow 0.3s ease, background-color 0.3s ease;
-  background: transparent;
-  height: 40px;
-  min-width: 126px;
-  border: 1px solid transparent;
-  font-size: 1.4rem;
-  /* padding: 5px 25px;
-  cursor: pointer;
-  transition: box-shadow 0.3s ease, background-color 0.3s ease; */
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--main-color);
+  background: #ffffff;
+  border: 1px solid #548dff;
+  border-radius: 6px;
+  outline-color: var(--main-color);
+}
+
+.answerBtn {
+  background: var(--main-color);
+  color: #ffffff;
 }
 
 .answerRight {
-  background-color: greenyellow;
+  background-color: var(--color-right);
+  color: #ffffff;
 }
 
 .answerWrong {
   background-color: rgb(255, 71, 47);
+  color: #ffffff;
 }
 
 .answersItem.hiddenAnswerItem {
-  background-color: green;
+  background-color: var(--color-right);
 }
 
-.answersItem:active {
-  background-color: var(--main-color);
+.answersItem:active,
+.answerBtn:active {
+  background-color: rgba(84, 141, 255, 0.5);
 }
 
-.answersItem:hover {
-  box-shadow: 0 2px 8px rgb(0 0 0 / 77%), inset 0 1px rgb(255 255 255 / 30%),
-    inset 0 10px rgb(255 255 255 / 20%), inset 0 10px 20px rgb(255 255 255 / 81%),
-    inset 0 -15px 30px rgb(0 0 0 / 27%);
+.answersItem:hover,
+.answerBtn:hover {
+  box-shadow: 0 2px 8px rgb(0 0 0 / 77%), inset 0 1px rgb(255 255 255 / 30%);
 }
 
 .answerLabel {
@@ -133,56 +163,27 @@
 }
 
 .playBtn {
-  width: 50px;
-  height: 50px;
   font-size: 0px;
-  background-color: #80808066;
+  background-color: transparent;
   border-radius: 50%;
-  padding: 5px;
-  margin-right: 40px;
+  margin-right: 0px;
   cursor: pointer;
   border-color: transparent;
   transition: all 0.4s ease;
-  transform: rotateZ(319deg);
-  box-shadow: 0 2px 8px rgb(0 0 0 / 77%), inset 0 1px rgb(255 255 255 / 30%),
-    inset 0 10px rgb(255 255 255 / 20%), inset 0 10px 20px rgb(255 255 255 / 81%),
-    inset 0 -15px 30px rgb(0 0 0 / 27%);
 }
 
-.playBtn.hidePlayBtn {
-  margin-right: 0px;
-  transform: translateY(-50%);
-  width: 70px;
-  height: 70px;
-  transition: all 0.4s ease;
+.playBtn.answerVisible {
+  margin-right: 30px;
 }
 
 .playBtn:hover {
   background-color: rgb(172, 172, 172);
 }
 
+.playBtn:active {
+  box-shadow: 0 2px 8px rgb(0 0 0 / 77%), inset 0 1px rgb(255 255 255 / 30%);
+}
+
 .playIcon {
   fill: #ffffff;
-  /* width: 40px; */
-  /* height: 40px; */
-}
-
-.answerBtn {
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 77%), inset 0 1px rgb(255 255 255 / 30%),
-    inset 0 10px rgb(255 255 255 / 20%), inset 0 10px 20px rgb(255 255 255 / 81%),
-    inset 0 -15px 30px rgb(0 0 0 / 27%);
-  width: 200px;
-  padding: 5px 10px;
-  font-size: 1.2rem;
-  border-color: transparent;
-  transition: background-color 0.3s ease;
-}
-
-.answerBtn.changeBtn:before {
-  content: '';
-}
-
-.answerBtn:hover {
-  background-color: var(--main-color);
 }
