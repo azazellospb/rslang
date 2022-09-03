@@ -64,8 +64,6 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
           dates: {},
         },
       }
-      // eslint-disable-next-line no-console
-      console.log(params)
       // eslint-disable-next-line no-nested-ternary, no-unneeded-ternary
       if (examination && (!isHard ? true : (isHard && toLearn === 2) ? true : false)) params.optional!.dates![dateKey] = true
       dispatch(postPutWordsToServerFromGame(params))
