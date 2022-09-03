@@ -2,8 +2,16 @@
 /* eslint-disable  no-unsafe-optional-chaining */
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { UserStat, IUnlearnedWord } from '../../../types/models'
 
-const initialState: User = { name: '', password: '', email: '' }
+const initialState: User = {
+  name: '',
+  password: '',
+  email: '',
+  statistic: null,
+  todayWords: 0,
+  allLearned: [],
+}
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -28,6 +36,15 @@ export const userSlice = createSlice({
     clearUserPassw: (state) => {
       state.password = ''
     },
+    setUserStats: (state, action: PayloadAction<UserStat>) => {
+      state.statistic = action.payload
+    },
+    setTodayLearnedWords: (state, action: PayloadAction<number>) => {
+      state.todayWords = action.payload
+    },
+    setAllLearned: (state, action: PayloadAction<IUnlearnedWord[]>) => {
+      state.allLearned = [...action.payload]
+    },
   },
 })
 /* eslint-disable object-curly-newline */
@@ -35,11 +52,24 @@ export interface User {
   password: string
   name: string
   email: string
+  statistic?: UserStat | null
+  todayWords?: number,
+  allLearned?: IUnlearnedWord[],
 }
 
 export default userSlice.reducer
 // userReducer для доступа к Redux использовать обязательно, это взято из store.ts (строка 9)
 export const getUserName = (state: { userReducer: { name: string } }) => state.userReducer.name
+export const getLearnedWords = (state: {
+  userReducer: { todayWords: number[] }
+}) => state.userReducer.todayWords
+export const getAllLearned = (state: {
+  userReducer: { allLearned: IUnlearnedWord[] }
+}) => state.userReducer.allLearned
+export const userStats = (state: {
+  userReducer: { statistic: UserStat }
+}) => state.userReducer.statistic
+
 export const {
   setUserName,
   clearUserName,
@@ -47,4 +77,7 @@ export const {
   setUserPassw,
   clearUserPassw,
   clearUserMail,
+  setUserStats,
+  setAllLearned,
+  setTodayLearnedWords,
 } = userSlice.actions
