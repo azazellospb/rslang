@@ -89,11 +89,9 @@ export const createObjectForPostOrPutItToUserAggregatedWords = (currentWord: IWo
         dates: {},
       },
     }
-    console.log(params.optional?.rightCounter)
     // eslint-disable-next-line no-nested-ternary, no-unneeded-ternary
     if (examination && (!isHard ? true : (isHard && toLearn === 2) ? true : false)) params.optional!.dates![dateKey] = true
     dispatch(postPutWordsToServerFromGame(params))
-    console.log(params)
   } else {
     if (!localStorage.getItem('newWords')) {
       localStorage.setItem('newWords', '1')
@@ -114,7 +112,6 @@ export const createObjectForPostOrPutItToUserAggregatedWords = (currentWord: IWo
       },
     }
     if (examination) params.optional!.dates![dateKey] = true
-    console.log(params.optional)
     dispatch(postPutWordsToServerFromGame(params))
   }
 }
@@ -146,7 +143,6 @@ export const filteredUnlearnedWordsLessThanCurrentPage = (data: IUnlearnedWord[]
       wordTranslate: item.wordTranslate,
     }))
     .sort((a, b) => (a.page < b.page ? 1 : -1))
-  console.log('action')
   dispatch(fetchWordForSprintGameSuccess(filteredWord))
   filteredWord.length === 0 ? dispatch(showMessageIfAllWordStudiedOnPage(true)) : dispatch(showMessageIfAllWordStudiedOnPage(false))
 }
@@ -176,7 +172,7 @@ export const filteredUnlearnedWordsMoreThanCurrentPage = (data: IUnlearnedWord[]
   filteredWord.length === 0 ? dispatch(showMessageIfAllWordStudiedOnPage(true)) : dispatch(showMessageIfAllWordStudiedOnPage(false))
 }
 export const refreshGameParams = () => (dispatch: AppDispatchState) => {
-  dispatch(timerWork(60))
+  dispatch(timerWork(5))
   dispatch(turnCounter())
   dispatch(studiedWord({}))
   dispatch(gameScore(0))

@@ -17,8 +17,6 @@ export default function WordsBunch() {
 
   const dispatch = useAppDispatch()
   const pageData = useAppSelector(dictPageWords)
-  // eslint-disable-next-line no-console
-  console.log('page')
   useEffect(() => {
     dispatch(getDictPageWords(+page, +group))
   // eslint-disable-next-line react-hooks/exhaustive-deps

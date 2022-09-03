@@ -101,13 +101,16 @@ export interface IStats extends UserStat {
 
 export interface UserStat {
   id?: string
-  learnedWords: number
+  learnedWords: number,
   optional: {
+    newWords: {
+      [key: string]: number
+    },
     audioGame?: {
       [key: string]: DataStats
     },
     sprintGame?:{
-      [key: string]: DataStats
+      [key: string]: DataStats,
     }
   }
 }

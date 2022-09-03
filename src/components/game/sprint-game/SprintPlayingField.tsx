@@ -10,14 +10,8 @@ function PlayingField() {
 
   return (
     <>
+      <h1 className={styles.sprintGameTitle}>Спринт</h1>
       <section className={styles.sprintGameFieldWherePlaying}>
-        {/* <img
-          className={styles.sprintGameFieldWherePlayingBackground}
-          src={`${url}/${currentWord?.image}`}
-          alt={`${currentWord?.word}`}
-        /> */}
-
-        {/* <section className={styles.fieldForGame}> */}
         <div className={styles.engWordField}>
           {currentWord?.word}
         </div>

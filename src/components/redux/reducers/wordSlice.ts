@@ -6,12 +6,12 @@ import { IWord } from '../../../types/models'
 
 interface IWordDataState {
   data: IWord[],
-  userWords: IWord[],
+  userWord: string,
 
 }
 const initialState: IWordDataState = {
   data: [],
-  userWords: [],
+  userWord: '',
 }
 export const wordSlice = createSlice({
   name: 'wordData',
@@ -21,17 +21,12 @@ export const wordSlice = createSlice({
       state.data = action.payload
     },
     fetchUserWords(state, action: PayloadAction<IWord>) {
-      if (state.userWords.filter((word) => word.id === action.payload.id).length === 0) {
-        state.userWords.push(action.payload)
-      }
-    },
-    deleteUserWord(state, action: PayloadAction<IWord>) {
-      state.userWords = state.userWords.filter((word) => word.id !== action.payload.id)
+      state.userWord = action.payload.id
     },
   },
 })
 export default wordSlice.reducer
-export const { fetchWordSuccess, fetchUserWords, deleteUserWord } = wordSlice.actions
+export const { fetchWordSuccess, fetchUserWords } = wordSlice.actions
 export const getWordsArray = (state: {
   wordSlice: { data: IWord[] }
 }) => state.wordSlice.data

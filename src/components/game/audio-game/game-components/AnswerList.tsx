@@ -9,6 +9,7 @@ import Answer from './Answer'
 import styles from '../Audiogame.module.css'
 import { audioGameSlice } from '../../../redux/reducers/audioGameSlice'
 import { getBeforePageWords, getOtherUnlearned } from '../../../redux/reducers/aggregatedSlice'
+import { aggregateWords } from '../../../redux/fetching'
 
 function AnswerList() {
   const startDada = useAppSelector(getBeforePageWords)
@@ -30,7 +31,7 @@ function AnswerList() {
 
   const currtWord = data[counterWord]
   dispatch(audioGameSlice.actions.setCurrentWord(currtWord))
-
+  dispatch(aggregateWords())
   let customAnswers: IWord[] | (IWord[] & IUnlearnedWord[]) = []
   function randomIndx(arr: IWord[]) {
     const rand = Math.floor(Math.random() * arr.length)
@@ -57,7 +58,7 @@ function AnswerList() {
         <Answer
           keyNumber={indx + 1}
           currtWord={customAnswers[indx]}
-          key={item.id + new Date().getTime() + indx.toString()}
+          key={item.id! + new Date().getTime() + indx.toString()}
         />
       ))}
     </div>

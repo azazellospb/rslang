@@ -1,10 +1,21 @@
+@import-normalize;
 @import url('./fonts.css');
 
 :root {
   --main-color: rgba(84, 141, 255, 1);
   --text-color: #410002;
+  --text-altcolor: rgba(62, 57, 57, 1);
   --tetriary-color: #7a4f7d;
-  --border-color: rgb(0, 88, 201);
+  --border-color: rgb(0, 88, 201, 1);
+  --color-bg: #f5f5f5;
+  /* 200: 'Nunito-ExtraLight'; */
+  /* 300: 'Nunito-Light'; */
+  /* 400: 'Nunito-Regular'; */
+  /* 500: 'Nunito-Medium'; */
+  /* 600: 'Nunito-SemiBold'; */
+  /* 700: 'Nunito-Bold'; */
+  /* 800: 'Nunito-ExtraBold'; */
+  /* 900: 'Nunito-Black'; */
 }
 
 body {
@@ -12,11 +23,13 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* color: var(--text-color); */
+  /* background-color: aliceblue; */
 }
 
 * {
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
   box-sizing: border-box;
 }
 
@@ -24,6 +37,7 @@ body {
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
+  overflow: hidden;
 }
 
 code {
@@ -39,5 +53,5 @@ a {
   max-width: 1280px;
   padding-left: 40px;
   padding-right: 40px;
-  margin: auto;
+  margin: 0 auto;
 }

@@ -45,7 +45,7 @@ function ReloadStatButton() {
         </metadata>
         <g
           transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)"
-          fill="#410002"
+          fill="#0058C9"
           stroke="none"
         >
           <path d="M3808 12794 c-10 -3 -18 -10 -18 -16 0 -47 497 -1012 1170 -2273 64
