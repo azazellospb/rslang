@@ -3,10 +3,10 @@
 }
 
 .auth-container {
-  align-self: center;
+  /* align-self: center; */
   height: 100%;
   display: flex;
-  background: radial-gradient(
+  /* background: radial-gradient(
     circle,
     rgba(120, 255, 145, 0.6362920168067228) 0%,
     rgba(0, 255, 111, 0.5074404761904762) 34%,
@@ -16,10 +16,10 @@
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
-  position: relative;
+  position: relative; */
 }
 
-.auth-container:before {
+/* .auth-container:before {
   content: '';
   position: absolute;
   top: 0;
@@ -30,4 +30,4 @@
   z-index: 1;
   opacity: 80%;
   filter: blur(34px);
-}
+} */

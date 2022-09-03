@@ -64,8 +64,6 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
           dates: {},
         },
       }
-      // eslint-disable-next-line no-console
-      console.log(params)
       // eslint-disable-next-line no-nested-ternary, no-unneeded-ternary
       if (examination && (!isHard ? true : (isHard && toLearn === 2) ? true : false)) params.optional!.dates![dateKey] = true
       dispatch(postPutWordsToServerFromGame(params))
@@ -95,12 +93,12 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
     if (currtWord.word === currentWord?.word) {
       dispatch(audioGameSlice.actions.setStyles(true))
       setStyle(`${styles.answerRight}`)
-      dispatch(createLearnedWordAndPutItToArr(currtWord, true))
+      dispatch(createLearnedWordAndPutItToArr(currentWord, true))
       // localStorage.setItem('newWords', currtWord.word)
     } else {
       dispatch(audioGameSlice.actions.setStyles(true))
       setStyle(`${styles.answerWrong}`)
-      dispatch(createLearnedWordAndPutItToArr(currtWord, false))
+      dispatch(createLearnedWordAndPutItToArr(currentWord, false))
     }
   }
 

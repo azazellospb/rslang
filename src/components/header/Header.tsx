@@ -7,9 +7,11 @@ import LoginBlock from './Login'
 export default function Header() {
   return (
     <header className={styles.header}>
-      <Logo />
-      <Navigation />
-      <LoginBlock />
+      <div className={`${styles.headerContainer} container`}>
+        <Logo />
+        <Navigation />
+        <LoginBlock />
+      </div>
     </header>
   )
 }

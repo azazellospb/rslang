@@ -1,44 +1,45 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useRef, useEffect } from 'react'
-import {
-  Link, NavLink,
-} from 'react-router-dom'
+import React, { useRef } from 'react'
+import { NavLink } from 'react-router-dom'
 import { refreshGameParams } from '../game/sprint-game/sprint-game-actions'
 import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
 import {
-  isGetOffer, modalToggle, showMessageIfAllWordStudiedOnPage, whereEnterGame,
+  isGetOffer,
+  modalToggle,
+  showMessageIfAllWordStudiedOnPage,
+  whereEnterGame,
 } from '../redux/reducers/sprintGameSlice'
 import { clearUserPassw } from '../redux/reducers/userSlice'
 import styles from './Navigation.module.css'
 
 export default function Navigation() {
-  const ref1 = useRef<HTMLDivElement>(null)
-  const ref2 = useRef<HTMLDivElement>(null)
+  // const ref1 = useRef<HTMLDivElement>(null)
+  // const ref2 = useRef<HTMLDivElement>(null)
   const navRef = useRef<HTMLElement>(null)
   const dispatch = useAppDispatch()
-  useEffect(() => {
-    const handleHover = () => {
-      const dropDown = document.querySelector('#dropdown') as HTMLElement
-      dropDown.style.display = 'flex'
-    }
-    const handleOut = () => {
-      const dropDown = document.querySelector('#dropdown') as HTMLElement
-      dropDown.style.display = 'none'
-    }
-    const handleClick = () => {
-      const dropDown = document.querySelector('#dropdown') as HTMLElement
-      dropDown.style.display = 'none'
-      dispatch(refreshGameParams())
-      dispatch(dispatch(isGetOffer(false)))
-    }
-    const element1 = ref1.current!
-    const element2 = ref2.current!
-    element1.addEventListener('mouseover', handleHover)
-    element1.addEventListener('mouseout', handleOut)
-    element2.addEventListener('click', handleClick)
-  })
+  // useEffect(() => {
+  // const handleHover = () => {
+  //   const dropDown = document.querySelector('#dropdown') as HTMLElement
+  //   dropDown.style.display = 'flex'
+  // }
+  // const handleOut = () => {
+  //   const dropDown = document.querySelector('#dropdown') as HTMLElement
+  //   dropDown.style.display = 'none'
+  // }
+  // const handleClick = () => {
+  //   const dropDown = document.querySelector('#dropdown') as HTMLElement
+  //   dropDown.style.display = 'none'
+  //   dispatch(refreshGameParams())
+  //   dispatch(dispatch(isGetOffer(false)))
+  // }
+  // const element1 = ref1.current!
+  // const element2 = ref2.current!
+  // element1.addEventListener('mouseover', handleHover)
+  // element1.addEventListener('mouseout', handleOut)
+  // element2.addEventListener('click', handleClick)
+  // })
   const navbar = navRef.current
   let { password } = useAppSelector((state) => state.userReducer)
   function getPassword() {
@@ -59,10 +60,22 @@ export default function Navigation() {
         }}
         className={styles.menuList}
       >
-        <NavLink to="/"><li>На главную</li></NavLink>
-        <NavLink to="/dictionary/0/0"><li>учебник</li></NavLink>
-        <div className={styles.dropdown} ref={ref1}>
-          <button className={styles.dropbtn} type="button">игры</button>
+        <NavLink
+          className={({ isActive }) => `${styles.navLink} ${isActive ? `${styles.active}` : ''}`}
+          to="/"
+        >
+          Главная
+        </NavLink>
+        <NavLink
+          className={({ isActive }) => `${styles.navLink} ${isActive ? `${styles.active}` : ''}`}
+          to="/dictionary/0/0"
+        >
+          Учебник
+        </NavLink>
+        {/* <div className={styles.dropdown} ref={ref1}>
+          <button className={styles.dropbtn} type="button">
+            игры
+          </button>
           <div
             id="dropdown"
             className={`${styles.dropdownContent}`}
@@ -76,8 +89,41 @@ export default function Navigation() {
             <Link to="/audiochallenge">аудиовызов</Link>
             <Link to="/sprintchallenge">спринт</Link>
           </div>
-        </div>
-        <NavLink to="/about"><li>о команде</li></NavLink>
+        </div> */}
+        <NavLink
+          className={({ isActive }) => `${styles.navLink} ${isActive ? `${styles.active}` : ''}`}
+          to="/audiochallenge"
+          onClick={() => {
+            dispatch(modalToggle(true))
+            dispatch(whereEnterGame(false))
+            showMessageIfAllWordStudiedOnPage(false)
+          }}
+        >
+          Аудиовызов
+        </NavLink>
+        <NavLink
+          className={({ isActive }) => `${styles.navLink} ${isActive ? `${styles.active}` : ''}`}
+          to="/sprintchallenge"
+          onClick={() => {
+            dispatch(modalToggle(true))
+            dispatch(whereEnterGame(false))
+            showMessageIfAllWordStudiedOnPage(false)
+          }}
+        >
+          Спринт
+        </NavLink>
+        <NavLink
+          className={({ isActive }) => `${styles.navLink} ${isActive ? `${styles.active}` : ''}`}
+          to="/stats"
+        >
+          Статистика
+        </NavLink>
+        <NavLink
+          className={({ isActive }) => `${styles.navLink} ${isActive ? `${styles.active}` : ''}`}
+          to="/about"
+        >
+          О команде
+        </NavLink>
       </ul>
     </nav>
   )

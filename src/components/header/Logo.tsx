@@ -6,9 +6,9 @@ export default function Header() {
   return (
     <div className={styles.logoBlock}>
       <Link to="/">
-        <h2 className={styles.logoText}>
-          RS Lang
-        </h2>
+        {/* <h2 className={styles.logoText}> */}
+        RS Lang
+        {/* </h2> */}
       </Link>
     </div>
   )
