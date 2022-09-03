@@ -89,11 +89,9 @@ export const createObjectForPostOrPutItToUserAggregatedWords = (currentWord: IWo
         dates: {},
       },
     }
-    console.log(params.optional?.rightCounter)
     // eslint-disable-next-line no-nested-ternary, no-unneeded-ternary
     if (examination && (!isHard ? true : (isHard && toLearn === 2) ? true : false)) params.optional!.dates![dateKey] = true
     dispatch(postPutWordsToServerFromGame(params))
-    console.log(params)
   } else {
     if (!localStorage.getItem('newWords')) {
       localStorage.setItem('newWords', '1')

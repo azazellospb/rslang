@@ -44,10 +44,10 @@ tbody tr {
   display: flex;
   flex-direction: row; 
   width: 100%;
-  align-items: flex-end;
+  align-items: center;
   justify-content: flex-start;
   gap: 5vw;
-  height: 10vw;  
+  height: 20vw;  
 }
 .chart {
   display: flex;
@@ -59,8 +59,10 @@ tbody tr {
   background-color: #d4e4f5;
 }
 .bar {
-  width: 20px;
+  width: 50px;
   background-color: rgba(84, 141, 255, 1);
+  border: 0.1px solid black;
+  padding: 0;
 }
 .chartUnit {
   display: flex;
@@ -68,9 +70,13 @@ tbody tr {
   align-items: center;
   gap: 0.4vw;
 }
-.chartUnit > div {
-  border: 0.1px solid black;
-  padding: 0;
+.date {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.legend {
+  font-weight: 700;
+  font-size: 0.9rem;
 }
 .chartLegend {
   width: 20%;

@@ -30,7 +30,7 @@ export default function Stats() {
     dispatch(getLearnedWithDates())
     dispatch(getTodayLearned(dateKey))
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch])
+  }, [dispatch, dateKey])
   const { newWords } = stats.optional
   let userNewDates = Object.keys(newWords)
   userNewDates = userNewDates.map((item) => {
@@ -127,9 +127,9 @@ export default function Stats() {
           <div className={styles.chart}>
             {userResults.map((results, index) => (
               <div key={`${Math.random()}`} className={styles.chartUnit}>
-                {results}
-                <div className={styles.bar} style={{ height: `${(results * 4) / userResults[userResults.length - 1]}vw` }} key={`${Math.random()}${results}`} id={results} />
-                <div className={styles.legend} key={`${Math.random()}`} id={userDates[index]}>{userDates[index].split()}</div>
+                <div className={styles.legend}>{results}</div>
+                <div className={styles.bar} style={{ height: `${(results * 8) / userResults[userResults.length - 1]}vw` }} key={`${Math.random()}${results}`} id={results} />
+                <div className={styles.date} key={`${Math.random()}`} id={userDates[index]}>{userDates[index].split()}</div>
               </div>
             ))}
           </div>
@@ -141,9 +141,9 @@ export default function Stats() {
           <div className={styles.chart}>
             {userNewWords.map((results, index) => (
               <div key={`${Math.random()}`} className={styles.chartUnit}>
-                {results}
-                <div className={styles.bar} style={{ height: `${(results * 4) / newWordsMax}vw` }} key={`${Math.random()}${results}`} id={userNewWords[index].toString()} />
-                <div className={styles.legend} key={`${Math.random()}`} id={userNewDates[index]}>{userNewDates[index]}</div>
+                <div className={styles.legend}>{results}</div>
+                <div className={styles.bar} style={{ height: `${(results * 8) / newWordsMax}vw` }} key={`${Math.random()}${results}`} id={userNewWords[index].toString()} />
+                <div className={styles.date} key={`${Math.random()}`} id={userNewDates[index]}>{userNewDates[index]}</div>
               </div>
             ))}
           </div>

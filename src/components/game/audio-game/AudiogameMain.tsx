@@ -7,7 +7,10 @@ import GameRunner from './GameRunner'
 function AudiogameMain() {
   const dispatch = useAppDispatch()
   const { currentGroupPage } = useAppSelector((state) => state.sprintGameSlice)
-  dispatch(getUnlearnedWords(currentGroupPage?.page, Number(currentGroupPage?.textbookSection)))
+  const isFromDictionary = useAppSelector((state) => state.sprintGameSlice.isFromDictionary)
+  if (isFromDictionary) {
+    dispatch(getUnlearnedWords(currentGroupPage?.page, Number(currentGroupPage?.textbookSection)))
+  }
   const { gameOver } = useAppSelector((state) => state.gameSlice)
 
   return (

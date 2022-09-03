@@ -457,7 +457,7 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
     } return Promise.reject(new Error(`some other error: ${response.status}`))
   }).catch((error) => console.log('error is', error))
   const serverData: UserStat = await responseStat
-  const thisDateWords: number = serverData.optional.newWords?.[data]
+  const thisDateWords: number = serverData.optional.newWords?.[data] || 0
   delete serverData.id
   // eslint-disable-next-line no-prototype-builtins
   if (gameType === 'sprintGame' && Object.keys(serverData.optional.sprintGame!).indexOf(data) > -1) {
@@ -486,7 +486,7 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
         body: JSON.stringify(body),
       },
     ).catch((error) => console.log('error is', error))
-  } else {
+  } else if (gameType === 'sprintGame' && Object.keys(serverData.optional.sprintGame!).indexOf(data) === -1) {
     const body = mergeDeep(serverData, obj)
     await fetch(
       `http://localhost:8088/users/${userId}/statistics`,
@@ -527,7 +527,7 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
         body: JSON.stringify(body),
       },
     ).catch((error) => console.log('error is', error))
-  } else {
+  } else if (gameType === 'audioGame' && Object.keys(serverData.optional.sprintGame!).indexOf(data) === -1) {
     const body = mergeDeep(serverData, obj)
     await fetch(
       `http://localhost:8088/users/${userId}/statistics`,
@@ -542,27 +542,3 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
     ).catch((error) => console.log('error is', error))
   }
 }
-
-// export const getUnlearnedWordsForGames = (currentGroupPage: IFetchParam) => async (dispatch: AppDispatchState) => {
-//   const { textbookSection, page } = currentGroupPage
-//   const userInfo = localStorage.getItem('userInfo') as string
-//   const { token, userId } = JSON.parse(userInfo)
-//   try {
-//     const response: Response = await fetch(
-//       `http://localhost:8088/users/${userId}/aggregatedWords?filter={"$and":[{ "group": ${textbookSection}}, {"$or":[{"userWord.optional.learned":null}, {"userWord.optional.learned":false}]}]}`,
-//       {
-//         method: 'GET',
-//         headers: {
-//           'Content-type': 'application/json',
-//           Authorization: `Bearer ${token}`,
-//         },
-//       },
-//     )
-//     const responseData: IAggregatedWords[] = await response.json()
-//     const unlearnedWords: IUnlearnedWord[] = responseData[0].paginatedResults
-//     console.log('fetch')
-//     await dispatch(filteredUnlearnedWordsLessThanCurrentPage(unlearnedWords, page))
-//   } catch (e) {
-//     console.log(e)
-//   }
-// }

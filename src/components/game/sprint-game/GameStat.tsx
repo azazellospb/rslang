@@ -30,7 +30,6 @@ function GameStat() {
   let answerSet = 0
   if (localStorage.getItem('rightOrwrong')) {
     // eslint-disable-next-line no-console
-    const aa = localStorage.getItem('rightOrwrong')
     answersArr = localStorage.getItem('rightOrwrong')!.split(',').map((v) => v || 'false').join(',').split('false')
       .map((v) => v.split(','))
     answerSet = answersArr[answersArr
