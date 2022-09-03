@@ -292,6 +292,10 @@ object-fit: cover;
 }
 .audio{
   width:15%;
+  height: 47px;
+}
+.audio:hover{
+  cursor: pointer;
 }
 .transcription{
   width: 20%;

@@ -8,6 +8,7 @@ import { IStats } from '../../../types/models'
 import { setSprintGameStats } from '../../redux/fetching'
 // import ButtonForMoreWords from '../modal/modalForDictionary/ButtonForMoreWords'
 import OfferModal from '../modal/modalForDictionary/OfferModal'
+import MessageModal from '../modal/messageModal/messageModal'
 
 export interface IProp {
   id: number,
@@ -16,13 +17,13 @@ function GameStat() {
   const dispatch = useAppDispatch()
   const studiedWords = useAppSelector((state) => state.sprintGameSlice.studiedArr)
   const allWordStudiedOnPage = useAppSelector((state) => state.sprintGameSlice.allWordStudiedOnPage)
-  const message = (
-    <div className={styles.messageText}>
-      <h3>Упс....!</h3>
-      У Вас нет результатов!
-      Попробуйте пройти наше испытание ещё раз, что бы проверить ваши знания языка
-    </div>
-  )
+  // const message = (
+  //   <div className={styles.messageText}>
+  //     <h3>Упс....!</h3>
+  //     У Вас нет результатов!
+  //     Попробуйте пройти наше испытание ещё раз, что бы проверить ваши знания языка
+  //   </div>
+  // )
   const date = new Date()
   const month = (date.getMonth() + 1).toString().length !== 1 ? (date.getMonth() + 1).toString() : `0${(date.getMonth() + 1).toString()}`
   const dateKey = `d${date.getDate().toString()}${month}${date.getFullYear().toString()}`
@@ -60,7 +61,7 @@ function GameStat() {
       {/* {Boolean(!studiedWords.length) && message}
       {Boolean(studiedWords.length) && <GameStatList />} */}
       {allWordStudiedOnPage && Boolean(!studiedWords.length) && <OfferModal />}
-      {!allWordStudiedOnPage && Boolean(!studiedWords.length) && message}
+      {!allWordStudiedOnPage && Boolean(!studiedWords.length) && <MessageModal />}
       {!allWordStudiedOnPage && Boolean(studiedWords.length) && <GameStatList />}
     </section>
   )

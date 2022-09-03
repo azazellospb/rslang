@@ -6,6 +6,7 @@ import styles from './Login.module.css'
 import { clearUserMail, clearUserName, getUserName } from '../redux/reducers/userSlice'
 import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
 import UserLogo from './UserLogo'
+// import { refreshGameParams } from '../game/sprint-game/sprint-game-actions'
 
 export default function LoginBlock() {
   const dispatch = useAppDispatch()
@@ -16,6 +17,7 @@ export default function LoginBlock() {
     localStorage.removeItem('userInfo')
     dispatch(clearUserName())
     dispatch(clearUserMail())
+    // dispatch(refreshGameParams())
   }
   // useEffect(() => {
   //   if (name) {
@@ -59,10 +61,12 @@ export default function LoginBlock() {
             </Link>
           </div>
         </button> */}
-        <button className={styles.logoutBtn} type="button" onClick={clearStorage}>
-          <Link to="/" />
-          {/* <LogoutIcon /> */}
-        </button>
+        <Link to="/">
+          <button className={styles.logoutBtn} type="button" onClick={clearStorage}>
+            {/* <Link to="/" /> */}
+            {/* <LogoutIcon /> */}
+          </button>
+        </Link>
       </div>
     )
   }
