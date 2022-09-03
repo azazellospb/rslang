@@ -15,7 +15,7 @@ function GameRunner() {
   const proposeDada = useAppSelector(getOtherUnlearned)
 
   return (
-    <div>
+    <>
       {/* <Audiogame />
       <AnswerControls /> */}
       {/* {!isFromDictionary && (
@@ -34,7 +34,7 @@ function GameRunner() {
       ) : (
         <ProposeGame />
       )}
-    </div>
+    </>
   )
 }
 

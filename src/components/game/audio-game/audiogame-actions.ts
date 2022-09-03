@@ -24,4 +24,5 @@ export const refreshAudiogameParams = () => (dispatch: AppDispatchState) => {
   dispatch(audioGameSlice.actions.fetchCounterWord(0))
   dispatch(audioGameSlice.actions.learnedWord({}))
   dispatch(audioGameSlice.actions.fetchTotalNumOfWords(20))
+  dispatch(audioGameSlice.actions.fetchRightWords(0))
 }

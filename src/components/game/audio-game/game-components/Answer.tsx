@@ -13,7 +13,7 @@ import createLearnedWordAndPutItToArr from '../audiogame-actions'
 import styles from '../Audiogame.module.css'
 
 function Answer({ keyNumber, currtWord }: IAnswerBtn) {
-  const { currentWord, changeStyle } = useAppSelector((state) => state.audioGameSlice)
+  const { currentWord, changeStyle, rightWords } = useAppSelector((state) => state.audioGameSlice)
   const dispatch = useAppDispatch()
   const [styleBtn, setStyle] = useState('')
   const aggregatedHard = useAppSelector(getAggregatedWords)
@@ -90,7 +90,7 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
       dispatch(audioGameSlice.actions.setStyles(true))
       setStyle(`${styles.answerRight}`)
       dispatch(createLearnedWordAndPutItToArr(currentWord, true))
-      // localStorage.setItem('newWords', currtWord.word)
+      dispatch(audioGameSlice.actions.fetchRightWords(rightWords + 1))
     } else {
       dispatch(audioGameSlice.actions.setStyles(true))
       setStyle(`${styles.answerWrong}`)
@@ -106,7 +106,7 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
       disabled={changeStyle}
     >
       <span>{`${keyNumber}. `}</span>
-      <span>{currtWord.wordTranslate}</span>
+      <span className={styles.currAnswer}>{currtWord.wordTranslate}</span>
     </button>
   )
 }
