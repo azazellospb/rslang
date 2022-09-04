@@ -1,0 +1,89 @@
+.homePage{
+  position: relative;
+  width: 100vw;
+  /* height: 100vh; */
+  min-height: 1080px;
+  /* background-image: url(../../public/assets/svg/Hero-background-LO-home-final.svg);
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat; */
+}
+.homePageContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  max-width: 1280px;
+  height: 100%;
+  margin: 0 auto;
+}
+.homePageTitle{
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 33px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0058C9;
+  margin: 134px auto 58px auto;
+}
+.homePageSubtitle{
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 33px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0058C9;
+  margin: 0 auto 16px auto;
+  text-align: center;
+}
+.secondPageSubtitle{
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 33px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0058C9;
+  margin: 0 auto 16px auto;
+  text-align: center;
+}
+.homePageAbout{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 62.5%;
+  max-width: 800px;
+  margin: 0 auto;
+  border: 1px solid #0058C9;
+  border-radius: 6px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: justify;
+  color: #3E3939;
+  padding: 16px;
+}
+.homePageAbout:nth-child(2n){
+  margin: 16px auto ;
+}
+.articleTitle{
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 33px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0058C9;
+}
+.homeLink{
+  color: #0058C9;
+}
+.homeLink:hover{
+  color: #0058C9;
+  text-decoration: underline;
+}

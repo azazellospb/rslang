@@ -354,9 +354,8 @@ export const getUserStats = () => async (dispatch: AppDispatchState) => {
     )
     const responseData: UserStat = await responseStat.json()
     dispatch(setUserStats(responseData))
-  } catch (e) {
-    console.log(e)
-  }
+  // eslint-disable-next-line no-empty
+  } catch (_e) {}
 }
 
 export const getTodayLearned = (date: string) => async (dispatch: AppDispatchState) => {
