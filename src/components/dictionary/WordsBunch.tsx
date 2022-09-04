@@ -7,7 +7,7 @@ import { IUnlearnedWord, IWord } from '../../types/models'
 import getWordsData, { getDictPageWords } from '../redux/fetching'
 import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
 import { dictPageWords } from '../redux/reducers/aggregatedSlice'
-import SearchBlock from '../search/searchBlock
+import SearchBlock from '../search/searchBlock'
 import { getUserName } from '../redux/reducers/userSlice'
 import { getWordsArray } from '../redux/reducers/wordSlice'
 import WordCard from './WordCard'

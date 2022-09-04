@@ -168,7 +168,7 @@ export const filteredUnlearnedWordsMoreThanCurrentPage = (data: IUnlearnedWord[]
   filteredWord.length === 0 ? dispatch(showMessageIfAllWordStudiedOnPage(true)) : dispatch(showMessageIfAllWordStudiedOnPage(false))
 }
 export const refreshGameParams = () => (dispatch: AppDispatchState) => {
-  dispatch(timerWork(60))
+  dispatch(timerWork(20))
   dispatch(turnCounter())
   dispatch(studiedWord({}))
   dispatch(gameScore(0))

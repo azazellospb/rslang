@@ -33,7 +33,7 @@ const initialState: ISprint = {
   currentGroupPage: null,
   gameLoader: false,
   error: '',
-  timer: 60,
+  timer: 20,
   score: 0,
   turnCounter: 1,
   isFromDictionary: false,
