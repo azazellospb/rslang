@@ -2,7 +2,7 @@
 .wrapper_msg {
   margin: auto;
   text-align: center;
-  width: 290px;
+  width: 300px;
   overflow: hidden;
   z-index: 3;
 }
@@ -11,14 +11,17 @@
   width: 100%;
   padding: 0px;
   border-radius: 0px;
-  font-size: 1.2rem;
-  /* padding-bottom: 10px; */
-
   transition: background-color 0.4s ease;
 }
 
 .wrapper_msg a {
-  display: block;
+  display: inline-block;
+}
+
+.wrapper_msg p {
+  font-family: 'Nunito-Light';
+  font-size: 20px;
+  line-height: 30px;
 }
 
 .title {
@@ -26,76 +29,71 @@
   font-size: 22px;
   line-height: 33px;
   letter-spacing: 0.1em;
-  margin-bottom: 20px;
+  margin-bottom: 55px;
   text-transform: uppercase;
   color: var(--border-color);
 }
 
-.form-group label {
-
-}
-
 .signup,
 .signin {
-  /* width: inherit; */
   text-align: initial;
+  margin-bottom: 20px;
+}
+
+.signup input,
+.signin input {
+  width: 100%;
+}
+.signup label,
+.signin label {
+  font-family: 'Nunito-Medium';
+  font-size: 14px;
+  line-height: 28px;
 }
 
 .signup input {
-  width: 93%;
-  padding: 4px 8px;
-  margin-bottom: 30px;
-  border-radius: 14px;
-  border: 2px solid var(--border-color);
+  padding: 7px 8px;
+  margin-bottom: 16px;
   line-height: 1.5rem;
-}
-
-.signup input::placeholder {
-  color: rgb(145, 162, 177);
+  border: 1px solid #afcaee;
+  border-radius: 6px;
 }
 
 .btnContainer {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding-top: 22px;
+  column-gap: 24px;
 }
 
 .btn,
-.btnSwitch,
 .confirm_btn {
+  font-family: 'Nunito-Bold';
   min-width: 100px;
-  border-radius: 14px;
-  padding: 4px 8px;
-  background-color: #7ceb94;
-  border: 2px solid #005eff;
-  line-height: 1.5rem;
+  border-radius: 6px;
+  padding: 8px 20px;
+  background-color: var(--main-color);
+  border: none;
   cursor: pointer;
-  transition: all ease 0.3s;
-  color: var(--text-color);
-}
-
-.btn:hover,
-.btnSwitch:hover,
-.confirm_btn:hover {
-  filter: brightness(115%);
-  transform: translatey(-2px);
+  color: #ffffff;
 }
 
 .btnSwitch {
-  background-color: #fc9898;
-}
-
-p {
-  color: #ffd2d2;
-  padding-top: 10px;
+  text-decoration: underline;
+  color: #000000;
 }
 
 .btn {
-  flex: 1 0;
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 16px;
 }
 
 .confirm_btn {
   max-width: 290px;
-  margin: 15px auto;
+  width: 120px;
+  margin: 24px auto;
+  font-size: 16px;
+  line-height: 24px;
+  margin-left: auto;
+  margin-right: auto;
 }
