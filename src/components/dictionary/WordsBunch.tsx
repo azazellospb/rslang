@@ -1,11 +1,16 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-template-curly-in-string */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
-import { getDictPageWords } from '../redux/fetching'
+import { IUnlearnedWord, IWord } from '../../types/models'
+import getWordsData, { getDictPageWords } from '../redux/fetching'
 import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
 import { dictPageWords } from '../redux/reducers/aggregatedSlice'
+import { getUserName } from '../redux/reducers/userSlice'
+import { getWordsArray } from '../redux/reducers/wordSlice'
 import WordCard from './WordCard'
+import WordCardUnreg from './WordCardUnreg'
 import styles from './WordsBunch.module.css'
 
 export default function WordsBunch() {
@@ -16,9 +21,13 @@ export default function WordsBunch() {
   // eslint-disable-next-line no-console
 
   const dispatch = useAppDispatch()
-  const pageData = useAppSelector(dictPageWords)
+  const name = useAppSelector(getUserName)
+
+  const pageData1 = useAppSelector(dictPageWords) as IUnlearnedWord[]
+  const pageData2 = useAppSelector(getWordsArray) as IWord[]
   useEffect(() => {
-    dispatch(getDictPageWords(+page, +group))
+    if (name) dispatch(getDictPageWords(+page, +group))
+    else dispatch(getWordsData(+page, +group))
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [group, page])
 
@@ -36,9 +45,13 @@ export default function WordsBunch() {
         {current < 27 ? <NavLink style={({ isActive }) => (isActive ? isActiveStyle : {})} to="29">{(current <= 26) ? 'В конец' : 30}</NavLink> : null}
       </div>
       <div className={styles.wordBlock}>
-        {pageData.map((item) => (
+        {name && pageData1.map((item) => (
           // eslint-disable-next-line react/jsx-props-no-spreading, no-console, no-underscore-dangle
-          <WordCard key={item._id + new Date().getTime()} callback={() => console.log('')} id={item._id} reg="dict" />
+          <WordCard key={Math.random()} callback={() => console.log('')} id={item._id} reg="dict" />
+        ))}
+        {!name && pageData2.map((item) => (
+          // eslint-disable-next-line react/jsx-props-no-spreading, no-console, no-underscore-dangle
+          <WordCardUnreg key={Math.random()} id={item.id} />
         ))}
       </div>
     </div>
