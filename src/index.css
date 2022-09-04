@@ -2,14 +2,14 @@
 @import url('./fonts.css');
 
 :root {
-  --main-color: rgba(84, 141, 255, 1);
-  --text-color: #410002;
+  --main-color: rgb(84, 141, 255);
+  --text-color: rgb(65, 0, 2);
   --text-altcolor: rgba(62, 57, 57, 1);
-  --tetriary-color: #7a4f7d;
-  --border-color: rgb(0, 88, 201, 1);
+  --tetriary-color: rgb(122, 79, 125);
+  --border-color: rgb(0, 88, 201);
   --color-bg: rgba(248, 249, 252, 1);
   --color-right: rgba(6, 151, 6, 1);
-  --color-false: #C80707;
+  --color-false: rgb(200, 7, 7);
   /* 200: 'Nunito-ExtraLight'; */
   /* 300: 'Nunito-Light'; */
   /* 400: 'Nunito-Regular'; */

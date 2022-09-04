@@ -186,4 +186,10 @@
 
 .playIcon {
   fill: #ffffff;
+  height: 25px;
+  transition: all 0.4s ease;
+}
+
+.playIcon:hover {
+   transform: rotateZ(-10deg);
 }
