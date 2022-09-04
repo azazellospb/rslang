@@ -65,7 +65,6 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
           <input
             type="text"
             id="usermail"
-            // placeholder="Email..."
             autoComplete="off"
             onChange={(event) => setMail(event.target.value)}
             value={usermail}
@@ -77,7 +76,6 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
           <input
             type="password"
             id="password"
-            // placeholder="Пароль 8 - 12 знаков"
             value={userpassw}
             onChange={(event) => setPass(event.target.value)}
             required
@@ -85,7 +83,7 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
         </div>
         <div className={styles.btnContainer}>
           <a href="/" className={styles.btnSwitch} onClick={handleSwitch}>
-            Регистрация
+            Зарегистрироваться
           </a>
           <button type="submit" className={styles.btn}>
             Войти
