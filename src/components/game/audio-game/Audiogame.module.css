@@ -139,7 +139,7 @@
 }
 
 .answerWrong {
-  background-color: rgb(255, 71, 47);
+  background-color: var(--color-false);
   color: #ffffff;
 }
 
@@ -192,4 +192,8 @@
 
 .playIcon:hover {
    transform: rotateZ(-10deg);
+}
+
+.answerBtn.changeBtn {
+  background-color: var(--color-false);
 }

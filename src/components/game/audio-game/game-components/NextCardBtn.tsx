@@ -3,7 +3,7 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react'
+import React, { SyntheticEvent } from 'react'
 import { IUnlearnedWord, IWord } from '../../../../types/models'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux'
 import { getBeforePageWords, getOtherUnlearned } from '../../../redux/reducers/aggregatedSlice'
@@ -38,15 +38,18 @@ export default function NextCardBtn() {
   const { changeStyle, counterProgress, counterWord, currentWord } = useAppSelector(
     (state) => state.audioGameSlice,
   )
-
+  let changeBtn = ''
   let endGame = 'Следующее слово'
   if (counterWord >= numberOfWords - 1) {
     endGame = 'Завершить игру'
+    changeBtn = styles.changeBtn
   }
-  const handleConfirmBtn = () => {
+  const handleConfirmBtn = (e: SyntheticEvent) => {
+    console.log(e.target)
     if (counterWord >= numberOfWords - 1) {
       dispatch(gameSlice.actions.fetchGameOver(true))
       dispatch(createLearnedWordAndPutItToArr(currentWord, false))
+      changeBtn = styles.changeBtn
       return
     }
     dispatch(audioGameSlice.actions.setCurrentWord(data[counterWord]))
@@ -54,10 +57,6 @@ export default function NextCardBtn() {
     dispatch(audioGameSlice.actions.fetchCounterWord(counterWord + 1))
     dispatch(audioGameSlice.actions.fetchCounterProgress(counterProgress + 1))
     dispatch(createLearnedWordAndPutItToArr(currentWord, false))
-    // if (counterWord >= numberOfWords - 2) {
-    //   console.log(counterWord)
-    //   endGame = 'Завершить игру'
-    // }
   }
 
   return (
@@ -66,15 +65,17 @@ export default function NextCardBtn() {
         <input
           type="button"
           value="Завершить игру"
-          className={changeStyle ? styles.answerBtn : `${styles.answerBtn} ${styles.changeBtn}`}
+          className={`${styles.answerBtn} ${changeBtn}`}
           onClick={handleConfirmBtn}
+          onKeyDown={handleConfirmBtn}
         />
       ) : (
         <input
           type="button"
           value={!changeStyle ? 'Следующее слово' : `${endGame}`}
-          className={changeStyle ? styles.answerBtn : `${styles.answerBtn} ${styles.changeBtn}`}
+          className={styles.answerBtn}
           onClick={handleConfirmBtn}
+          onKeyDown={(e) => handleConfirmBtn}
         />
       )}
     </div>
