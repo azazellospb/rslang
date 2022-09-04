@@ -2,7 +2,7 @@
   background-color: var(--color-bg);
 }
 
-.footer.hide {
+.footer.hide-footer {
   display: none;
 }
 

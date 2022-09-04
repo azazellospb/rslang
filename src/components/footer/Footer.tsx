@@ -1,13 +1,18 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import { useAppSelector } from '../redux/hooks/redux'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import AltLogo from './AltLogo'
 import './footer.css'
 
 export default function Footer() {
-  const { isStartGame } = useAppSelector((state) => state.gameSlice)
+  const location = useLocation()
+
   return (
-    <footer className={isStartGame ? 'footer hide-footer' : 'footer'}>
+    <footer
+      className={
+        (location.pathname === '/audiochallenge' || location.pathname === '/sprintchallenge')
+          ? 'footer hide-footer' : 'footer'
+        }
+    >
       <div className="footer-container container">
         <div className="footer-item footer-logo">
           <a
