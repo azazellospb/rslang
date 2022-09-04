@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react'
+import React, { useEffect } from 'react'
 import AnswerControls from './game-components/AnswerControls'
 import { useAppSelector } from '../../redux/hooks/redux'
 import { getBeforePageWords, getOtherUnlearned } from '../../redux/reducers/aggregatedSlice'

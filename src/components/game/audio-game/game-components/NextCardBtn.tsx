@@ -41,11 +41,10 @@ export default function NextCardBtn() {
   let changeBtn = ''
   let endGame = 'Следующее слово'
   if (counterWord >= numberOfWords - 1) {
-    endGame = 'Завершить игру'
+    endGame = 'Перейти к статистике'
     changeBtn = styles.changeBtn
   }
-  const handleConfirmBtn = (e: SyntheticEvent) => {
-    console.log(e.target)
+  const handleConfirmBtn = (e: React.MouseEvent) => {
     if (counterWord >= numberOfWords - 1) {
       dispatch(gameSlice.actions.fetchGameOver(true))
       dispatch(createLearnedWordAndPutItToArr(currentWord, false))
@@ -64,10 +63,10 @@ export default function NextCardBtn() {
       {counterWord >= numberOfWords - 1 ? (
         <input
           type="button"
-          value="Завершить игру"
-          className={`${styles.answerBtn} ${changeBtn}`}
+          value="Перейти к статистике"
+          className={`${styles.answerBtn}`}
           onClick={handleConfirmBtn}
-          onKeyDown={handleConfirmBtn}
+          id="Enter"
         />
       ) : (
         <input
@@ -75,7 +74,7 @@ export default function NextCardBtn() {
           value={!changeStyle ? 'Следующее слово' : `${endGame}`}
           className={styles.answerBtn}
           onClick={handleConfirmBtn}
-          onKeyDown={(e) => handleConfirmBtn}
+          id="Enter"
         />
       )}
     </div>
