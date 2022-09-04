@@ -1,7 +1,8 @@
 .printChallengePage{
   position: relative;
   width: 100vw;
-  height:1080px;
+  /* height:1080px; */
+  height: 100vh;
   background-color: #F5F5F5;
 }
 .printChallengePageContainer{
@@ -292,6 +293,10 @@ object-fit: cover;
 }
 .audio{
   width:15%;
+  height: 47px;
+}
+.audio:hover{
+  cursor: pointer;
 }
 .transcription{
   width: 20%;

@@ -4,6 +4,7 @@
 import React from 'react'
 import styles from './sprint-game.module.css'
 import { useAppSelector } from '../../redux/hooks/redux'
+import AudioIcon from '../audio-game/game-ui/audio-btn/AudioIcon'
 
 interface IIndexProp {
   id: number,
@@ -39,7 +40,7 @@ function GameStatCard({ id }: IIndexProp): JSX.Element {
           className={styles.soundImage}
           onClick={getAudio}
         >
-          <img className={styles.sound} src="../../../../public/assets/other/stat_speaker_3760.png" alt="Sound" />
+          <AudioIcon />
         </div>
       </div>
     </section>
