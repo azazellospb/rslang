@@ -26,6 +26,7 @@ import {
   fetchDictPage,
   fetchHardWords,
   fetchOtherSectionUnlearned,
+  userSearchWord,
 } from './reducers/aggregatedSlice'
 import mergeDeep from '../../tools/mergeDeep'
 import { filteredUnlearnedWordsLessThanCurrentPage, filteredUnlearnedWordsMoreThanCurrentPage } from '../game/sprint-game/sprint-game-actions'
@@ -545,5 +546,31 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
         body: JSON.stringify(body),
       },
     ).catch((error) => console.log('error is', error))
+  }
+}
+
+export const searchWord = (word: string) => async (dispatch: AppDispatchState) => {
+  const userInfo = localStorage.getItem('userInfo') as string
+  const { token, userId } = JSON.parse(userInfo)
+  console.log(word)
+  try {
+    dispatch(fetchWordForSprintGameLoader(true))
+    const responseStat = await fetch(
+      `http://localhost:8088/users/${userId}/aggregatedWords?filter={"word":${JSON.stringify(word)}}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+    const response: IAggregatedWords[] = await responseStat.json()
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    const searchWord = response[0].paginatedResults
+    console.log(searchWord)
+    dispatch(userSearchWord(searchWord))
+  } catch (e) {
+    console.log(e)
   }
 }

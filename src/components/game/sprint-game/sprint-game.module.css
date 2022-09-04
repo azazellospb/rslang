@@ -1,7 +1,8 @@
 .printChallengePage{
   position: relative;
   width: 100vw;
-  height:1080px;
+  /* height:1080px; */
+  height: 100vh;
   background-color: #F5F5F5;
 }
 .printChallengePageContainer{
