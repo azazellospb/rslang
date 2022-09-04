@@ -7,7 +7,7 @@ import React, { useRef } from 'react'
 import Endpoints from '../../../endpoints/endpoints'
 import { useAppSelector } from '../../redux/hooks/redux'
 import styles from './Audiogame.module.css'
-import AudioIcon from './game-ui/audio-btn/AudioIcon'
+import AudioIconMain from './game-ui/audio-btn/AudioIconMain'
 import hide_answer from './game-ui/hide_answer.jpg'
 
 function Audiogame() {
@@ -50,7 +50,7 @@ function Audiogame() {
               className={changeStyle ? `${styles.playBtn} ${styles.answerVisible}` : styles.playBtn}
               onClick={handleVoice}
             >
-              <AudioIcon />
+              <AudioIconMain />
             </button>
             <audio
               src={`${Endpoints.ROOT}/${currentWord?.audio}`}

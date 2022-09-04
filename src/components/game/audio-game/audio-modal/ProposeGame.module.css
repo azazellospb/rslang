@@ -1,0 +1,62 @@
+.proposeWrapper {
+  display: flex;
+  height: 75vh;
+  margin: 0 auto;
+  justify-content: center;
+  align-content: center;
+  width: 800px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.proposeModal {
+  height: 300px;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #0058c9;
+  border-radius: 6px;
+}
+
+.proposeModal h3 {
+  flex: 1 0 100%;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 30px;
+}
+
+.game,
+.back {
+  border: none;
+  border-radius: 6px;
+  background-color: #548dff;
+  border: 1px solid #548dff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+  color: #ffffff;
+  padding: 8px 36px;
+  outline: #548dff;
+  margin: 0px 20px;
+  cursor: pointer;
+}
+
+.game:hover,
+.back:hover {
+  background-color: #ffffff;
+  color: #548dff;
+}
+
+.back a {
+  color: #ffffff;
+}
+.back:hover a {
+  color: #548dff;
+}
+
+.modalSubtitle {
+  margin-bottom: 40px;
+}
