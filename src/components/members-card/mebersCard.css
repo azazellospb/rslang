@@ -1,5 +1,6 @@
 .about-page{
-  height: 1080px;
+  /* height: 1080px; */
+  height: 100vh;
 }
 .about-page-container{
   display: flex;
@@ -30,6 +31,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin-bottom: 218px;
 }
 .card{
   display: flex;

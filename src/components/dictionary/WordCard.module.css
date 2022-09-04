@@ -1,31 +1,91 @@
 .card {
-  position: relative;
   perspective: 150rem;
-  height: 12rem;
-  width: 30rem;
-}
-.wordImg {
-  width: 200px;
-  border-radius: 5px;
 }
 .card__side {
-  height: 12rem;
-  width: 30rem;
-  gap: 10px;
+  width: 300px;
   color: black;
   border-radius: 10px;
-  padding: 1rem;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-
+  border: 1px solid #0058C9;
+  border-radius: 6px;
   transition: all ease 1.2s;
-  position: absolute;
-
   top: 0;
   left: 0;
   backface-visibility: hidden;
+  flex: 0 0 auto;
+}
+.card__side_back {
+  transform: rotateY(180deg);
+  margin-left: -100%;
+}
+/* .card:hover  */
+.flip { 
+  transform: rotateY(180deg);
+}
+.flipper {
+  height: 100%;
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: stretch;
+  width: 300px;
+  transition: transform 0.6s;
+  will-change: transform;
+}
+
+.wordImg {
+  width: 100%;
+  object-fit: cover;
+  height: 179px;
+  border-radius: 6px 6px 0 0;
+}
+.label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 6px 0px 0px 0px;
+  width: 95px;
+  height: 39px;
+  font-family: 'Nunito-Medium';
+  font-size: 14px;
+  line-height: 21px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hard {
+  background: rgba(251, 168, 8, 0.8);
+}
+.learned {
+  background: rgba(6, 151, 6, 0.8);
+}
+
+
+.cardContent {
+  margin: 20px 20px 25px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  height: 100%;
+}
+.word {
+  line-height: 33px;
+  font-size: 22px;
+  font-family: 'Nunito-Bold';
+}
+.wordDescription,
+.wordExample {
+  line-height: 24px;
+  font-size: 16px;
+  font-family: 'Nunito-Light';
+}
+.transcription {
+  line-height: 24px;
+  font-size: 18px;
+  font-family: 'Nunito-Medium';
 }
 .right {
   color: green;
@@ -35,46 +95,106 @@
   color: orangered;
   cursor: pointer;
 }
-.popupInfo:hover::after { 
-  content: attr(data-title);
-  position: absolute; 
-  left: 20%; top: 30%; 
-  z-index: 1; 
-  background: rgba(255,255,230,0.9); 
-  font-family: Arial, sans-serif;
-  font-size: 11px; 
-  padding: 5px 10px; 
-  border: 1px solid #333;
-}
 .rotate:active {
   content: attr(data-title);
   position: absolute; 
   left: 20%; top: 30%; 
-  z-index: 1; 
-  background: rgba(255,255,230,0.9); 
+  z-index: 1;
   font-family: Arial, sans-serif;
   font-size: 11px; 
   padding: 5px 10px; 
   border: 1px solid #333;
 }
-.card__side_front {
-  background-color: #db88b1a8;
-  color: black;
-}
-.card__side_back {
-  color: black;
-  background-color: #0288ee62;
-  transform: rotateY(180deg);
-}
+
+
 .hardWord {
-  background-color: rgb(253, 191, 154);
+  border-color: rgba(251, 168, 8, 1);
 }
 .learnedWord {
-  background-color: rgb(188, 250, 186);
+  border-color: rgba(6, 151, 6, 1)
 }
-.card:hover .card__side_front {
-  transform: rotateY(180deg);
+
+.audioBtn {
+  background-image: url(/public/assets/other/audio-for-card.png);
+  background-color: transparent; 
+  background-repeat: no-repeat; 
+  background-position: 0px 0px;
+  background-size: 35px 30px;
+  border: none;
+  cursor: pointer;
+  width: 35px;
+  height: 30px;
+  vertical-align: middle;
+  transition: 0.1s ease-out all;
 }
-.card:hover .card__side_back {
-  transform: rotateY(0);
+.toUnLearnedBtn:hover,
+.toEasyBtn:hover,
+.rotateBtn:hover,
+.statusBtn:hover {
+  transform: scale(1.01);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+.toUnLearnedBtn:active,
+.toEasyBtn:active,
+.rotateBtn:active,
+.statusBtn:active {
+  transform: scale(0.99);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+.audioBtn:hover {
+  transform: scale(1.01);
+}
+.audioBtn:active {
+  transform: scale(0.99);
+}
+.mainLine {
+  display: flex;
+  justify-content: space-between;
+}
+.buttonBlock {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 260px;
+  justify-content: space-between;
+  gap: 14px;
+}
+.rotateBtn {
+  color: rgba(84, 141, 255, 1);
+  border: 1px solid rgba(84, 141, 255, 1);
+  border-radius: 6px;
+  background-color: transparent;
+  width: 260px;
+  height: 35px;
+}
+.statusBtn {
+  color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(84, 141, 255, 1);
+  border-radius: 6px;
+  background-color: rgba(84, 141, 255, 1);
+  width: 120px;
+  height: 35px;
+}
+.toEasyBtn {
+  color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(251, 168, 8, 1);
+  border-radius: 6px;
+  background-color:rgba(251, 168, 8, 1);
+  width: 260px;
+  height: 35px;
+}
+.toUnLearnedBtn {
+  color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(6, 151, 6, 1);
+  border-radius: 6px;
+  background-color:rgba(6, 151, 6, 1);
+  width: 260px;
+  height: 35px;
+}
+.hideBtn {
+  display: none;
+}
+.textPart {
+  display: flex;
+  flex-direction: column;
 }

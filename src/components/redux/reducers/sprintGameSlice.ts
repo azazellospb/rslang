@@ -31,7 +31,7 @@ const initialState: ISprint = {
   currentWord: null,
   comparisonWord: null,
   currentGroupPage: null,
-  gameLoader: true,
+  gameLoader: false,
   error: '',
   timer: 60,
   score: 0,
@@ -45,17 +45,18 @@ const sprintGameSlice = createSlice({
   name: 'sprint',
   initialState,
   reducers: {
-    fetchWordForSprintGameLoader(state) {
-      state.gameLoader = true
+    fetchWordForSprintGameLoader(state, action: PayloadAction<boolean>) {
+      console.log(action.payload)
+      state.gameLoader = action.payload
     },
     fetchWordForSprintGameSuccess(state, action: PayloadAction<IWord[]>) {
-      state.gameLoader = false
+      // state.gameLoader = false
       state.isModalOpen = false
       state.error = ''
       state.gameData = action.payload
     },
     fetchWordForSprintGameError(state, action: PayloadAction<string | unknown>) {
-      state.gameLoader = false
+      // state.gameLoader = false
       state.error = action.payload
     },
     timerWork(state, action: PayloadAction<number>) {

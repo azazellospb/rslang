@@ -26,6 +26,7 @@ import {
   fetchDictPage,
   fetchHardWords,
   fetchOtherSectionUnlearned,
+  userSearchWord,
 } from './reducers/aggregatedSlice'
 import mergeDeep from '../../tools/mergeDeep'
 import { filteredUnlearnedWordsLessThanCurrentPage, filteredUnlearnedWordsMoreThanCurrentPage } from '../game/sprint-game/sprint-game-actions'
@@ -86,11 +87,13 @@ export const getWordsDataForSprintGame = (paramForFetch: IFetchParam) => async (
   const { textbookSection, page } = paramForFetch
   const url = 'http://localhost:8088/words'
   try {
-    dispatch(fetchWordForSprintGameLoader())
+    dispatch(fetchWordForSprintGameLoader(true))
     const response: Response = await fetch(`${url}/?group=${textbookSection}&page=${page}`)
     const data: IWord[] = await response.json()
+    dispatch(fetchWordForSprintGameLoader(false))
     dispatch(fetchWordForSprintGameSuccess(data))
   } catch (e: string | unknown) {
+    dispatch(fetchWordForSprintGameLoader(false))
     dispatch(fetchWordForSprintGameError('Something went wrong...'))
   }
 }
@@ -288,6 +291,7 @@ export const getUnlearnedWordsForGames = (currentGroupPage: IFetchParam) => asyn
   const userInfo = localStorage.getItem('userInfo') as string
   const { token, userId } = JSON.parse(userInfo)
   try {
+    dispatch(fetchWordForSprintGameLoader(true))
     const response: Response = await fetch(
       `http://localhost:8088/users/${userId}/aggregatedWords?filter={"$and":[{ "group": ${textbookSection}}, {"$or":[{"userWord.optional.learned":null}, {"userWord.optional.learned":false}]}]}`,
       {
@@ -300,9 +304,10 @@ export const getUnlearnedWordsForGames = (currentGroupPage: IFetchParam) => asyn
     )
     const responseData: IAggregatedWords[] = await response.json()
     const unlearnedWords: IUnlearnedWord[] = responseData[0].paginatedResults
-
+    dispatch(fetchWordForSprintGameLoader(false))
     await dispatch(filteredUnlearnedWordsLessThanCurrentPage(unlearnedWords, page))
   } catch (e) {
+    dispatch(fetchWordForSprintGameLoader(false))
     console.log(e)
   }
 }
@@ -311,6 +316,7 @@ export const getUnlearnedWordsForGamesAfterCurrentPage = (currentGroupPage: IFet
   const userInfo = localStorage.getItem('userInfo') as string
   const { token, userId } = JSON.parse(userInfo)
   try {
+    dispatch(fetchWordForSprintGameLoader(true))
     const response: Response = await fetch(
       `http://localhost:8088/users/${userId}/aggregatedWords?filter={"$and":[{ "group": ${textbookSection}}, {"$or":[{"userWord.optional.learned":null}, {"userWord.optional.learned":false}]}]}`,
       {
@@ -324,9 +330,10 @@ export const getUnlearnedWordsForGamesAfterCurrentPage = (currentGroupPage: IFet
     const responseData: IAggregatedWords[] = await response.json()
     const unlearnedWords: IUnlearnedWord[] = responseData[0].paginatedResults
     console.log('fetch')
-
+    dispatch(fetchWordForSprintGameLoader(false))
     await dispatch(filteredUnlearnedWordsMoreThanCurrentPage(unlearnedWords, page))
   } catch (e) {
+    dispatch(fetchWordForSprintGameLoader(false))
     console.log(e)
   }
 }
@@ -347,9 +354,8 @@ export const getUserStats = () => async (dispatch: AppDispatchState) => {
     )
     const responseData: UserStat = await responseStat.json()
     dispatch(setUserStats(responseData))
-  } catch (e) {
-    console.log(e)
-  }
+  // eslint-disable-next-line no-empty
+  } catch (_e) {}
 }
 
 export const getTodayLearned = (date: string) => async (dispatch: AppDispatchState) => {
@@ -539,5 +545,31 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
         body: JSON.stringify(body),
       },
     ).catch((error) => console.log('error is', error))
+  }
+}
+
+export const searchWord = (word: string) => async (dispatch: AppDispatchState) => {
+  const userInfo = localStorage.getItem('userInfo') as string
+  const { token, userId } = JSON.parse(userInfo)
+  console.log(word)
+  try {
+    dispatch(fetchWordForSprintGameLoader(true))
+    const responseStat = await fetch(
+      `http://localhost:8088/users/${userId}/aggregatedWords?filter={"word":${JSON.stringify(word)}}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+    const response: IAggregatedWords[] = await responseStat.json()
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    const searchWord = response[0].paginatedResults
+    console.log(searchWord)
+    dispatch(userSearchWord(searchWord))
+  } catch (e) {
+    console.log(e)
   }
 }
