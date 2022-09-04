@@ -7,13 +7,13 @@ function AudioIcon() {
       className={styles.playIcon}
       width="40"
       height="40"
-      // viewBox="0 0 40 40"
-      // fill="none"
+      viewBox="0 0 40 40"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
 // <<<<<<< HEAD
 // =======
-      viewBox="0 0 122.88 96.65"
-      fill="#000000"
+      // viewBox="0 0 100.88 96.65"
+      // fill="#000000"
     >
       <rect
         x="1"
