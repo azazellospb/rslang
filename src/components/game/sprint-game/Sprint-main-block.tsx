@@ -22,9 +22,10 @@ function SprintGameMainBlock() {
       {gameLoader && <Loader />}
       { !gameLoader && Boolean(timer) && <Timer /> }
       { !gameLoader && Boolean(timer) && <PlayingField /> }
+      {/* {(Boolean(gameData.length === 0) || Boolean(!timer)) && <GameStat />} */}
       { isFromDictionary
         ? ((Boolean(gameData.length === 0) || Boolean(!timer)) && <GameStat />)
-        : (Boolean(!timer) && <GameStat />)}
+        : ((Boolean(!timer)) && <GameStat />)}
     </>
 
   )

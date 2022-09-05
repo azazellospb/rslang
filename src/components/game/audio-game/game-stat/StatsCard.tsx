@@ -2,7 +2,7 @@
 import React, { useRef } from 'react'
 import Endpoints from '../../../../endpoints/endpoints'
 import { useAppSelector } from '../../../redux/hooks/redux'
-import AudioIcon from '../game-ui/audio-btn/AudioIcon'
+import Audio from '../game-ui/audio-btn/AudioIcon'
 import styles from './StatsCard.module.css'
 
 function StatsCard({ id }: IStatCard) {
@@ -24,11 +24,15 @@ function StatsCard({ id }: IStatCard) {
         {learnedWords[id].wordTranslate}
       </div>
       <div className={`${styles.gameStatCard} ${styles.checked}`}>
-        {learnedWords[id].learned ? 'ok' : 'no'}
+        {learnedWords[id].learned ? (
+          <div className={styles.greenYes}>ok</div>
+        ) : (
+          <div className={styles.redNo}>no</div>
+        )}
       </div>
       <div className={`${styles.gameStatCard} ${styles.audio}`}>
         <button type="button" className={styles.soundImage} onClick={handleVoice}>
-          <AudioIcon />
+          <Audio />
           <audio
             src={`${Endpoints.ROOT}/${learnedWords[id]?.audio}`}
             ref={voiceBtn}

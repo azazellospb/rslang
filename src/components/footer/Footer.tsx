@@ -1,11 +1,18 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import AltLogo from './AltLogo'
 import './footer.css'
 
 export default function Footer() {
+  const location = useLocation()
+
   return (
-    <footer className="footer">
+    <footer
+      className={
+        (location.pathname === '/audiochallenge' || location.pathname === '/sprintchallenge')
+          ? 'footer hide-footer' : 'footer'
+        }
+    >
       <div className="footer-container container">
         <div className="footer-item footer-logo">
           <a
@@ -19,11 +26,21 @@ export default function Footer() {
         </div>
         <nav className="footer-item menu">
           <ul className="footer-menu nav-menu">
-            <NavLink className="nav-menu-item" to="/">Главная</NavLink>
-            <NavLink className="nav-menu-item" to="/dictionary/0/0">Учебник</NavLink>
-            <NavLink className="nav-menu-item" to="/sprintchallenge">Игры</NavLink>
-            <NavLink className="nav-menu-item" to="/stats">Статистика</NavLink>
-            <NavLink className="nav-menu-item" to="/about">О команде</NavLink>
+            <NavLink className="nav-menu-item" to="/">
+              Главная
+            </NavLink>
+            <NavLink className="nav-menu-item" to="/dictionary/0/0">
+              Учебник
+            </NavLink>
+            <NavLink className="nav-menu-item" to="/sprintchallenge">
+              Игры
+            </NavLink>
+            <NavLink className="nav-menu-item" to="/stats">
+              Статистика
+            </NavLink>
+            <NavLink className="nav-menu-item" to="/about">
+              О команде
+            </NavLink>
             {/* activeClassName="active-nav-link" */}
           </ul>
         </nav>

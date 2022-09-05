@@ -1,4 +1,5 @@
 const URL = 'http://localhost:8088'
+// const URL = 'https://dt-lang-server.herokuapp.com'
 
 const Endpoints = {
   ROOT: `${URL}`,

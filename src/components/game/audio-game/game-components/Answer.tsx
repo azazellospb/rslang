@@ -3,6 +3,7 @@
 /* eslint-disable no-empty */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/require-default-props */
 import React, { useState } from 'react'
 import { IParams, IUnlearnedWord, IWord } from '../../../../types/models'
 import { postPutWordsToServerFromGame } from '../../../redux/fetching'
@@ -12,8 +13,8 @@ import { audioGameSlice } from '../../../redux/reducers/audioGameSlice'
 import createLearnedWordAndPutItToArr from '../audiogame-actions'
 import styles from '../Audiogame.module.css'
 
-function Answer({ keyNumber, currtWord }: IAnswerBtn) {
-  const { currentWord, changeStyle } = useAppSelector((state) => state.audioGameSlice)
+function Answer({ keyNumber, currtWord, id }: IAnswerBtn) {
+  const { currentWord, changeStyle, rightWords } = useAppSelector((state) => state.audioGameSlice)
   const dispatch = useAppDispatch()
   const [styleBtn, setStyle] = useState('')
   const aggregatedHard = useAppSelector(getAggregatedWords)
@@ -93,7 +94,7 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
       dispatch(audioGameSlice.actions.setStyles(true))
       setStyle(`${styles.answerRight}`)
       dispatch(createLearnedWordAndPutItToArr(currentWord, true))
-      // localStorage.setItem('newWords', currtWord.word)
+      dispatch(audioGameSlice.actions.fetchRightWords(rightWords + 1))
     } else {
       dispatch(audioGameSlice.actions.setStyles(true))
       setStyle(`${styles.answerWrong}`)
@@ -107,9 +108,10 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
       className={!changeStyle ? `${styles.answersItem}` : `${styles.answersItem} ${styleBtn}`}
       onClick={(e: React.MouseEvent<HTMLElement>) => handleClick(e)}
       disabled={changeStyle}
+      id={id}
     >
       <span>{`${keyNumber}. `}</span>
-      <span>{currtWord.wordTranslate}</span>
+      <span className={styles.currAnswer}>{currtWord.wordTranslate}</span>
     </button>
   )
 }
@@ -119,4 +121,5 @@ export default Answer
 interface IAnswerBtn {
   keyNumber: object | number | string
   currtWord: IWord | IUnlearnedWord
+  id?: string
 }
