@@ -49,6 +49,7 @@ code {
 a {
   text-decoration: none;
   /* color: var(--text-color); */
+  outline-color: var(--main-color);
 }
 
 .container {

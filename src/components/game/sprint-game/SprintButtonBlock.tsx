@@ -36,7 +36,7 @@ function ButtonBlock() {
   }
 
   useEffect(() => {
-    (!localStorage.getItem('userInfo') || localStorage.getItem('userInfo'))
+    !localStorage.getItem('userInfo')
     && !isFromDictionary && gameData.length <= 1 && dispatch(getWordsDataForSprintGame(
       {
         textbookSection: String(currentWord?.group),
@@ -49,6 +49,9 @@ function ButtonBlock() {
     if (isFromDictionary && localStorage.getItem('userInfo') && gameData.length === 0) {
       dispatch(timerWork(0))
     }
+    if (localStorage.getItem('userInfo') && gameData.length === 0) {
+      dispatch(timerWork(0))
+    } 
   }, [currentWord?.group, dispatch, gameData.length, isFromDictionary])
 
   return (

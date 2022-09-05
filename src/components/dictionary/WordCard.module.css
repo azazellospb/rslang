@@ -138,6 +138,11 @@
   height: 30px;
   vertical-align: middle;
   transition: 0.1s ease-out all;
+  outline-color: var(--main-color);
+}
+
+.toEasyBtn {
+  outline-color: var(--main-color);
 }
 
 .toUnLearnedBtn:hover,
@@ -185,6 +190,7 @@
   background-color: transparent;
   width: 260px;
   height: 35px;
+  outline-color: var(--main-color);
 }
 
 .statusBtn {
