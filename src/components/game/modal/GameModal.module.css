@@ -61,6 +61,11 @@
   height: 35px;
   /* margin-top: 20px; */
 }
+
+.buttonList button {
+  outline-color: var(--main-color);
+}
+
 .between{
   justify-content: space-between;
 }
