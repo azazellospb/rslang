@@ -43,6 +43,7 @@
 .signup input,
 .signin input {
   width: 100%;
+  outline-color: var(--main-color);
 }
 .signup label,
 .signin label {
@@ -77,11 +78,13 @@
   border: none;
   cursor: pointer;
   color: #ffffff;
+  outline-color: transparent;
 }
 
 .btnSwitch {
   text-decoration: underline;
   color: #000000;
+  outline-color: transparent;
 }
 
 .btn {

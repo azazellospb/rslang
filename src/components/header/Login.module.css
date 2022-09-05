@@ -91,4 +91,5 @@
   background-repeat: no-repeat;
   border: none;
   cursor: pointer;
+  outline-color: var(--main-color);
 }
