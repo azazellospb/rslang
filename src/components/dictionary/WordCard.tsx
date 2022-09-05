@@ -122,7 +122,7 @@ export default function WordCard(
   // eslint-disable-next-line react-hooks/exhaustive-deps
   })
   return (
-    <section className={styles.card}>
+    <section id={id} className={styles.card}>
       <div className={`${side && styles.flip} ${styles.flipper}`}>
         <div className={`${styles.card__side} ${isHard && styles.hardWord} ${isLearned && styles.learnedWord}`}>
           {isLearned && <div className={`${styles.label} ${styles.learned}`}>Изучено</div>}
