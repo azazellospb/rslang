@@ -22,6 +22,7 @@ import Stats from './pages/Stats'
 import Auth from './pages/Auth'
 import { setUserName } from './components/redux/reducers/userSlice'
 import Userwords from './pages/UserWords'
+import Search from './pages/SearchResult'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -53,6 +54,7 @@ function App() {
             <Route path=":page" element={<Dictionary />} />
           </Route>
         </Route>
+        <Route path="/search" element={<Search />} />
         <Route path="/stats" element={<Stats />} />
         <Route path="/audiochallenge" element={<AudioChallenge />} />
         <Route path="/sprintchallenge" element={<SprintChallenge />} />

@@ -71,6 +71,9 @@
 .homePageAbout:nth-child(2n){
   margin: 16px auto ;
 }
+.homePageAbout span {
+  width: 100%;
+}
 .articleTitle{
   font-style: normal;
   font-weight: 700;

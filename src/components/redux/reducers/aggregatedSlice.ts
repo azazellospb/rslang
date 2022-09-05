@@ -77,3 +77,6 @@ export const getOtherUnlearned = (state: {
 export const dictPageWords = (state: {
   aggregatedSlice: { dictPageWords: IUnlearnedWord[] }
 }) => state.aggregatedSlice.dictPageWords
+export const findedWord = (state: {
+  aggregatedSlice: { searchWord: IUnlearnedWord[] }
+}) => state.aggregatedSlice.searchWord

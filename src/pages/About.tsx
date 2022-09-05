@@ -39,7 +39,7 @@ export default function About() {
       gitUrl: 'https://github.com/matvey84',
       rssUrl: 'https://app.rs.school/cv/089a2f21-f636-4cff-8e97-4166a9b32019',
       country: 'Беларусь',
-      about: 'Настроил react и redux, разработал игру спринт и функционал поиска по слову.',
+      about: 'Настроил react и redux, разработал игру спринт.',
     }]
   return (
     <section className="about-page">

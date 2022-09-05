@@ -1,0 +1,30 @@
+.searchBlock {
+  display: flex;
+  margin: 50px;
+  flex-direction: column;
+}
+.title {
+  color: rgba(0, 88, 201, 1);
+  height: 33px;
+  font-family: 'Nunito-Regular';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 33px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.searchBlock > a {
+  padding-bottom: 1px;
+  border-bottom: 1px solid transparent;
+  font-family: 'Nunito-Regular';
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: #0058C9;
+  width: 160px;
+}
+
+.searchBlock > a:hover {
+  border-bottom: 1px solid rgba(0, 88, 201, 1);
+}
