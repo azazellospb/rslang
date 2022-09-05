@@ -16,6 +16,7 @@ import {
 } from '../../types/models'
 import { IFetchParam } from '../../types/sprint-game-models'
 import {
+  currentGroupPage,
   fetchWordForSprintGameError,
   fetchWordForSprintGameLoader,
   fetchWordForSprintGameSuccess,
@@ -285,6 +286,7 @@ export const getUnlearnedWords = (
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-shadow
 export const getUnlearnedWordsForGames = (currentGroupPage: IFetchParam) => async (dispatch: AppDispatchState) => {
   const { textbookSection, page } = currentGroupPage
   const userInfo = localStorage.getItem('userInfo') as string
@@ -310,8 +312,9 @@ export const getUnlearnedWordsForGames = (currentGroupPage: IFetchParam) => asyn
     console.log(e)
   }
 }
-export const getUnlearnedWordsForGamesAfterCurrentPage = (currentGroupPage: IFetchParam) => async (dispatch: AppDispatchState) => {
-  const { textbookSection, page } = currentGroupPage
+export const getUnlearnedWordsForGamesAfterCurrentPage = (fetchParams: IFetchParam) => async (dispatch: AppDispatchState) => {
+  dispatch(currentGroupPage(fetchParams))
+  const { textbookSection, page } = fetchParams
   const userInfo = localStorage.getItem('userInfo') as string
   const { token, userId } = JSON.parse(userInfo)
   try {

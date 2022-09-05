@@ -4,7 +4,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import { refreshGameParams } from '../components/game/sprint-game/sprint-game-actions'
-import { getUnlearnedWordsForGames, getUnlearnedWordsForGamesAfterCurrentPage, getWordsDataForSprintGame } from '../components/redux/fetching'
+import { getUnlearnedWordsForGamesAfterCurrentPage, getWordsDataForSprintGame } from '../components/redux/fetching'
 import { useAppDispatch, useAppSelector } from '../components/redux/hooks/redux'
 import styles from './reloadButton.module.css'
 
@@ -16,8 +16,14 @@ function ReloadStatButton() {
   const dispatch = useAppDispatch()
   const refreshHandel = () => {
     dispatch(refreshGameParams())
-    isFromDictionary
-      ? offer ? dispatch(getUnlearnedWordsForGamesAfterCurrentPage(currentGroupPage!)) : dispatch(getUnlearnedWordsForGames(currentGroupPage!))
+    localStorage.getItem('userInfo') || isFromDictionary
+      ? offer ? dispatch(getUnlearnedWordsForGamesAfterCurrentPage(currentGroupPage!))
+        : dispatch(getUnlearnedWordsForGamesAfterCurrentPage(
+          {
+            textbookSection: String(currentGroupPage?.textbookSection),
+            page: 0,
+          },
+        ))
       : dispatch(getWordsDataForSprintGame(
         {
           textbookSection: String(currentWord?.group),

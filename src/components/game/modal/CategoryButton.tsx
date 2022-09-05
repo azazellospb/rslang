@@ -1,7 +1,10 @@
+/* eslint-disable max-len */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-console */
 import React from 'react'
 import { IProp } from '../../../types/sprint-game-models'
+import { getUnlearnedWordsForGamesAfterCurrentPage } from '../../redux/fetching'
 import { useAppDispatch } from '../../redux/hooks/redux'
 import { choiceCategory, refreshGameParams } from '../sprint-game/sprint-game-actions'
 import styles from './GameModal.module.css'
@@ -9,7 +12,9 @@ import styles from './GameModal.module.css'
 function CategoryButton({ id, num }: IProp) {
   const dispatch = useAppDispatch()
   const categoryButton = (e: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(choiceCategory(e))
+    localStorage.getItem('userInfo')
+      ? dispatch(getUnlearnedWordsForGamesAfterCurrentPage({ textbookSection: (e.target as HTMLButtonElement).id, page: 0 }))
+      : dispatch(choiceCategory(e))
     dispatch(refreshGameParams())
   }
 
