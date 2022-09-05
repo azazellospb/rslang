@@ -79,6 +79,11 @@
   margin: 0 auto;
 }
 
+.searchResult {
+  display: flex;
+  align-items: center;
+}
+
 .wordBlockHard {
   margin-top: 0px;
   margin-bottom: 35px;
@@ -109,3 +114,10 @@
   width: 235px;
 }
 
+.toRight {
+  justify-content: flex-end;
+}
+
+.toCenter {
+  justify-content: center;
+}

@@ -75,20 +75,22 @@ export const createObjectForPostOrPutItToUserAggregatedWords = (currentWord: IWo
     }
   }
   if (isAggregated) {
+    console.log(((toLearn === 2) && isHard && examination))
     const params: IParams = {
       method: 'PUT',
       // eslint-disable-next-line no-nested-ternary
-      difficulty: !isHard ? isWord?.difficulty : examination ? ((toLearn === 2) ? 'easy' : isWord?.difficulty) : isWord?.difficulty,
+      difficulty: isWord?.difficulty,
       wordId: currentWord?.id,
       optional: {
         // eslint-disable-next-line no-nested-ternary
         toLearn: !isHard ? 0 : examination ? (!((toLearn + 1) === 3) ? toLearn += 1 : toLearn = 0) : ((toLearn - 1 > 0) ? toLearn -= 1 : toLearn = 0),
-        learned: ((toLearn === 2) && isHard) || (examination && !isHard),
+        learned: ((toLearn === 2) && isHard && examination) || (examination && !isHard),
         rightCounter: examination ? Number(isWord?.optional?.rightCounter) + 1 : Number(isWord?.optional?.rightCounter) || 0,
         wrongCounter: !examination ? Number(isWord?.optional?.wrongCounter) + 1 : Number(isWord?.optional?.wrongCounter) || 0,
         dates: {},
       },
     }
+    if (isWord?.optional?.learned) params.difficulty = 'easy'
     // eslint-disable-next-line no-nested-ternary, no-unneeded-ternary
     if (examination && (!isHard ? true : (isHard && toLearn === 2) ? true : false)) params.optional!.dates![dateKey] = true
     dispatch(postPutWordsToServerFromGame(params))

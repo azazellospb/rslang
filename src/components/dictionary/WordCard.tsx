@@ -11,6 +11,7 @@ import { toggleDifficulty, toggleLearnState } from '../redux/fetching'
 import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
 import {
   dictPageWords,
+  findedWord,
   getHardWords,
 } from '../redux/reducers/aggregatedSlice'
 import styles from './WordCard.module.css'
@@ -33,7 +34,10 @@ export default function WordCard(
   let pageData: IUnlearnedWord[] = []
   if (reg === 'dict') pageData = useAppSelector(dictPageWords) as IUnlearnedWord[]
   else pageData = useSelector(getHardWords) as IUnlearnedWord[]
-  const obj = { ...pageData.find((word) => word._id === id)! }
+  let obj = { ...pageData.find((word) => word._id === id)! }
+  const pageData3 = useAppSelector(findedWord) as IUnlearnedWord[]
+  const isFind = !!pageData3.length
+  if (isFind) obj = { ...pageData3[0] }
   const {
     word,
     image,

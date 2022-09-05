@@ -1,13 +1,33 @@
 /* eslint-disable max-len */
 import React from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import {
+  Link,
+  NavLink,
+  useLocation,
+  useParams,
+} from 'react-router-dom'
 import WordsBunch from '../components/dictionary/WordsBunch'
-import { useAppSelector } from '../components/redux/hooks/redux'
+import { refreshGameParams } from '../components/game/sprint-game/sprint-game-actions'
+import { useAppDispatch, useAppSelector } from '../components/redux/hooks/redux'
+import { currentGroupPage, modalToggle, whereEnterGame } from '../components/redux/reducers/sprintGameSlice'
 import { getUserName } from '../components/redux/reducers/userSlice'
+import { IFetchParam } from '../types/sprint-game-models'
 import styles from './Dictionary.module.css'
 
 export default function Dictionary() {
+  const { group = 0, page = 0 } = useParams()
+  const dispatch = useAppDispatch()
   const name = useAppSelector(getUserName)
+  function handleClick() {
+    const paramForFetch: IFetchParam = {
+      textbookSection: String(group),
+      page: Number(page),
+    }
+    dispatch(whereEnterGame(true))
+    dispatch(modalToggle(true))
+    dispatch(currentGroupPage(paramForFetch))
+    dispatch(refreshGameParams())
+  }
   const currentPathname = useLocation().pathname.split('/')
   return (
     <div className={`${styles.dictWrapper} container`}>
@@ -52,16 +72,16 @@ export default function Dictionary() {
       </ul>
       <div className={styles.gamesLine}>
         <span>Сыграть в игру</span>
-        <Link className={`${styles.toGame} ${styles.toAudioChallenge}`} to="/audiochallenge">Аудиовызов</Link>
+        <Link onClick={() => handleClick()} to="/audiochallenge">Аудиовызов</Link>
         &#124;
-        <Link className={` ${styles.toGame} ${styles.toSprintChallenge}`} to="/sprintchallenge">Спринт</Link>
+        <Link onClick={() => handleClick()} to="/sprintchallenge">Спринт</Link>
       </div>
       <WordsBunch />
       <div className={styles.gamesLineEnd}>
         <span>Сыграть в игру</span>
-        <Link className={`${styles.toGame} ${styles.toAudioChallenge}`} to="/audiochallenge">Аудиовызов</Link>
+        <Link onClick={() => handleClick()} to="/audiochallenge">Аудиовызов</Link>
         &#124;
-        <Link className={` ${styles.toGame} ${styles.toSprintChallenge}`} to="/sprintchallenge">Спринт</Link>
+        <Link onClick={() => handleClick()} to="/sprintchallenge">Спринт</Link>
       </div>
     </div>
   )
