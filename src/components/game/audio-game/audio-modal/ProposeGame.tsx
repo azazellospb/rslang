@@ -12,7 +12,6 @@ function ProposeGame() {
   const { isStartGame } = useAppSelector((state) => state.gameSlice)
 
   function handleProposeGame() {
-    // console.log('start game')
     dispatch(gameSlice.actions.fetchStartGame(true))
   }
 

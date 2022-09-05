@@ -51,8 +51,6 @@ function Answer({ keyNumber, currtWord, id }: IAnswerBtn) {
       const word = currentWord as IUnlearnedWord
       const isHard = (wordParams?.difficulty === 'hard')
       let toLearn = (wordParams?.optional?.toLearn || 0)
-      // eslint-disable-next-line no-console
-      console.log(((toLearn === 2) && isHard && examination), 'exam:', examination, 'isHard:', isHard, 'toLearn:', toLearn)
       const params: IParams = {
         method: 'PUT',
         // eslint-disable-next-line no-nested-ternary
@@ -67,7 +65,7 @@ function Answer({ keyNumber, currtWord, id }: IAnswerBtn) {
           dates: {},
         },
       }
-      if (wordParams?.optional?.learned) params.difficulty = 'easy'
+      if (params.optional?.learned) params.difficulty = 'easy'
       // eslint-disable-next-line no-nested-ternary, no-unneeded-ternary
       if (examination && (!isHard ? true : (isHard && toLearn === 2) ? true : false)) params.optional!.dates![dateKey] = true
       dispatch(postPutWordsToServerFromGame(params))
