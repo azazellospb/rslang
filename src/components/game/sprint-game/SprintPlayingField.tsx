@@ -4,7 +4,6 @@ import styles from './sprint-game.module.css'
 import ButtonBlock from './SprintButtonBlock'
 
 function PlayingField() {
-  // const url = 'http://localhost:8088'
   const currentWord = useAppSelector((state) => state.sprintGameSlice.currentWord)
   const translateWordForComparison = useAppSelector((state) => state.sprintGameSlice.comparisonWord)
 
