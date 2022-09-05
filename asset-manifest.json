@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.56dafa72.css",
-    "main.js": "/static/js/main.2e073a85.js",
+    "main.js": "/static/js/main.0b0eeaad.js",
     "static/media/Nunito-Black.svg": "/static/media/Nunito-Black.5b6f25bf5d64cf9b499c.svg",
     "static/media/Nunito-Bold.svg": "/static/media/Nunito-Bold.e25b2233a21541f9a3ba.svg",
     "static/media/Nunito-SemiBold.svg": "/static/media/Nunito-SemiBold.7f57f47265575586ebf4.svg",
@@ -45,10 +45,10 @@
     "static/media/Hero-background-LO-home-final.svg": "/static/media/Hero-background-LO-home-final.24c11cd097c8f6bd61db.svg",
     "index.html": "/index.html",
     "main.56dafa72.css.map": "/static/css/main.56dafa72.css.map",
-    "main.2e073a85.js.map": "/static/js/main.2e073a85.js.map"
+    "main.0b0eeaad.js.map": "/static/js/main.0b0eeaad.js.map"
   },
   "entrypoints": [
     "static/css/main.56dafa72.css",
-    "static/js/main.2e073a85.js"
+    "static/js/main.0b0eeaad.js"
   ]
 }
