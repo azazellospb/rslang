@@ -54,6 +54,7 @@ function GameStat() {
       {!gameLoader && <GameMenu />}
       {allWordStudiedOnPage && Boolean(!studiedWords.length) && !gameLoader && <OfferModal />}
       {!allWordStudiedOnPage && Boolean(!studiedWords.length) && !gameLoader && <MessageModal />}
+      {Boolean(studiedWords.length) && <GameStatList />}
     </section>
   )
 }
