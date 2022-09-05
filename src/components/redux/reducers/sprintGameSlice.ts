@@ -46,7 +46,6 @@ const sprintGameSlice = createSlice({
   initialState,
   reducers: {
     fetchWordForSprintGameLoader(state, action: PayloadAction<boolean>) {
-      console.log(action.payload)
       state.gameLoader = action.payload
     },
     fetchWordForSprintGameSuccess(state, action: PayloadAction<IWord[]>) {

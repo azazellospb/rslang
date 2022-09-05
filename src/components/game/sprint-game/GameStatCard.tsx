@@ -18,7 +18,7 @@ function GameStatCard({ id }: IIndexProp): JSX.Element {
     await audio.play()
   }
   return (
-    <section className={styles.gameStatCard}>
+    <section className={`${styles.gameStatCard} ${styles.underline}`}>
       <div className={`${styles.gameStatCardWord} ${styles.position}`}>
         {id + 1}
       </div>
@@ -42,11 +42,6 @@ function GameStatCard({ id }: IIndexProp): JSX.Element {
           onClick={getAudio}
         >
           <AudioIcon />
-          {/* <<<<<<< HEAD */}
-          {/* <img className={styles.sound}
-          src="../../../../public/assets/other/stat_speaker_3760.png" alt="Sound" /> */}
-          {/* ======= */}
-          {/* >>>>>>> develop */}
         </div>
       </div>
     </section>

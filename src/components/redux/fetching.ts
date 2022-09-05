@@ -553,7 +553,6 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
 export const searchWord = (word: string) => async (dispatch: AppDispatchState) => {
   const userInfo = localStorage.getItem('userInfo') as string
   const { token, userId } = JSON.parse(userInfo)
-  console.log(word)
   try {
     dispatch(fetchWordForSprintGameLoader(true))
     const responseStat = await fetch(
@@ -569,7 +568,6 @@ export const searchWord = (word: string) => async (dispatch: AppDispatchState) =
     const response: IAggregatedWords[] = await responseStat.json()
     // eslint-disable-next-line @typescript-eslint/no-shadow
     const searchWord = response[0].paginatedResults
-    console.log(searchWord)
     dispatch(userSearchWord(searchWord))
   } catch (e) {
     console.log(e)
