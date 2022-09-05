@@ -477,7 +477,7 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
     if (obj.optional.sprintGame?.[data].rightAnswers) obj.optional.sprintGame[data].rightAnswers += rightAnswers
     if (obj.optional.sprintGame?.[data].totalWords) obj.optional.sprintGame[data].totalWords += totalWords
     if (obj.optional.sprintGame?.[data].answerSet && answerSet > obj.optional.sprintGame?.[data].answerSet) obj.optional.sprintGame[data].answerSet = answerSet
-    if (obj.optional.sprintGame?.[data].newWords) obj.optional.newWords[data] = thisDateWords + newWords
+    if (obj.optional.sprintGame?.[data].newWords) obj.optional.newWords[data] = thisDateWords + obj.optional.newWords[data]
     const body = mergeDeep(serverData, obj)
     await fetch(
       `${Endpoints.USERS}/${userId}/statistics`,
@@ -518,7 +518,7 @@ export const setSprintGameStats = (params: IStats, data: string, gameType: strin
     if (obj.optional.audioGame?.[data].rightAnswers) obj.optional.audioGame[data].rightAnswers += rightAnswers
     if (obj.optional.audioGame?.[data].totalWords) obj.optional.audioGame[data].totalWords += totalWords
     if (obj.optional.audioGame?.[data].answerSet && answerSet > obj.optional.audioGame?.[data].answerSet) obj.optional.audioGame[data].answerSet = answerSet
-    if (obj.optional.audioGame?.[data].newWords) obj.optional.newWords[data] = thisDateWords + newWords
+    if (obj.optional.audioGame?.[data].newWords) obj.optional.newWords[data] = thisDateWords + obj.optional.newWords[data]
     const body = mergeDeep(serverData, obj)
     await fetch(
       `${Endpoints.USERS}/${userId}/statistics`,
