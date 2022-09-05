@@ -42,11 +42,11 @@ function GameStatCard({ id }: IIndexProp): JSX.Element {
           onClick={getAudio}
         >
           <AudioIcon />
-{/* <<<<<<< HEAD */}
-          {/* <img className={styles.sound}
-          src="../../../../public/assets/other/stat_speaker_3760.png" alt="Sound" /> */}
-{/* ======= */}
-{/* >>>>>>> develop */}
+          <img
+            className={styles.sound}
+            src="../../../../public/assets/other/stat_speaker_3760.png"
+            alt="Sound"
+          />
         </div>
       </div>
     </section>
