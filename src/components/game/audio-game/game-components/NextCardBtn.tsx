@@ -3,7 +3,7 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react'
+import React, { SyntheticEvent } from 'react'
 import { IUnlearnedWord, IWord } from '../../../../types/models'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux'
 import { getBeforePageWords, getOtherUnlearned } from '../../../redux/reducers/aggregatedSlice'
@@ -38,15 +38,17 @@ export default function NextCardBtn() {
   const { changeStyle, counterProgress, counterWord, currentWord } = useAppSelector(
     (state) => state.audioGameSlice,
   )
-
-  let endGame = '▶▷▶▷▶'
+  let changeBtn = ''
+  let endGame = 'Следующее слово'
   if (counterWord >= numberOfWords - 1) {
-    endGame = 'Завершить игру'
+    endGame = 'Перейти к статистике'
+    changeBtn = styles.changeBtn
   }
-  const handleConfirmBtn = () => {
+  const handleConfirmBtn = (e: React.MouseEvent) => {
     if (counterWord >= numberOfWords - 1) {
       dispatch(gameSlice.actions.fetchGameOver(true))
       dispatch(createLearnedWordAndPutItToArr(currentWord, false))
+      changeBtn = styles.changeBtn
       return
     }
     dispatch(audioGameSlice.actions.setCurrentWord(data[counterWord]))
@@ -57,13 +59,24 @@ export default function NextCardBtn() {
   }
 
   return (
-    <div>
-      <input
-        type="button"
-        value={!changeStyle ? 'Не знаю' : `${endGame}`}
-        className={changeStyle ? styles.answerBtn : `${styles.answerBtn} ${styles.changeBtn}`}
-        onClick={handleConfirmBtn}
-      />
+    <div className={styles.nextBtn}>
+      {counterWord >= numberOfWords - 1 ? (
+        <input
+          type="button"
+          value="Перейти к статистике"
+          className={`${styles.answerBtn}`}
+          onClick={handleConfirmBtn}
+          id="Enter"
+        />
+      ) : (
+        <input
+          type="button"
+          value={!changeStyle ? 'Следующее слово' : `${endGame}`}
+          className={styles.answerBtn}
+          onClick={handleConfirmBtn}
+          id="Enter"
+        />
+      )}
     </div>
   )
 }
