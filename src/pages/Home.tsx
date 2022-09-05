@@ -13,9 +13,9 @@ export default function Home() {
         <h2 className={styles.homePageSubtitle}>
           Достигайте большего вместе с
           {' '}
-          <Link className={styles.homeLink} to="/About">командой RSLang.</Link>
+          <Link className={`${styles.homeLink} ${styles.titleLink}`} to="/About">командой RSLang.</Link>
         </h2>
-        <h3 className={styles.secondPageSubtitle}>Мы поможем вам достичь ваших целей!</h3>
+        {/* <h3 className={styles.secondPageSubtitle}>Мы поможем вам достичь ваших целей!</h3> */}
         <article className={styles.homePageAbout}>
           <h4 className={styles.articleTitle}>Актуально</h4>
           Хотите обогатить свой словарный запас английских слов? Тогда наше приложение для Вас!
