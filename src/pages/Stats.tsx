@@ -6,7 +6,11 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from '../components/redux/hooks/redux'
 import { getLearnedWithDates, getTodayLearned, getUserStats } from '../components/redux/fetching'
-import { getAllLearned, getLearnedWords, userStats } from '../components/redux/reducers/userSlice'
+import {
+  getAllLearned,
+  getLearnedWords,
+  userStats,
+} from '../components/redux/reducers/userSlice'
 import styles from './Stats.module.css'
 
 export default function Stats() {
@@ -76,11 +80,11 @@ export default function Stats() {
       sprintRightRate = +(((sprintRightAnswers / sprintTotalWords) || 1) * 100).toFixed(1)
       sprintRightSet = stats.optional.sprintGame?.[dateKey].answerSet as number
     }
-    const totalRR = +(((audioRightAnswers + sprintRightAnswers)
-      / (audioTotalWords + sprintTotalWords)) * 100)
+    const totalRR = (+(((audioRightAnswers + sprintRightAnswers)
+      / (audioTotalWords + sprintTotalWords)) * 100) || 0)
       .toFixed(1)
     return (
-      <div className={styles.statsWrapper}>
+      <div className="container">
         <table className={styles.dayTable}>
           <thead className={styles.legend}>
             <tr>
@@ -88,9 +92,9 @@ export default function Stats() {
             </tr>
             <tr>
               <th>&nbsp;</th>
-              <th>{'Игра "Аудиовызов"'}</th>
-              <th>{'Игра "Спринт"'}</th>
-              <th>Общая статистика по словам</th>
+              <th className={styles.columnWidth}>{'Игра "Аудиовызов"'}</th>
+              <th className={styles.columnWidth}>{'Игра "Спринт"'}</th>
+              <th className={styles.columnWidth}>Общая статистика по словам</th>
             </tr>
           </thead>
           <tbody>
@@ -153,9 +157,8 @@ export default function Stats() {
         </div>
       </div>
     )
-  } catch (err) {
+  } catch (_err) {
     // eslint-disable-next-line no-console
-    console.log(err)
     return (
       <div className={styles.chartWrapper}>
         Пока данных для построения статистики недостаточно. Поиграйте в наши игры.

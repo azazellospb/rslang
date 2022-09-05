@@ -1,0 +1,38 @@
+.messageModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 800px;
+  max-width: 800px;
+  height: 300px;
+  background-color: transparent;
+  border: 1px solid #0058C9;
+  border-radius: 6px;
+}
+.messageTitle{
+  display: flex;
+  justify-content: center;
+  width: 75%;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 33px;
+  color: #548DFF;
+  margin: 25px auto 46px auto
+}
+.messageInfoBlock{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  text-align:center;
+  margin-top: 25px;
+  margin-bottom: 30px;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
+}

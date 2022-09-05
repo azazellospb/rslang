@@ -1,13 +1,45 @@
-.wrapper {
-  padding: 40px 0px;
-}
-
 .reloadBtn {
-  height: 45px;
-  width: 45px;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
 }
 
 .toBookBtn {
-  height: 45px;
-  width: 45px;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border: none;
+}
+
+.audioBtn{
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.toBookBtn:hover {
+  transform: scale(1.05);
+  border-radius: 5px;
+  cursor: pointer;
+}
+.toBookBtn:active {
+  transition: all ease-in-out 1s;
+  cursor: pointer;
+}
+.toBookBtn:active {
+  transform: scale(0.9);
+}
+
+.reloadBtn:hover {
+  transform: scale(1.05);
+  border-radius: 5px;
+  cursor: pointer;
+}
+.reloadBtn:active {
+  transition: all ease-in-out 1s;
+  cursor: pointer;
+}
+.reloadBtn:active {
+  transition: all ease-in-out 0.5s;
+  transform: rotate(-90deg);
 }

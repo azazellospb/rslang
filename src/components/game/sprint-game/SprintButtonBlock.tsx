@@ -36,8 +36,8 @@ function ButtonBlock() {
   }
 
   useEffect(() => {
-    (!localStorage.getItem('userInfo') || localStorage.getItem('userInfo'))
-    && !isFromDictionary && gameData.length < 1 && dispatch(getWordsDataForSprintGame(
+    !localStorage.getItem('userInfo')
+    && !isFromDictionary && gameData.length <= 1 && dispatch(getWordsDataForSprintGame(
       {
         textbookSection: String(currentWord?.group),
         page: Math.floor(Math.random() * 30),
@@ -49,6 +49,9 @@ function ButtonBlock() {
     if (isFromDictionary && localStorage.getItem('userInfo') && gameData.length === 0) {
       dispatch(timerWork(0))
     }
+    if (localStorage.getItem('userInfo') && gameData.length === 0) {
+      dispatch(timerWork(0))
+    } 
   }, [currentWord?.group, dispatch, gameData.length, isFromDictionary])
 
   return (
@@ -57,6 +60,7 @@ function ButtonBlock() {
         type="button"
         className={styles.falseButton}
         onClick={falseButtonHandle}
+        id="ArrowLeft"
       >
         Не верно!
       </button>
@@ -64,6 +68,7 @@ function ButtonBlock() {
         type="button"
         className={styles.truthButton}
         onClick={truthButtonHandle}
+        id="ArrowRight"
       >
         Верно!
       </button>

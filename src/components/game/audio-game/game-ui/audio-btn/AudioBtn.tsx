@@ -1,11 +1,11 @@
 import React from 'react'
-import AudioIcon from './AudioIcon'
+import AudioIconMain from './AudioIconMain'
 import styles from '../../game-stat/AudiogameStat.module.css'
 
 function AudioBtn() {
   return (
-    <div className={styles.audioBtn}>
-      <AudioIcon />
+    <div className={styles.audioBtnMain}>
+      <AudioIconMain />
     </div>
   )
 }

@@ -10,7 +10,7 @@ const initialState: IAudioGame = {
   isLoaded: false,
   error: '',
   currentWord: null,
-  rightWords: [],
+  rightWords: 0,
   changeStyle: false,
   customAnswers: [],
   counterWord: 0,
@@ -63,6 +63,9 @@ export const audioGameSlice = createSlice({
     fetchTotalNumOfWords(state, action: PayloadAction<number>) {
       state.totalNumOfWords = action.payload
     },
+    fetchRightWords(state, action: PayloadAction<number>) {
+      state.rightWords = action.payload
+    },
   },
 })
 
@@ -74,7 +77,7 @@ export interface IAudioGame {
   isLoaded: boolean
   error: string
   currentWord: IWord | null | IUnlearnedWord
-  rightWords: IWord[]
+  rightWords: number
   changeStyle: boolean
   customAnswers: IWord[]
   counterWord: number

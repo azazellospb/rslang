@@ -4,6 +4,8 @@
 import React from 'react'
 import styles from './sprint-game.module.css'
 import { useAppSelector } from '../../redux/hooks/redux'
+import AudioIcon from '../audio-game/game-ui/audio-btn/AudioIcon'
+import Endpoints from '../../../endpoints/endpoints'
 
 interface IIndexProp {
   id: number,
@@ -12,11 +14,11 @@ function GameStatCard({ id }: IIndexProp): JSX.Element {
   const studiedArr = useAppSelector((state) => state.sprintGameSlice.studiedArr)
   const getAudio = async () => {
     const audio = new Audio()
-    audio.src = `http://localhost:8088/${studiedArr[id]?.audio}`
+    audio.src = `${Endpoints.ROOT}/${studiedArr[id]?.audio}`
     await audio.play()
   }
   return (
-    <section className={styles.gameStatCard}>
+    <section className={`${styles.gameStatCard} ${styles.underline}`}>
       <div className={`${styles.gameStatCardWord} ${styles.position}`}>
         {id + 1}
       </div>
@@ -39,7 +41,7 @@ function GameStatCard({ id }: IIndexProp): JSX.Element {
           className={styles.soundImage}
           onClick={getAudio}
         >
-          <img className={styles.sound} src="../../../../public/assets/other/stat_speaker_3760.png" alt="Sound" />
+          <AudioIcon />
         </div>
       </div>
     </section>

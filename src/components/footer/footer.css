@@ -2,6 +2,10 @@
   background-color: var(--color-bg);
 }
 
+.footer.hide-footer {
+  display: none;
+}
+
 .footer-container {
   font-family: 'Nunito-Light';
   font-size: 14px;
@@ -12,6 +16,10 @@
   flex-wrap: wrap;
   padding-top: 20px;
   padding-bottom: 21px;
+}
+
+.footer-container a {
+  color: #000000;
 }
 
 .footer-logo {
