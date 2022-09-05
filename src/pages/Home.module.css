@@ -1,6 +1,5 @@
 .homePage{
   position: relative;
-  width: 100vw;
   /* height: 100vh; */
   min-height: 1080px;
   background-image: url(../../public/assets/svg/Hero-background-LO-home-final.svg);

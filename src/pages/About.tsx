@@ -18,28 +18,28 @@ export default function About() {
     {
       title: 'Антон Иванов',
       role: 'Team lead',
-      imgUrl: 'https://avatarko.ru/img/avatar/33/TMNT_Leonardo_32374.jpg',
+      imgUrl: 'https://i.postimg.cc/HsTcHTb5/anton.jpg',
       gitUrl: 'https://github.com/azazellospb',
       rssUrl: 'https://app.rs.school/cv/a37d8652-dd8b-4347-bcf2-efc7fa397e9b',
       country: 'Россия',
-      about: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus culpa fugit totam cupiditate facere repudiandae voluptatum, temporibus libero harum excepturi dolorem autem, nulla voluptates inventore, sequi error quod eius unde!',
+      about: 'Общее руководство командой, разработал страницы учебника и статистики.',
     }, {
       title: 'Максим Дуднев',
       role: 'Software engineer',
-      imgUrl: 'https://avatarko.ru/img/avatar/33/TMNT_Raphael_32558.jpg',
+      imgUrl: 'https://i.postimg.cc/26JsGjmt/maxim.jpg',
       gitUrl: 'https://github.com/maks-1987',
       rssUrl: 'https://maks-1987.github.io/rsschool-cv/',
       country: 'Украина',
-      about: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus culpa fugit totam cupiditate facere repudiandae voluptatum, temporibus libero harum excepturi dolorem autem, nulla voluptates inventore, sequi error quod eius unde!',
+      about: 'Разработал игру аудиовызов, настроил аутентификацию.',
 
     }, {
       title: 'Денис Матвеев',
       role: 'Software engineer',
-      imgUrl: 'https://avatarko.ru/img/avatar/32/TMNT_Michelangelo_31937.jpg',
+      imgUrl: 'https://i.postimg.cc/k5mLYY0n/denisPNG.png',
       gitUrl: 'https://github.com/matvey84',
       rssUrl: 'https://app.rs.school/cv/089a2f21-f636-4cff-8e97-4166a9b32019',
       country: 'Беларусь',
-      about: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus culpa fugit totam cupiditate facere repudiandae voluptatum, temporibus libero harum excepturi dolorem autem, nulla voluptates inventore, sequi error quod eius unde!',
+      about: 'Настроил react и redux, разработал игру спринт и функционал поиска по слову.',
     }]
   return (
     <section className="about-page">

@@ -13,7 +13,7 @@ export interface IPropObj {
 
 function MemberCard(obj: IPropObj) {
   const {
-    title, role, imgUrl, gitUrl, country,
+    title, role, imgUrl, about, gitUrl, country,
   } = obj
   return (
     <section className="card">
@@ -24,6 +24,9 @@ function MemberCard(obj: IPropObj) {
         <h2 className="member-info member-name">
           {title}
         </h2>
+        <div>
+          {about}
+        </div>
         <h3 className="member-info member-role">
           {role}
           {', '}

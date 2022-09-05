@@ -1,20 +1,144 @@
 .dictWrapper {
   display: flex;
   flex-direction: column;
-  gap:3vw;
-  width: 100%;
+  margin: 0 auto;
 }
+
 .groupsList {
-  background-color: antiquewhite;
-  border-radius: 5px;
-  padding: 10px;
   list-style-type: none;
   margin: 0 auto;
-  width: 80vw;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  margin: 40px 0 35px 0;
+  justify-content: center;
+  flex-wrap: wrap;
 }
-.groupsList a {
-  border-bottom: 2px solid transparent;
+
+.groupsList a:not(:last-child) {
+  margin-right: 20px;
+}
+
+.groupsList a:last-child {
+  width: 135px;
+}
+
+.categoryButton{
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  width: 120px;
+  height: 35px;
+  border: none;
+  border-radius: 6px;
+  background-color: transparent;
+  border: 1px solid #548DFF;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+  color: #548DFF;
+  padding: 0 12px;
+  font-style: normal;
+  color: #548DFF;
+}
+
+.categoryButton > li {
+  display: contents;
+}
+
+.categoryTitle {
+  font-family: 'Nunito-Bold';
+  font-size: 22px;
+  line-height: 33px;
+}
+
+.categoryButton:hover {
+  background-color: #548DFF;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+.activeCategoryButton {
+  background-color: #548DFF;
+  border: 1px solid #548DFF;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+.categoryButton:active {
+  color: #548DFF;
+  background-color: white;
+  border: 1px solid #548DFF;
+}
+
+.gamesLine {
+  gap: 15px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 35px;
+  align-items: baseline;
+}
+.gamesLineEnd {
+  gap: 15px;
+  display: flex;
+  justify-content: center;
+  margin-top: 35px;
+  margin-bottom: 50px;
+  align-items: baseline;
+}
+
+
+.gamesLine > a,
+.returnLink,
+.gamesLineEnd > a {
+  padding-bottom: 1px;
+  border-bottom: 1px solid transparent;
+  font-family: 'Nunito-Regular';
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: #0058C9;
+}
+
+.gamesLine > a:hover,
+.returnLink:hover,
+.gamesLineEnd > a:hover {
+  border-bottom: 1px solid rgba(0, 88, 201, 1);
+}
+
+.catTitle {
+  color: rgba(0, 88, 201, 1);
+  height: 33px;
+  font-family: 'Nunito-Regular';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 33px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.diffTopLine {
+  display: flex;
+  margin: 40px 0 41px 0;
+  align-items: flex-end;
+}
+.diffTopLine > div {
+  flex: 1;
+}
+
+.diffTopLine div:last-child {
+  flex: 1;
+  text-align: center;
+}
+
+.returnLink {
+  flex: 1;
+  text-align: start;
+}
+
+.diffTopLine:after {
+  content: " ";
+  display: block;
+  flex: 1;
 }

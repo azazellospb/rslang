@@ -1,6 +1,7 @@
 .card {
   perspective: 150rem;
 }
+
 .card__side {
   width: 300px;
   color: black;
@@ -16,14 +17,17 @@
   backface-visibility: hidden;
   flex: 0 0 auto;
 }
+
 .card__side_back {
   transform: rotateY(180deg);
   margin-left: -100%;
 }
+
 /* .card:hover  */
 .flip { 
   transform: rotateY(180deg);
 }
+
 .flipper {
   height: 100%;
   transform-style: preserve-3d;
@@ -40,6 +44,7 @@
   height: 179px;
   border-radius: 6px 6px 0 0;
 }
+
 .label {
   position: absolute;
   top: 0;
@@ -55,9 +60,11 @@
   justify-content: center;
   align-items: center;
 }
+
 .hard {
   background: rgba(251, 168, 8, 0.8);
 }
+
 .learned {
   background: rgba(6, 151, 6, 0.8);
 }
@@ -71,30 +78,34 @@
   gap: 14px;
   height: 100%;
 }
+
 .word {
   line-height: 33px;
   font-size: 22px;
   font-family: 'Nunito-Bold';
 }
+
 .wordDescription,
 .wordExample {
   line-height: 24px;
   font-size: 16px;
   font-family: 'Nunito-Light';
 }
+
 .transcription {
   line-height: 24px;
   font-size: 18px;
   font-family: 'Nunito-Medium';
 }
+
 .right {
   color: green;
-  cursor: pointer;
 }
+
 .wrong {
   color: orangered;
-  cursor: pointer;
 }
+
 .rotate:active {
   content: attr(data-title);
   position: absolute; 
@@ -110,6 +121,7 @@
 .hardWord {
   border-color: rgba(251, 168, 8, 1);
 }
+
 .learnedWord {
   border-color: rgba(6, 151, 6, 1)
 }
@@ -127,6 +139,7 @@
   vertical-align: middle;
   transition: 0.1s ease-out all;
 }
+
 .toUnLearnedBtn:hover,
 .toEasyBtn:hover,
 .rotateBtn:hover,
@@ -134,6 +147,7 @@
   transform: scale(1.01);
   box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
+
 .toUnLearnedBtn:active,
 .toEasyBtn:active,
 .rotateBtn:active,
@@ -141,16 +155,20 @@
   transform: scale(0.99);
   box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
+
 .audioBtn:hover {
   transform: scale(1.01);
 }
+
 .audioBtn:active {
   transform: scale(0.99);
 }
+
 .mainLine {
   display: flex;
   justify-content: space-between;
 }
+
 .buttonBlock {
   display: flex;
   flex-direction: row;
@@ -159,6 +177,7 @@
   justify-content: space-between;
   gap: 14px;
 }
+
 .rotateBtn {
   color: rgba(84, 141, 255, 1);
   border: 1px solid rgba(84, 141, 255, 1);
@@ -167,6 +186,7 @@
   width: 260px;
   height: 35px;
 }
+
 .statusBtn {
   color: rgba(255, 255, 255, 1);
   border: 1px solid rgba(84, 141, 255, 1);
@@ -175,6 +195,7 @@
   width: 120px;
   height: 35px;
 }
+
 .toEasyBtn {
   color: rgba(255, 255, 255, 1);
   border: 1px solid rgba(251, 168, 8, 1);
@@ -183,6 +204,7 @@
   width: 260px;
   height: 35px;
 }
+
 .toUnLearnedBtn {
   color: rgba(255, 255, 255, 1);
   border: 1px solid rgba(6, 151, 6, 1);
@@ -191,10 +213,15 @@
   width: 260px;
   height: 35px;
 }
+
 .hideBtn {
   display: none;
 }
+
 .textPart {
   display: flex;
   flex-direction: column;
+}
+.margins {
+  margin-bottom: 35px; 
 }

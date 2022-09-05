@@ -57,6 +57,7 @@ function ButtonBlock() {
         type="button"
         className={styles.falseButton}
         onClick={falseButtonHandle}
+        id="ArrowLeft"
       >
         Не верно!
       </button>
@@ -64,6 +65,7 @@ function ButtonBlock() {
         type="button"
         className={styles.truthButton}
         onClick={truthButtonHandle}
+        id="ArrowRight"
       >
         Верно!
       </button>
