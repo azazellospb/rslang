@@ -37,8 +37,6 @@ export default function WordCardUnreg(
   useEffect(() => {
     const handleRotate = () => {
       setSide(!side)
-      // eslint-disable-next-line no-console
-      console.log('!')
     }
     const rotateToBack = ref1.current!
     const rotateToFront = ref2.current!

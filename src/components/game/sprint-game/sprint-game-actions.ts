@@ -75,7 +75,6 @@ export const createObjectForPostOrPutItToUserAggregatedWords = (currentWord: IWo
     }
   }
   if (isAggregated) {
-    console.log(((toLearn === 2) && isHard && examination))
     const params: IParams = {
       method: 'PUT',
       // eslint-disable-next-line no-nested-ternary
@@ -90,7 +89,7 @@ export const createObjectForPostOrPutItToUserAggregatedWords = (currentWord: IWo
         dates: {},
       },
     }
-    if (isWord?.optional?.learned) params.difficulty = 'easy'
+    if (params.optional?.learned) params.difficulty = 'easy'
     // eslint-disable-next-line no-nested-ternary, no-unneeded-ternary
     if (examination && (!isHard ? true : (isHard && toLearn === 2) ? true : false)) params.optional!.dates![dateKey] = true
     dispatch(postPutWordsToServerFromGame(params))
@@ -164,8 +163,6 @@ export const filteredUnlearnedWordsMoreThanCurrentPage = (data: IUnlearnedWord[]
       wordTranslate: item.wordTranslate,
     }))
     .sort((a, b) => (a.page < b.page ? 1 : -1))
-  console.log('action')
-  console.log(filteredWord)
   dispatch(fetchWordForSprintGameSuccess(filteredWord))
   filteredWord.length === 0 ? dispatch(showMessageIfAllWordStudiedOnPage(true)) : dispatch(showMessageIfAllWordStudiedOnPage(false))
 }
