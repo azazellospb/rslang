@@ -1,7 +1,7 @@
 {
   "name": "rslang",
   "version": "0.1.0",
-  "homepage": "./",
+  "homepage": "https://azazellospb.github.io/rslang",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.4",
