@@ -3,6 +3,7 @@ import { IStats } from '../../../../types/models'
 import { setSprintGameStats } from '../../../redux/fetching'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux'
 import StatsCard from './StatsCard'
+import styles from './StatsMenu.module.css'
 
 function StatsList() {
   const { learnedWords } = useAppSelector((state) => state.audioGameSlice)
@@ -39,7 +40,7 @@ function StatsList() {
   if (answerSet >= 2) params.optional.audioGame![dateKey].answerSet = answerSet
   if (localStorage.getItem('userInfo')) dispatch(setSprintGameStats(params, dateKey, 'audioGame'))
   return (
-    <div>
+    <div className={styles.statsList}>
       {learnedWords.map((el, i) => (
         <StatsCard id={i} key={Math.random()} />
       ))}

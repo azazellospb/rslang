@@ -3,6 +3,7 @@
 /* eslint-disable no-empty */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/require-default-props */
 import React, { useState } from 'react'
 import { IParams, IUnlearnedWord, IWord } from '../../../../types/models'
 import { postPutWordsToServerFromGame } from '../../../redux/fetching'
@@ -12,8 +13,8 @@ import { audioGameSlice } from '../../../redux/reducers/audioGameSlice'
 import createLearnedWordAndPutItToArr from '../audiogame-actions'
 import styles from '../Audiogame.module.css'
 
-function Answer({ keyNumber, currtWord }: IAnswerBtn) {
-  const { currentWord, changeStyle } = useAppSelector((state) => state.audioGameSlice)
+function Answer({ keyNumber, currtWord, id }: IAnswerBtn) {
+  const { currentWord, changeStyle, rightWords } = useAppSelector((state) => state.audioGameSlice)
   const dispatch = useAppDispatch()
   const [styleBtn, setStyle] = useState('')
   const aggregatedHard = useAppSelector(getAggregatedWords)
@@ -53,17 +54,18 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
       const params: IParams = {
         method: 'PUT',
         // eslint-disable-next-line no-nested-ternary
-        difficulty: !isHard ? word?.userWord?.difficulty : examination ? ((toLearn === 2) ? 'easy' : wordParams?.difficulty) : wordParams?.difficulty,
+        difficulty: wordParams?.difficulty,
         wordId: word._id || currentWord!.id,
         optional: {
           // eslint-disable-next-line no-nested-ternary
           toLearn: !isHard ? 0 : examination ? (!((toLearn + 1) === 3) ? toLearn += 1 : toLearn = 0) : ((toLearn - 1 > 0) ? toLearn -= 1 : toLearn = 0),
-          learned: ((toLearn === 2) && isHard) || (examination && !isHard),
+          learned: ((toLearn === 2) && isHard && examination) || (examination && !isHard),
           rightCounter: examination ? Number(wordParams?.optional?.rightCounter) + 1 : Number(wordParams?.optional?.rightCounter) || 0,
           wrongCounter: !examination ? Number(wordParams?.optional?.wrongCounter) + 1 : Number(wordParams?.optional?.wrongCounter) || 0,
           dates: {},
         },
       }
+      if (params.optional?.learned) params.difficulty = 'easy'
       // eslint-disable-next-line no-nested-ternary, no-unneeded-ternary
       if (examination && (!isHard ? true : (isHard && toLearn === 2) ? true : false)) params.optional!.dates![dateKey] = true
       dispatch(postPutWordsToServerFromGame(params))
@@ -90,7 +92,7 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
       dispatch(audioGameSlice.actions.setStyles(true))
       setStyle(`${styles.answerRight}`)
       dispatch(createLearnedWordAndPutItToArr(currentWord, true))
-      // localStorage.setItem('newWords', currtWord.word)
+      dispatch(audioGameSlice.actions.fetchRightWords(rightWords + 1))
     } else {
       dispatch(audioGameSlice.actions.setStyles(true))
       setStyle(`${styles.answerWrong}`)
@@ -104,9 +106,10 @@ function Answer({ keyNumber, currtWord }: IAnswerBtn) {
       className={!changeStyle ? `${styles.answersItem}` : `${styles.answersItem} ${styleBtn}`}
       onClick={(e: React.MouseEvent<HTMLElement>) => handleClick(e)}
       disabled={changeStyle}
+      id={id}
     >
       <span>{`${keyNumber}. `}</span>
-      <span>{currtWord.wordTranslate}</span>
+      <span className={styles.currAnswer}>{currtWord.wordTranslate}</span>
     </button>
   )
 }
@@ -116,4 +119,5 @@ export default Answer
 interface IAnswerBtn {
   keyNumber: object | number | string
   currtWord: IWord | IUnlearnedWord
+  id?: string
 }

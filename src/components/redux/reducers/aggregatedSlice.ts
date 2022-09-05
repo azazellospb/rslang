@@ -10,6 +10,7 @@ interface IAggregatedWordsState {
   beforePageWords: IUnlearnedWord[],
   otherUnlearned: IUnlearnedWord[],
   dictPageWords: IUnlearnedWord[],
+  searchWord:IUnlearnedWord[]
 }
 
 const initialState: IAggregatedWordsState = {
@@ -18,6 +19,7 @@ const initialState: IAggregatedWordsState = {
   beforePageWords: [],
   otherUnlearned: [],
   dictPageWords: [],
+  searchWord: [],
 }
 export const aggregatedSlice = createSlice({
   name: 'aggregatedData',
@@ -44,6 +46,9 @@ export const aggregatedSlice = createSlice({
     fetchHardWords(state, action: PayloadAction<IAggregatedWords[]>) {
       state.hardWords = action.payload[0].paginatedResults
     },
+    userSearchWord(state, action: PayloadAction<IUnlearnedWord[]>) {
+      state.searchWord = action.payload
+    },
   },
 })
 export default aggregatedSlice.reducer
@@ -55,6 +60,7 @@ export const {
   fetchDictPage,
   fetchHardWords,
   addHardWord,
+  userSearchWord,
 } = aggregatedSlice.actions
 export const getAggregatedWords = (state: {
   aggregatedSlice: { data: ICustomWord[] }
@@ -71,3 +77,6 @@ export const getOtherUnlearned = (state: {
 export const dictPageWords = (state: {
   aggregatedSlice: { dictPageWords: IUnlearnedWord[] }
 }) => state.aggregatedSlice.dictPageWords
+export const findedWord = (state: {
+  aggregatedSlice: { searchWord: IUnlearnedWord[] }
+}) => state.aggregatedSlice.searchWord

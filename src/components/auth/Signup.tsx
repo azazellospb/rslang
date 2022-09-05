@@ -85,6 +85,7 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
   }
   return (
     /* eslint-disable react/jsx-no-useless-fragment */
+    /* eslint-disable jsx-a11y/label-has-associated-control */
     <>
       {statusRespone !== 200 ? (
         <section className={styles.wrapper}>
@@ -94,10 +95,10 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
           <input type="file" accept="image/*" id="avatar" />
         </div> */}
             <div className="form-group">
+              <label htmlFor="username">Name</label>
               <input
                 type="text"
                 id="username"
-                placeholder="Введите имя..."
                 autoComplete="off"
                 onChange={(event) => setName(event.target.value)}
                 value={username}
@@ -105,10 +106,10 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
               />
             </div>
             <div className="form-group">
+              <label htmlFor="usermail">Email</label>
               <input
                 type="text"
                 id="usermail"
-                placeholder="Email..."
                 autoComplete="off"
                 onChange={(event) => setMail(event.target.value)}
                 value={usermail}
@@ -116,10 +117,10 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
               />
             </div>
             <div className="form-group">
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
                 id="password"
-                placeholder="Пароль 8 - 12 знаков"
                 value={userpassw}
                 onChange={(event) => setPass(event.target.value)}
                 required
@@ -130,7 +131,7 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
                 Войти
               </a>
               <button type="submit" className={styles.btn}>
-                Регистрация
+                Зарегистрироваться
               </button>
             </div>
           </form>
@@ -138,10 +139,9 @@ export default function Signin(props: { switchForm: (arg0: boolean) => void }) {
         </section>
       ) : (
         <div className={styles.wrapper_msg}>
-          <p>Регистрация прошла успешно!</p>
-          <p>Для использования всех возможностей приложения,</p>
+          <p>Вы зарегистрированы.</p>
+          <p>Можете войти в приложение.</p>
           <p>
-            войдите в свою учетную запись!
             <a href="/" onClick={handleLoginUser} className={styles.confirm_btn}>
               Войти
             </a>

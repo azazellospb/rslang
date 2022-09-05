@@ -11,13 +11,14 @@ import {
   showMessageIfAllWordStudiedOnPage,
   whereEnterGame,
 } from '../redux/reducers/sprintGameSlice'
-import { clearUserPassw } from '../redux/reducers/userSlice'
+import { clearUserPassw, getUserName } from '../redux/reducers/userSlice'
 import styles from './Navigation.module.css'
 
 export default function Navigation() {
   // const ref1 = useRef<HTMLDivElement>(null)
   // const ref2 = useRef<HTMLDivElement>(null)
   const navRef = useRef<HTMLElement>(null)
+  const name = useAppSelector(getUserName)
   const dispatch = useAppDispatch()
   // useEffect(() => {
   // const handleHover = () => {
@@ -112,12 +113,14 @@ export default function Navigation() {
         >
           Спринт
         </NavLink>
+        {name && (
         <NavLink
           className={({ isActive }) => `${styles.navLink} ${isActive ? `${styles.active}` : ''}`}
           to="/stats"
         >
           Статистика
         </NavLink>
+        )}
         <NavLink
           className={({ isActive }) => `${styles.navLink} ${isActive ? `${styles.active}` : ''}`}
           to="/about"

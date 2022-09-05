@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react'
+import React, { useEffect } from 'react'
 import { IUnlearnedWord, IWord } from '../../../../types/models'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/redux'
 import Answer from './Answer'
@@ -51,7 +51,44 @@ function AnswerList() {
     return customAnswers.sort(() => 0.5 - Math.random())
   }
   customAnswers = randomiser(customAnswers)
+  useEffect(() => {
+    const digit1 = document.getElementById('Digit1')
+    const digit2 = document.getElementById('Digit2')
+    const digit3 = document.getElementById('Digit3')
+    const digit4 = document.getElementById('Digit4')
+    const digit5 = document.getElementById('Digit5')
+    const kbEnter = document.getElementById('Enter')
 
+    const handleKeyPress = (e: KeyboardEvent) => {
+      switch (e.code) {
+        case 'Digit1':
+          digit1?.click()
+          break
+        case 'Digit2':
+          digit2?.click()
+          break
+        case 'Digit3':
+          digit3?.click()
+          break
+        case 'Digit4':
+          digit4?.click()
+          break
+        case 'Digit5':
+          digit5?.click()
+          break
+        case 'Enter':
+          kbEnter?.click()
+          break
+        default:
+          break
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyPress)
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress)
+    }
+  })
   return (
     <div className={styles.answers}>
       {customAnswers.map((item, indx) => (
@@ -59,6 +96,7 @@ function AnswerList() {
           keyNumber={indx + 1}
           currtWord={customAnswers[indx]}
           key={item.id! + new Date().getTime() + indx.toString()}
+          id={`Digit${indx + 1}`}
         />
       ))}
     </div>
