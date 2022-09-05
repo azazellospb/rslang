@@ -170,6 +170,7 @@
   cursor: pointer;
   border-color: transparent;
   transition: all 0.4s ease;
+  outline-color: var(--main-color);
 }
 
 .playBtn.answerVisible {
