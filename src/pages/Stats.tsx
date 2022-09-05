@@ -84,7 +84,7 @@ export default function Stats() {
       / (audioTotalWords + sprintTotalWords)) * 100) || 0)
       .toFixed(1)
     return (
-      <div className={styles.statsWrapper}>
+      <div className="container">
         <table className={styles.dayTable}>
           <thead className={styles.legend}>
             <tr>
@@ -92,9 +92,9 @@ export default function Stats() {
             </tr>
             <tr>
               <th>&nbsp;</th>
-              <th>{'Игра "Аудиовызов"'}</th>
-              <th>{'Игра "Спринт"'}</th>
-              <th>Общая статистика по словам</th>
+              <th className={styles.columnWidth}>{'Игра "Аудиовызов"'}</th>
+              <th className={styles.columnWidth}>{'Игра "Спринт"'}</th>
+              <th className={styles.columnWidth}>Общая статистика по словам</th>
             </tr>
           </thead>
           <tbody>

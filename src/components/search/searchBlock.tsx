@@ -32,7 +32,7 @@ function SearchBlock() {
         value={text}
         type="text"
         className={styles.searchInput}
-        placeholder="Мин 2 символа"
+        placeholder="Поиск слова"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value)}
       />
       <button
